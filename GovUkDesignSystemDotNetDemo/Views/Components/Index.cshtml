@@ -6,6 +6,21 @@
 
 @section BeforeMain
 {
+    @await Html.GovUkBreadcrumbs(new BreadcrumbsViewModel
+    {
+        Crumbs = new List<CrumbViewModel>
+        {
+            new CrumbViewModel
+            {
+                HtmlOrText = new HtmlOrText("Home"),
+                Href = Url.Action("Index", "Home")
+            },
+            new CrumbViewModel
+            {
+                HtmlOrText = new HtmlOrText("Components"),
+            },
+        }
+    })
 }
 
 <h1 class="govuk-heading-l">
