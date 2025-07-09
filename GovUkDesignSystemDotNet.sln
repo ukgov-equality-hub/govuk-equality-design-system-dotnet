@@ -1,0 +1,27 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GovUkDesignSystemDotNetDemo", "GovUkDesignSystemDotNetDemo\GovUkDesignSystemDotNetDemo.csproj", "{B332A9A6-92D1-4E61-87CB-AE95B49AC045}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GovUkDesignSystemDotNet", "GovUkDesignSystemDotNet\GovUkDesignSystemDotNet.csproj", "{23B72550-C703-4A59-BEF9-90C0D777B3A2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "General files", "General files", "{866B27D6-7318-40E6-9EDA-5D615238051D}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B332A9A6-92D1-4E61-87CB-AE95B49AC045}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B332A9A6-92D1-4E61-87CB-AE95B49AC045}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B332A9A6-92D1-4E61-87CB-AE95B49AC045}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B332A9A6-92D1-4E61-87CB-AE95B49AC045}.Release|Any CPU.Build.0 = Release|Any CPU
+		{23B72550-C703-4A59-BEF9-90C0D777B3A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{23B72550-C703-4A59-BEF9-90C0D777B3A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{23B72550-C703-4A59-BEF9-90C0D777B3A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{23B72550-C703-4A59-BEF9-90C0D777B3A2}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
