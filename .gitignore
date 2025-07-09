@@ -1,0 +1,8 @@
+
+# C# build folders
+bin/
+obj/
+
+# JetBrains IDE folder
+.idea/
+*.DotSettings.user
