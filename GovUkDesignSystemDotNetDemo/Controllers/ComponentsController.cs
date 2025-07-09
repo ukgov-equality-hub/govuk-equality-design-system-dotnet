@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 
 namespace GovUkDesignSystemDotNetDemo.Controllers;
 
@@ -7,6 +7,12 @@ public class ComponentsController : Controller
 {
     [HttpGet("")]
     public IActionResult Index()
+    {
+        return View();
+    }
+    
+    [HttpGet("breadcrumbs")]
+    public IActionResult Breadcrumbs()
     {
         return View();
     }
