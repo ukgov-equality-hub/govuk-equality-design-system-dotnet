@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en" class="govuk-template govuk-template--rebranded">
 
 <head>
@@ -17,6 +17,71 @@
     <link rel="manifest" href="/assets/rebrand/manifest.json">
     <meta property="og:image" content="<SERVICE URL>/assets/rebrand/images/govuk-opengraph-image.png">
     <link rel="stylesheet" href="/stylesheets/govuk-frontend-5.10.2.min.css">
+    <style>
+        code {
+            font-family: ui-monospace,menlo,"Cascadia Mono","Segoe UI Mono",consolas,"Liberation Mono",monospace;
+            background-color: #f3f2f1;
+            line-height: 1.25;
+            color: #003078;
+        }
+        td code {
+            color: #d13118;
+            padding: 2px 4px;
+            font-size: 1rem;
+        }
+        caption code, h3 code {
+            color: #d13118;
+            padding: 2px 4px;
+        }
+
+        .example-box {
+            border: 1px solid #b1b4b6;
+            margin-bottom: 40px;
+        }
+        .example-box div {
+            border-bottom: 1px solid #b1b4b6;
+        }
+        .example-box div:last-child {
+            border-bottom: none;
+        }
+        .example-box .example-box-link {
+            padding: 10px;
+        }
+        .example-box .example-box-example iframe {
+            border: 0;
+            width: 100%;
+        }
+        .example-box .example-box-code {
+            padding: 10px;
+        }
+        .example-box .example-box-code pre {
+            margin: 0;
+        }
+        .example-box .example-box-code pre code {
+            display: block;
+            overflow-x: auto;
+            padding: 20px;
+            font-size: 16px;
+            background-color: #f3f2f1;
+        }
+    </style>
+    <script>
+        function resizeExampleIFrame(iframeElement) {
+            const iframeBody = iframeElement.contentWindow.document.documentElement.querySelector('body');
+            
+            function doResize(iframeElement) {
+                console.log('Resizing iframe', iframeElement);
+                const innerContentHeight = iframeBody.scrollHeight;
+                console.log(`New size ${innerContentHeight}px`, iframeElement);
+                iframeElement.style.height = innerContentHeight + 'px';
+                console.log('Resized iframe', iframeElement);
+            }
+            
+            doResize(iframeElement);
+
+            new ResizeObserver(() => doResize(iframeElement)).observe(iframeBody)
+        }
+    </script>
 </head>
 
 <body class="govuk-template__body">

@@ -1,0 +1,22 @@
+﻿@using GovUkDesignSystemDotNetDemo.Helpers
+@model GovUkDesignSystemDotNetDemo.Models.ExampleViewModel
+
+<div class="example-box">
+    <div class="example-box-link">
+        <p class="govuk-body-s govuk-!-margin-0">
+            <a href="@(Url.Action("ExamplePage", "Components", new { exampleName = Model.ExampleName }))"
+               target="_blank"
+               class="govuk-link">
+                Open this example in a new tab
+            </a>
+        </p>
+    </div>
+    <div class="example-box-example">
+        <iframe src="@(Url.Action("ExamplePage", "Components", new { exampleName = Model.ExampleName }))"
+                onload="resizeExampleIFrame(this)"
+                ></iframe>
+    </div>
+    <div class="example-box-code">
+        <pre><code class="language-csharp">@(CodeFormattingHelper.RemoveUnwantedWhitespace(Model.Code))</code></pre>
+    </div>
+</div>
