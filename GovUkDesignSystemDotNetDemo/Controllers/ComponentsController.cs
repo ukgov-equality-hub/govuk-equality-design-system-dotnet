@@ -29,6 +29,12 @@ public class ComponentsController : Controller
         return View();
     }
     
+    [HttpGet("header")]
+    public IActionResult Header()
+    {
+        return View();
+    }
+    
     [HttpGet("examples/{exampleName}")]
     public IActionResult ExamplePage(string exampleName)
     {
