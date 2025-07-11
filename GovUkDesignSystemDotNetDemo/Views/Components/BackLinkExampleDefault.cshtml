@@ -1,0 +1,12 @@
+﻿@using GovUkDesignSystemDotNet
+
+@{
+    Layout = "_LayoutForExamples";
+}
+
+
+@await Html.GovUkBackLink(new BackLinkViewModel
+{
+    HtmlOrText = new HtmlOrText("Back"),
+    Href = "#",
+})

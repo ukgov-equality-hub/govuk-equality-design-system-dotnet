@@ -11,6 +11,12 @@ public class ComponentsController : Controller
         return View();
     }
     
+    [HttpGet("back-link")]
+    public IActionResult BackLink()
+    {
+        return View();
+    }
+    
     [HttpGet("breadcrumbs")]
     public IActionResult Breadcrumbs()
     {
