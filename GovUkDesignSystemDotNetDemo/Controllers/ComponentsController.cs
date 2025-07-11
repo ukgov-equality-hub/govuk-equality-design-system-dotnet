@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace GovUkDesignSystemDotNetDemo.Controllers;
 
@@ -13,6 +13,12 @@ public class ComponentsController : Controller
     
     [HttpGet("back-link")]
     public IActionResult BackLink()
+    {
+        return View();
+    }
+    
+    [HttpGet("button")]
+    public IActionResult Button()
     {
         return View();
     }
