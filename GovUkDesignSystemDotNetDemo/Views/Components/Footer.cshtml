@@ -1,0 +1,645 @@
+﻿@using GovUkDesignSystemDotNet
+@using GovUkDesignSystemDotNetDemo.Models
+
+@{
+    ViewBag.Title = "Footer";
+}
+
+@section BeforeMain
+{
+    @await Html.GovUkBreadcrumbs(new BreadcrumbsViewModel
+        {
+            Crumbs = new List<CrumbViewModel>
+            {
+                new CrumbViewModel
+                {
+                    HtmlOrText = new HtmlOrText("Home"),
+                    Href = Url.Action("Index", "Home")
+                },
+                new CrumbViewModel
+                {
+                    HtmlOrText = new HtmlOrText("Components"),
+                    Href = Url.Action("Index", "Components")
+                },
+                new CrumbViewModel
+                {
+                    HtmlOrText = new HtmlOrText("Footer"),
+                },
+            }
+        })
+}
+
+<h1 class="govuk-heading-xl">
+    Footer
+</h1>
+
+<p class="govuk-body govuk-!-margin-bottom-6">
+    Read more about the
+    <a href="https://design-system.service.gov.uk/components/footer/"
+       class="govuk-link">
+        <b>footer</b>
+        component on the Gov.UK Design System website
+    </a>
+</p>
+
+@(await Html.PartialAsync("../Shared/Example", new ExampleViewModel
+{
+    ExampleName = "FooterExampleDefault",
+    Code = @"
+        @using GovUkDesignSystemDotNet
+
+        @await Html.GovUkFooter(new FooterViewModel())
+    "
+}))
+
+<h2 class="govuk-heading-l">
+    Options
+</h2>
+
+<table class="govuk-table govuk-!-margin-bottom-8"
+       id="options-for-FooterViewModel">
+    <caption class="govuk-table__caption govuk-table__caption--m">
+        Options for <code>FooterViewModel</code>
+    </caption>
+    <thead class="govuk-table__head">
+        <tr class="govuk-table__row">
+            <th scope="col" class="govuk-table__header">Name</th>
+            <th scope="col" class="govuk-table__header">Type</th>
+            <th scope="col" class="govuk-table__header">Description</th>
+        </tr>
+    </thead>
+    <tbody class="govuk-table__body">
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                Meta
+            </th>
+            <td class="govuk-table__cell">
+                FooterMetaViewModel
+            </td>
+            <td class="govuk-table__cell">
+                The meta section of the footer after any navigation,
+                before the copyright and license information.
+                <a href="#options-for-FooterMetaViewModel"
+                   class="govuk-link">
+                    See options for FooterMetaViewModel
+                </a>
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                NavigationSections
+            </th>
+            <td class="govuk-table__cell">
+                List&lt;FooterNavigationSectionViewModel&gt;
+            </td>
+            <td class="govuk-table__cell">
+                The navigation sections of the footer before a section break
+                and the copyright and license information.
+                <a href="#options-for-FooterNavigationSectionViewModel"
+                   class="govuk-link">
+                    See options for FooterNavigationSectionViewModel
+                </a>
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                ContentLicence
+            </th>
+            <td class="govuk-table__cell">
+                HtmlOrText
+            </td>
+            <td class="govuk-table__cell">
+                The content licence information within the footer component.
+                Defaults to Open Government Licence (OGL) v3 licence.
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                Copyright
+            </th>
+            <td class="govuk-table__cell">
+                HtmlOrText
+            </td>
+            <td class="govuk-table__cell">
+                The copyright information in the footer component, this defaults to
+                <code>"© Crown copyright"</code>.
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                ContainerClasses
+            </th>
+            <td class="govuk-table__cell">
+                string
+            </td>
+            <td class="govuk-table__cell">
+                Classes that can be added to the inner container, useful if you want to make the footer full width.
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                Classes
+            </th>
+            <td class="govuk-table__cell">
+                List&lt;string&gt;
+            </td>
+            <td class="govuk-table__cell">
+                Classes to add to the footer component container.
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                Attributes
+            </th>
+            <td class="govuk-table__cell">
+                Dictionary&lt;string, string&gt;
+            </td>
+            <td class="govuk-table__cell">
+                HTML attributes (for example data attributes) to add to the footer component container.
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<table class="govuk-table govuk-!-margin-bottom-8"
+       id="options-for-FooterMetaViewModel">
+    <caption class="govuk-table__caption govuk-table__caption--m">
+        Options for <code>FooterMetaViewModel</code>
+    </caption>
+    <thead class="govuk-table__head">
+        <tr class="govuk-table__row">
+            <th scope="col" class="govuk-table__header">Name</th>
+            <th scope="col" class="govuk-table__header">Type</th>
+            <th scope="col" class="govuk-table__header">Description</th>
+        </tr>
+    </thead>
+    <tbody class="govuk-table__body">
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                VisuallyHiddenTitle
+            </th>
+            <td class="govuk-table__cell">
+                string
+            </td>
+            <td class="govuk-table__cell">
+                Title for a meta item section.
+                Defaults to <code>"Support links"</code>.
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                HtmlOrText
+            </th>
+            <td class="govuk-table__cell">
+                HtmlOrText
+            </td>
+            <td class="govuk-table__cell">
+                HTML or text to add to the meta section of the footer,
+                which will appear below any links specified using meta <code>Items</code>.
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                Items
+            </th>
+            <td class="govuk-table__cell">
+                List&lt;FooterItemViewModel&gt;
+            </td>
+            <td class="govuk-table__cell">
+                The meta items add content within an unordered list to the meta section of the footer component.
+                These appear above any text or custom html in the meta section.
+                <a href="#options-for-FooterItemViewModel"
+                   class="govuk-link">
+                    See options for FooterItemViewModel
+                </a>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<table class="govuk-table govuk-!-margin-bottom-8"
+       id="options-for-FooterNavigationSectionViewModel">
+    <caption class="govuk-table__caption govuk-table__caption--m">
+        Options for <code>FooterNavigationSectionViewModel</code>
+    </caption>
+    <thead class="govuk-table__head">
+        <tr class="govuk-table__row">
+            <th scope="col" class="govuk-table__header">Name</th>
+            <th scope="col" class="govuk-table__header">Type</th>
+            <th scope="col" class="govuk-table__header">Description</th>
+        </tr>
+    </thead>
+    <tbody class="govuk-table__body">
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                Title
+            </th>
+            <td class="govuk-table__cell">
+                string
+            </td>
+            <td class="govuk-table__cell">
+                <b>Required.</b>
+                Title for a section.
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                Columns
+            </th>
+            <td class="govuk-table__cell">
+                int?
+            </td>
+            <td class="govuk-table__cell">
+                Amount of columns to display items in navigation section of the footer.
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                Width
+            </th>
+            <td class="govuk-table__cell">
+                string
+            </td>
+            <td class="govuk-table__cell">
+                Width of each navigation section in the footer.
+                You can pass any Design System grid width here – for example,
+                <code>"one-third"</code>, <code>"two-thirds"</code> or <code>"one-half"</code>.
+                Defaults to <code>"full"</code>.
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                Items
+            </th>
+            <td class="govuk-table__cell">
+                List&lt;FooterItemViewModel&gt;
+            </td>
+            <td class="govuk-table__cell">
+                The items within the navigation section of the footer component.
+                <a href="#options-for-FooterItemViewModel"
+                   class="govuk-link">
+                    See options for FooterItemViewModel
+                </a>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<table class="govuk-table govuk-!-margin-bottom-8"
+       id="options-for-FooterItemViewModel">
+    <caption class="govuk-table__caption govuk-table__caption--m">
+        Options for <code>FooterItemViewModel</code>
+    </caption>
+    <thead class="govuk-table__head">
+        <tr class="govuk-table__row">
+            <th scope="col" class="govuk-table__header">Name</th>
+            <th scope="col" class="govuk-table__header">Type</th>
+            <th scope="col" class="govuk-table__header">Description</th>
+        </tr>
+    </thead>
+    <tbody class="govuk-table__body">
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                Text
+            </th>
+            <td class="govuk-table__cell">
+                string
+            </td>
+            <td class="govuk-table__cell">
+                <b>Required.</b>
+                List item text.
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                Href
+            </th>
+            <td class="govuk-table__cell">
+                string
+            </td>
+            <td class="govuk-table__cell">
+                <b>Required.</b>
+                List item link <code>href</code> attribute
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                Attributes
+            </th>
+            <td class="govuk-table__cell">
+                Dictionary&lt;string, string&gt;
+            </td>
+            <td class="govuk-table__cell">
+                HTML attributes (for example data attributes) to add to the anchor.
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<h2 class="govuk-heading-l">
+    Examples
+</h2>
+
+<h3 class="govuk-heading-m">
+    Footer with links
+</h3>
+
+@(await Html.PartialAsync("../Shared/Example", new ExampleViewModel
+{
+    ExampleName = "FooterExampleWithLinks",
+    Code = @"
+            @using GovUkDesignSystemDotNet
+
+            @await Html.GovUkFooter(new FooterViewModel
+            {
+                Meta = new FooterMetaViewModel
+                {
+                    Items = new List<FooterItemViewModel>
+                    {
+                        new FooterItemViewModel
+                        {
+                            Href = ""#"",
+                            Text = ""Item 1""
+                        },
+                        new FooterItemViewModel
+                        {
+                            Href = ""#"",
+                            Text = ""Item 2""
+                        },
+                        new FooterItemViewModel
+                        {
+                            Href = ""#"",
+                            Text = ""Item 3""
+                        },
+                    }
+                }
+            })
+    "
+}))
+
+<h3 class="govuk-heading-m">
+    Footer with secondary navigation
+</h3>
+
+@(await Html.PartialAsync("../Shared/Example", new ExampleViewModel
+{
+    ExampleName = "FooterExampleWithSecondaryNavigation",
+    Code = @"
+            @using GovUkDesignSystemDotNet
+
+            @await Html.GovUkFooter(new FooterViewModel
+            {
+                NavigationSections = new List<FooterNavigationSectionViewModel>
+                {
+                    new FooterNavigationSectionViewModel
+                    {
+                        Title = ""Two column list"",
+                        Width = ""two-thirds"",
+                        Columns = 2,
+                        Items = new List<FooterItemViewModel>
+                        {
+                            new FooterItemViewModel
+                            {
+                                Href = ""#"",
+                                Text = ""Navigation item 1""
+                            },
+                            new FooterItemViewModel
+                            {
+                                Href = ""#"",
+                                Text = ""Navigation item 2""
+                            },
+                            new FooterItemViewModel
+                            {
+                                Href = ""#"",
+                                Text = ""Navigation item 3""
+                            },
+                            new FooterItemViewModel
+                            {
+                                Href = ""#"",
+                                Text = ""Navigation item 4""
+                            },
+                            new FooterItemViewModel
+                            {
+                                Href = ""#"",
+                                Text = ""Navigation item 5""
+                            },
+                            new FooterItemViewModel
+                            {
+                                Href = ""#"",
+                                Text = ""Navigation item 6""
+                            },
+                        }
+                    },
+                    new FooterNavigationSectionViewModel
+                    {
+                        Title = ""Single column list"",
+                        Width = ""one-third"",
+                        Columns = 1,
+                        Items = new List<FooterItemViewModel>
+                        {
+                            new FooterItemViewModel
+                            {
+                                Href = ""#"",
+                                Text = ""Navigation item 1""
+                            },
+                            new FooterItemViewModel
+                            {
+                                Href = ""#"",
+                                Text = ""Navigation item 2""
+                            },
+                            new FooterItemViewModel
+                            {
+                                Href = ""#"",
+                                Text = ""Navigation item 3""
+                            },
+                        }
+                    },
+                }
+            })
+    "
+}))
+
+<h3 class="govuk-heading-m">
+    Footer with links and secondary navigation
+</h3>
+
+@(await Html.PartialAsync("../Shared/Example", new ExampleViewModel
+{
+    ExampleName = "FooterExampleWithLinksAndSecondaryNavigation",
+    Code = @"
+            @using GovUkDesignSystemDotNet
+
+            @await Html.GovUkFooter(new FooterViewModel
+            {
+                NavigationSections = new List<FooterNavigationSectionViewModel>
+                {
+                    new FooterNavigationSectionViewModel
+                    {
+                        Title = ""Services and information"",
+                        Width = ""two-thirds"",
+                        Columns = 2,
+                        Items = new List<FooterItemViewModel>
+                        {
+                            new FooterItemViewModel
+                            {
+                                Href = ""#"",
+                                Text = ""Benefits""
+                            },
+                            new FooterItemViewModel
+                            {
+                                Href = ""#"",
+                                Text = ""Births, deaths, marriages and care""
+                            },
+                            new FooterItemViewModel
+                            {
+                                Href = ""#"",
+                                Text = ""Business and self-employed""
+                            },
+                            new FooterItemViewModel
+                            {
+                                Href = ""#"",
+                                Text = ""Childcare and parenting""
+                            },
+                            new FooterItemViewModel
+                            {
+                                Href = ""#"",
+                                Text = ""Citizenship and living in the UK""
+                            },
+                            new FooterItemViewModel
+                            {
+                                Href = ""#"",
+                                Text = ""Crime, justice and the law""
+                            },
+                            new FooterItemViewModel
+                            {
+                                Href = ""#"",
+                                Text = ""Disabled people""
+                            },
+                            new FooterItemViewModel
+                            {
+                                Href = ""#"",
+                                Text = ""Driving and transport""
+                            },
+                            new FooterItemViewModel
+                            {
+                                Href = ""#"",
+                                Text = ""Education and learning""
+                            },
+                            new FooterItemViewModel
+                            {
+                                Href = ""#"",
+                                Text = ""Employing people""
+                            },
+                            new FooterItemViewModel
+                            {
+                                Href = ""#"",
+                                Text = ""Environment and countryside""
+                            },
+                            new FooterItemViewModel
+                            {
+                                Href = ""#"",
+                                Text = ""Housing and local services""
+                            },
+                            new FooterItemViewModel
+                            {
+                                Href = ""#"",
+                                Text = ""Money and tax""
+                            },
+                            new FooterItemViewModel
+                            {
+                                Href = ""#"",
+                                Text = ""Passports, travel and living abroad""
+                            },
+                            new FooterItemViewModel
+                            {
+                                Href = ""#"",
+                                Text = ""Visas and immigration""
+                            },
+                            new FooterItemViewModel
+                            {
+                                Href = ""#"",
+                                Text = ""Working, jobs and pensions""
+                            },
+                        }
+                    },
+                    new FooterNavigationSectionViewModel
+                    {
+                        Title = ""Departments and policy"",
+                        Width = ""one-third"",
+                        Columns = 1,
+                        Items = new List<FooterItemViewModel>
+                        {
+                            new FooterItemViewModel
+                            {
+                                Href = ""#"",
+                                Text = ""How government works""
+                            },
+                            new FooterItemViewModel
+                            {
+                                Href = ""#"",
+                                Text = ""Departments""
+                            },
+                            new FooterItemViewModel
+                            {
+                                Href = ""#"",
+                                Text = ""Worldwide""
+                            },
+                            new FooterItemViewModel
+                            {
+                                Href = ""#"",
+                                Text = ""Policies""
+                            },
+                            new FooterItemViewModel
+                            {
+                                Href = ""#"",
+                                Text = ""Publications""
+                            },
+                            new FooterItemViewModel
+                            {
+                                Href = ""#"",
+                                Text = ""Announcements""
+                            },
+                        }
+                    },
+                },
+                Meta = new FooterMetaViewModel
+                {
+                    Items = new List<FooterItemViewModel>
+                    {
+                        new FooterItemViewModel
+                        {
+                            Href = ""#"",
+                            Text = ""Help""
+                        },
+                        new FooterItemViewModel
+                        {
+                            Href = ""#"",
+                            Text = ""Cookies""
+                        },
+                        new FooterItemViewModel
+                        {
+                            Href = ""#"",
+                            Text = ""Contact""
+                        },
+                        new FooterItemViewModel
+                        {
+                            Href = ""#"",
+                            Text = ""Terms and conditions""
+                        },
+                        new FooterItemViewModel
+                        {
+                            Href = ""#"",
+                            Text = ""Rhestr o Wasanaethau Cymraeg""
+                        },
+                    },
+                    HtmlOrText = new HtmlOrText(@<text>
+                                                     Built by the
+                                                     <a href=""#""
+                                                        class=""govuk-footer__link"">
+                                                         Government Digital Service
+                                                     </a>
+                                                 </text>)
+                }
+            })
+    "
+}))

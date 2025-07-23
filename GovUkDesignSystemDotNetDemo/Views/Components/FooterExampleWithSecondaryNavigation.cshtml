@@ -1,0 +1,75 @@
+﻿@using GovUkDesignSystemDotNet
+
+@{
+    Layout = "_LayoutForExamples";
+}
+
+@await Html.GovUkFooter(new FooterViewModel
+{
+    NavigationSections = new List<FooterNavigationSectionViewModel>
+    {
+        new FooterNavigationSectionViewModel
+        {
+            Title = "Two column list",
+            Width = "two-thirds",
+            Columns = 2,
+            Items = new List<FooterItemViewModel>
+            {
+                new FooterItemViewModel
+                {
+                    Href = "#",
+                    Text = "Navigation item 1"
+                },
+                new FooterItemViewModel
+                {
+                    Href = "#",
+                    Text = "Navigation item 2"
+                },
+                new FooterItemViewModel
+                {
+                    Href = "#",
+                    Text = "Navigation item 3"
+                },
+                new FooterItemViewModel
+                {
+                    Href = "#",
+                    Text = "Navigation item 4"
+                },
+                new FooterItemViewModel
+                {
+                    Href = "#",
+                    Text = "Navigation item 5"
+                },
+                new FooterItemViewModel
+                {
+                    Href = "#",
+                    Text = "Navigation item 6"
+                },
+            }
+        },
+        new FooterNavigationSectionViewModel
+        {
+            Title = "Single column list",
+            Width = "one-third",
+            Columns = 1,
+            Items = new List<FooterItemViewModel>
+            {
+                new FooterItemViewModel
+                {
+                    Href = "#",
+                    Text = "Navigation item 1"
+                },
+                new FooterItemViewModel
+                {
+                    Href = "#",
+                    Text = "Navigation item 2"
+                },
+                new FooterItemViewModel
+                {
+                    Href = "#",
+                    Text = "Navigation item 3"
+                },
+            }
+        },
+    }
+})
