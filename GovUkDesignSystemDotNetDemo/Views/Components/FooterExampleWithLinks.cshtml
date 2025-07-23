@@ -1,0 +1,30 @@
+﻿@using GovUkDesignSystemDotNet
+
+@{
+    Layout = "_LayoutForExamples";
+}
+
+@await Html.GovUkFooter(new FooterViewModel
+{
+    Meta = new FooterMetaViewModel
+    {
+        Items = new List<FooterItemViewModel>
+        {
+            new FooterItemViewModel
+            {
+                Href = "#",
+                Text = "Item 1"
+            },
+            new FooterItemViewModel
+            {
+                Href = "#",
+                Text = "Item 2"
+            },
+            new FooterItemViewModel
+            {
+                Href = "#",
+                Text = "Item 3"
+            },
+        }
+    }
+})
