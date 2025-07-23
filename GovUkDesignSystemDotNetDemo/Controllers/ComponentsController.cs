@@ -14,6 +14,9 @@ public class ComponentsController : Controller
     [HttpGet("breadcrumbs")]
     public IActionResult Breadcrumbs() => View();
 
+    [HttpGet("button")]
+    public IActionResult Button() => View();
+
     [HttpGet("examples/{exampleName}")]
     public IActionResult ExamplePage(string exampleName)
     {

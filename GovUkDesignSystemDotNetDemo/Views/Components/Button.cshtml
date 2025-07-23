@@ -1,0 +1,275 @@
+﻿@using GovUkDesignSystemDotNet
+@using GovUkDesignSystemDotNetDemo.Models
+
+@{
+    ViewBag.Title = "Button";
+}
+
+@section BeforeMain
+{
+    @await Html.GovUkBreadcrumbs(new BreadcrumbsViewModel
+        {
+            Crumbs = new List<CrumbViewModel>
+            {
+                new CrumbViewModel
+                {
+                    HtmlOrText = new HtmlOrText("Home"),
+                    Href = Url.Action("Index", "Home")
+                },
+                new CrumbViewModel
+                {
+                    HtmlOrText = new HtmlOrText("Components"),
+                    Href = Url.Action("Index", "Components")
+                },
+                new CrumbViewModel
+                {
+                    HtmlOrText = new HtmlOrText("Button"),
+                },
+            }
+        })
+}
+
+<h1 class="govuk-heading-xl">
+    Button
+</h1>
+
+<p class="govuk-body govuk-!-margin-bottom-6">
+    Read more about the
+    <a href="https://design-system.service.gov.uk/components/button/"
+       class="govuk-link">
+        <b>button</b>
+        component on the Gov.UK Design System website
+    </a>
+</p>
+
+@(await Html.PartialAsync("../Shared/Example", new ExampleViewModel
+{
+    ExampleName = "ButtonExampleDefault",
+    Code = @"
+        @using GovUkDesignSystemDotNet
+
+        @await Html.GovUkButton(new ButtonViewModel
+        {
+            HtmlOrText = new HtmlOrText(""Save and continue""),
+        })
+    "
+}))
+
+<h2 class="govuk-heading-l">
+    Options
+</h2>
+
+<table class="govuk-table govuk-!-margin-bottom-8"
+       id="options-for-ButtonViewModel">
+    <caption class="govuk-table__caption govuk-table__caption--m">
+        Options for <code>ButtonViewModel</code>
+    </caption>
+    <thead class="govuk-table__head">
+        <tr class="govuk-table__row">
+            <th scope="col" class="govuk-table__header">Name</th>
+            <th scope="col" class="govuk-table__header">Type</th>
+            <th scope="col" class="govuk-table__header">Description</th>
+        </tr>
+    </thead>
+    <tbody class="govuk-table__body">
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                Element
+            </th>
+            <td class="govuk-table__cell">
+                ButtonElementType?
+                <br/>
+                nullable enum
+            </td>
+            <td class="govuk-table__cell">
+                <a href="https://github.com/alphagov/govuk-frontend/releases/tag/v5.1.0"
+                   class="govuk-link">
+                    Deprecated in 5.1.0
+                </a>
+                <br/>
+                <br/>
+                HTML element for the button component – <code>Input</code>, <code>Button</code> or <code>A</code>.
+                In most cases you will not need to set this as it will be configured automatically if <code>href</code> is provided.
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                HtmlOrText
+            </th>
+            <td class="govuk-table__cell">
+                HtmlOrText
+            </td>
+            <td class="govuk-table__cell">
+                <b>Required.</b>
+                Text for the <code>input</code>, <code>button</code> or <code>a</code> element.
+                Instantiate an <code>HtmlOrText</code> class either with a string (for text) or using the
+                <code style="white-space: nowrap;">@@&lt;text&gt;&lt;/text&gt;</code>
+                syntax for HTML.
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                Name
+            </th>
+            <td class="govuk-table__cell">
+                string
+            </td>
+            <td class="govuk-table__cell">
+                Name for the <code>input</code> or <code>button</code>.
+                This has no effect on <code>a</code> elements.
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                Type
+            </th>
+            <td class="govuk-table__cell">
+                string
+            </td>
+            <td class="govuk-table__cell">
+                Type for the input or button element – <code>"button"</code>, <code>"submit"</code> or <code>"reset"</code>.
+                Defaults to <code>"submit"</code>. This has no effect on <code>a</code> elements.
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                Value
+            </th>
+            <td class="govuk-table__cell">
+                string
+            </td>
+            <td class="govuk-table__cell">
+                Value for the <code>button</code> element only.
+                This has no effect on <code>a</code> or <code>input</code> elements.
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                Disabled
+            </th>
+            <td class="govuk-table__cell">
+                bool
+            </td>
+            <td class="govuk-table__cell">
+                Whether the button component should be disabled.
+                For <code>input</code> and <code>button</code> elements,
+                <code>disabled</code> and <code>aria-disabled</code> attributes will be set automatically.
+                This has no effect on <code>a</code> elements.
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                Href
+            </th>
+            <td class="govuk-table__cell">
+                string
+            </td>
+            <td class="govuk-table__cell">
+                The URL that the button component should link to.
+                If this is set, <code>element</code> will be automatically set to
+                <code>A</code> if it has not already been defined.
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                Classes
+            </th>
+            <td class="govuk-table__cell">
+                List&lt;string&gt;
+            </td>
+            <td class="govuk-table__cell">
+                Classes to add to the button component.
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                Attributes
+            </th>
+            <td class="govuk-table__cell">
+                Dictionary&lt;string, string&gt;
+            </td>
+            <td class="govuk-table__cell">
+                HTML attributes (for example data attributes) to add to the button component.
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                PreventDoubleClick
+            </th>
+            <td class="govuk-table__cell">
+                bool
+            </td>
+            <td class="govuk-table__cell">
+                Prevent accidental double clicks on submit buttons from submitting forms multiple times.
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                IsStartButton
+            </th>
+            <td class="govuk-table__cell">
+                bool
+            </td>
+            <td class="govuk-table__cell">
+                Use for the main call to action on your service’s start page.
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                Id
+            </th>
+            <td class="govuk-table__cell">
+                string
+            </td>
+            <td class="govuk-table__cell">
+                The ID of the button.
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<h2 class="govuk-heading-l">
+    Examples
+</h2>
+
+<h3 class="govuk-heading-m">
+    Using <code>HtmlOrText</code>
+</h3>
+
+@(await Html.PartialAsync("../Shared/Example", new ExampleViewModel
+{
+    ExampleName = "ButtonExampleHtmlOrText",
+    Code = @"
+            @using GovUkDesignSystemDotNet
+
+            <p class=""govuk-body"">Button with HTML:</p>
+            @await Html.GovUkButton(new ButtonViewModel
+            {
+                HtmlOrText = new HtmlOrText(@<text>Save <i>AND</i> continue</text>),
+            })
+
+            <p class=""govuk-body"">Button with text:</p>
+            @await Html.GovUkButton(new ButtonViewModel
+            {
+                HtmlOrText = new HtmlOrText(""Save and continue""),
+            })
+    "
+}))
+
+<h3 class="govuk-heading-m">
+    Start button
+</h3>
+
+@(await Html.PartialAsync("../Shared/Example", new ExampleViewModel
+{
+    ExampleName = "ButtonExampleStartButton",
+    Code = @"
+            @using GovUkDesignSystemDotNet
+
+            @await Html.GovUkButton(new ButtonViewModel
+            {
+                HtmlOrText = new HtmlOrText(""Start now""),
+                IsStartButton = true
+            })
+    "
+}))
