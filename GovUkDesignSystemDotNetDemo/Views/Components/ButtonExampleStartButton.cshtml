@@ -1,0 +1,12 @@
+﻿@using GovUkDesignSystemDotNet
+
+@{
+    Layout = "_LayoutForExamples";
+}
+
+
+@await Html.GovUkButton(new ButtonViewModel
+{
+    HtmlOrText = new HtmlOrText("Start now"),
+    IsStartButton = true
+})
