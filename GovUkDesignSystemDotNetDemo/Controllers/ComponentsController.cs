@@ -17,6 +17,9 @@ public class ComponentsController : Controller
     [HttpGet("button")]
     public IActionResult Button() => View();
 
+    [HttpGet("footer")]
+    public IActionResult Footer() => View();
+
     [HttpGet("header")]
     public IActionResult Header() => View();
 
