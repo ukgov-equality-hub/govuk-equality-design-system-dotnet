@@ -1,0 +1,18 @@
+﻿@using GovUkDesignSystemDotNet
+
+@{
+    Layout = "_LayoutForExamples";
+}
+
+
+<p class="govuk-body">Button with HTML:</p>
+@await Html.GovUkButton(new ButtonViewModel
+{
+    HtmlOrText = new HtmlOrText(@<text>Save <i>AND</i> continue</text>),
+})
+
+<p class="govuk-body">Button with text:</p>
+@await Html.GovUkButton(new ButtonViewModel
+{
+    HtmlOrText = new HtmlOrText("Save and continue"),
+})
