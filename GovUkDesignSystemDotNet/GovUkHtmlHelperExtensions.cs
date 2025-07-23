@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Html;
+﻿using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace GovUkDesignSystemDotNet;
@@ -18,6 +18,13 @@ public static class GovUkHtmlHelperExtensions
         BreadcrumbsViewModel breadcrumbsViewModel)
     {
         return await htmlHelper.PartialAsync("/GovUkDesignSystemComponents/Views/Breadcrumbs.cshtml", breadcrumbsViewModel);
+    }
+
+    public static async Task<IHtmlContent> GovUkButton(
+        this IHtmlHelper htmlHelper,
+        ButtonViewModel buttonViewModel)
+    {
+        return await htmlHelper.PartialAsync("/GovUkDesignSystemComponents/Views/Button.cshtml", buttonViewModel);
     }
 
 }
