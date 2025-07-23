@@ -1,0 +1,42 @@
+@using GovUkDesignSystemDotNet
+@using GovUkDesignSystemDotNet.Helpers
+@model GovUkDesignSystemDotNet.BreadcrumbsViewModel
+
+@{
+    // Set classes for this component
+    List<string> classNames = ["govuk-breadcrumbs"];
+    classNames.AddRange(Model.Classes);
+    if (Model.CollapseOnMobile)
+    {
+        classNames.Add("govuk-breadcrumbs--collapse-on-mobile");
+    }
+}
+
+<nav class="@(string.Join(" ", classNames))"
+     @(Model.Attributes.ToHtmlTagAttributes(Html))
+     aria-label="@(Model.LabelText ?? "Breadcrumb")">
+    <ol class="govuk-breadcrumbs__list">
+        
+        @foreach (CrumbViewModel crumb in Model.Crumbs)
+        {
+            @if (!string.IsNullOrWhiteSpace(crumb.Href))
+            {
+                <li class="govuk-breadcrumbs__list-item">
+                    <a href="@(crumb.Href)"
+                       class="govuk-breadcrumbs__link"
+                       @(crumb.Attributes.ToHtmlTagAttributes(Html))
+                    >
+                        @(crumb.HtmlOrText?.Value)
+                    </a>
+                </li>
+            }
+            else
+            {
+                <li class="govuk-breadcrumbs__list-item"
+                    aria-current="page">
+                    @(crumb.HtmlOrText?.Value)
+                </li>
+            }
+        }
+    </ol>
+</nav>
