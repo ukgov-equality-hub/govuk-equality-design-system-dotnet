@@ -1,0 +1,208 @@
+﻿@using GovUkDesignSystemDotNet
+@using GovUkDesignSystemDotNetDemo.Models
+
+@{
+    ViewBag.Title = "Breadcrumbs";
+}
+
+@section BeforeMain
+{
+    @await Html.GovUkBreadcrumbs(new BreadcrumbsViewModel
+        {
+            Crumbs = new List<CrumbViewModel>
+            {
+                new CrumbViewModel
+                {
+                    HtmlOrText = new HtmlOrText("Home"),
+                    Href = Url.Action("Index", "Home")
+                },
+                new CrumbViewModel
+                {
+                    HtmlOrText = new HtmlOrText("Components"),
+                    Href = Url.Action("Index", "Components")
+                },
+                new CrumbViewModel
+                {
+                    HtmlOrText = new HtmlOrText("Breadcrumbs"),
+                },
+            }
+        })
+}
+
+<h1 class="govuk-heading-xl">
+    Breadcrumbs
+</h1>
+
+<p class="govuk-body govuk-!-margin-bottom-6">
+    Read more about the
+    <a href="https://design-system.service.gov.uk/components/breadcrumbs/"
+       class="govuk-link">
+        <b>breadcrumbs</b>
+        component on the Gov.UK Design System website
+    </a>
+</p>
+
+@(await Html.PartialAsync("../Shared/Example", new ExampleViewModel
+{
+    ExampleName = "BreadcrumbsExampleDefault",
+    Code = @"
+        @using GovUkDesignSystemDotNet
+
+        @await Html.GovUkBreadcrumbs(new BreadcrumbsViewModel
+        {
+            Crumbs = new List<CrumbViewModel>
+            {
+                new CrumbViewModel
+                {
+                    HtmlOrText = new HtmlOrText(""Home""),
+                    Href = ""/""
+                },
+                new CrumbViewModel
+                {
+                    HtmlOrText = new HtmlOrText(""Components""),
+                    Href = ""/components""
+                },
+                new CrumbViewModel
+                {
+                    HtmlOrText = new HtmlOrText(""Breadcrumbs""),
+                },
+            }
+        })
+    "
+}))
+
+<h2 class="govuk-heading-l">
+    Options
+</h2>
+
+<table class="govuk-table govuk-!-margin-bottom-8"
+       id="options-for-BreadcrumbsViewModel">
+    <caption class="govuk-table__caption govuk-table__caption--m">
+        Options for <code>BreadcrumbsViewModel</code>
+    </caption>
+    <thead class="govuk-table__head">
+        <tr class="govuk-table__row">
+            <th scope="col" class="govuk-table__header">Name</th>
+            <th scope="col" class="govuk-table__header">Type</th>
+            <th scope="col" class="govuk-table__header">Description</th>
+        </tr>
+    </thead>
+    <tbody class="govuk-table__body">
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                Crumbs
+            </th>
+            <td class="govuk-table__cell">
+                List&lt;CrumbViewModel&gt;
+            </td>
+            <td class="govuk-table__cell">
+                <b>Required.</b>
+                The items within the breadcrumbs.
+                <a href="#options-for-CrumbViewModel"
+                   class="govuk-link">
+                    See options for CrumbViewModel
+                </a>
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                Classes
+            </th>
+            <td class="govuk-table__cell">
+                List&lt;string&gt;
+            </td>
+            <td class="govuk-table__cell">
+                Classes to add to the breadcrumbs container.
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                CollapseOnMobile
+            </th>
+            <td class="govuk-table__cell">
+                bool
+            </td>
+            <td class="govuk-table__cell">
+                When true, the breadcrumbs will collapse to the
+                first and last item only on tablet breakpoint and below.
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                Attributes
+            </th>
+            <td class="govuk-table__cell">
+                Dictionary&lt;string, string&gt;
+            </td>
+            <td class="govuk-table__cell">
+                HTML attributes (for example data attributes) to add to the breadcrumbs container.
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                LabelText
+            </th>
+            <td class="govuk-table__cell">
+                string
+            </td>
+            <td class="govuk-table__cell">
+                Plain text label identifying the landmark to screen readers. Defaults to “Breadcrumb”.
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<table class="govuk-table govuk-!-margin-bottom-8"
+       id="options-for-CrumbViewModel">
+    <caption class="govuk-table__caption govuk-table__caption--m">
+        Options for <code>CrumbViewModel</code>
+    </caption>
+    <thead class="govuk-table__head">
+        <tr class="govuk-table__row">
+            <th scope="col" class="govuk-table__header">Name</th>
+            <th scope="col" class="govuk-table__header">Type</th>
+            <th scope="col" class="govuk-table__header">Description</th>
+        </tr>
+    </thead>
+    <tbody class="govuk-table__body">
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                HtmlOrText
+            </th>
+            <td class="govuk-table__cell">
+                HtmlOrText
+            </td>
+            <td class="govuk-table__cell">
+                <b>Required.</b>
+                HTML or text to use within the breadcrumbs item.
+                Instantiate an <code>HtmlOrText</code> class either with a string (for text) or using the
+                <code style="white-space: nowrap;">@@&lt;text&gt;&lt;/text&gt;</code>
+                syntax for HTML.
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                Href
+            </th>
+            <td class="govuk-table__cell">
+                string
+            </td>
+            <td class="govuk-table__cell">
+                Link for the breadcrumbs item.
+                If not specified, breadcrumbs item is a normal list item.
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                Attributes
+            </th>
+            <td class="govuk-table__cell">
+                Dictionary&lt;string, string&gt;
+            </td>
+            <td class="govuk-table__cell">
+                HTML attributes (for example data attributes) to add to the individual crumb.
+            </td>
+        </tr>
+    </tbody>
+</table>
+

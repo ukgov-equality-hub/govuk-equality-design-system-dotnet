@@ -1,0 +1,27 @@
+﻿@using GovUkDesignSystemDotNet
+
+@{
+    Layout = "_LayoutForExamples";
+}
+
+
+@await Html.GovUkBreadcrumbs(new BreadcrumbsViewModel
+{
+    Crumbs = new List<CrumbViewModel>
+    {
+        new CrumbViewModel
+        {
+            HtmlOrText = new HtmlOrText("Home"),
+            Href = "/"
+        },
+        new CrumbViewModel
+        {
+            HtmlOrText = new HtmlOrText("Components"),
+            Href = "/components"
+        },
+        new CrumbViewModel
+        {
+            HtmlOrText = new HtmlOrText("Breadcrumbs"),
+        },
+    }
+})
