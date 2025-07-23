@@ -7,7 +7,10 @@ public class ComponentsController : Controller
 {
     [HttpGet("")]
     public IActionResult Index() => View();
-    
+
+    [HttpGet("back-link")]
+    public IActionResult BackLink() => View();
+
     [HttpGet("breadcrumbs")]
     public IActionResult Breadcrumbs() => View();
 
