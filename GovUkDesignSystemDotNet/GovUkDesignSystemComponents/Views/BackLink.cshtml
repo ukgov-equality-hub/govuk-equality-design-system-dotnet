@@ -1,0 +1,10 @@
+@using GovUkDesignSystemDotNet.Helpers
+@model GovUkDesignSystemDotNet.BackLinkViewModel
+
+<a href="@(Model.Href ?? "#")"
+   class="govuk-back-link @(string.Join(" ", Model.Classes))"
+   @{ if (Model.OverrideWithJavascript) { <text> onclick="event.preventDefault(); window.history.back();" </text> } }
+   @(Model.Attributes.ToHtmlTagAttributes(Html))
+   >
+    @(Model.HtmlOrText?.Value ?? "Back")
+</a>
