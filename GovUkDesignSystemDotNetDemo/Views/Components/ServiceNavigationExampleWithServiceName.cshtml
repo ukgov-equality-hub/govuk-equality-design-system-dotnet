@@ -1,0 +1,30 @@
+﻿@using GovUkDesignSystemDotNet
+
+@{
+    Layout = "_LayoutForExamples";
+}
+
+@await Html.GovUkServiceNavigation(new ServiceNavigationViewModel
+{
+    ServiceName = "Design System in C#",
+    ServiceUrl = "#",
+    NavigationItems = new List<ServiceNavigationItemViewModel>
+    {
+        new ServiceNavigationItemViewModel
+        {
+            Href = "#",
+            HtmlOrText = new HtmlOrText("Navigation item 1"),
+        },
+        new ServiceNavigationItemViewModel
+        {
+            Href = "#",
+            HtmlOrText = new HtmlOrText("Navigation item 2"),
+            Active = true
+        },
+        new ServiceNavigationItemViewModel
+        {
+            Href = "#",
+            HtmlOrText = new HtmlOrText("Navigation item 3"),
+        },
+    }
+})

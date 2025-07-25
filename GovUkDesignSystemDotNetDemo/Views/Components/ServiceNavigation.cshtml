@@ -1,0 +1,477 @@
+﻿@using GovUkDesignSystemDotNet
+@using GovUkDesignSystemDotNetDemo.Models
+
+@{
+    ViewBag.Title = "Service navigation";
+}
+
+@section BeforeMain
+{
+    @await Html.GovUkBreadcrumbs(new BreadcrumbsViewModel
+        {
+            Crumbs = new List<CrumbViewModel>
+            {
+                new CrumbViewModel
+                {
+                    HtmlOrText = new HtmlOrText("Home"),
+                    Href = Url.Action("Index", "Home")
+                },
+                new CrumbViewModel
+                {
+                    HtmlOrText = new HtmlOrText("Components"),
+                    Href = Url.Action("Index", "Components")
+                },
+                new CrumbViewModel
+                {
+                    HtmlOrText = new HtmlOrText("Service navigation"),
+                },
+            }
+        })
+}
+
+<h1 class="govuk-heading-xl">
+    Service navigation
+</h1>
+
+<p class="govuk-body govuk-!-margin-bottom-6">
+    Read more about the
+    <a href="https://design-system.service.gov.uk/components/service-navigation/"
+       class="govuk-link">
+        <b>service navigation</b>
+        component on the Gov.UK Design System website
+    </a>
+</p>
+
+@(await Html.PartialAsync("../Shared/Example", new ExampleViewModel
+{
+    ExampleName = "ServiceNavigationExampleDefault",
+    Code = @"
+        @using GovUkDesignSystemDotNet
+
+        @await Html.GovUkServiceNavigation(new ServiceNavigationViewModel
+        {
+            NavigationItems = new List<ServiceNavigationItemViewModel>
+            {
+                new ServiceNavigationItemViewModel
+                {
+                    Href = ""#"",
+                    HtmlOrText = new HtmlOrText(""Navigation item 1""),
+                },
+                new ServiceNavigationItemViewModel
+                {
+                    Href = ""#"",
+                    HtmlOrText = new HtmlOrText(""Navigation item 2""),
+                    Active = true
+                },
+                new ServiceNavigationItemViewModel
+                {
+                    Href = ""#"",
+                    HtmlOrText = new HtmlOrText(""Navigation item 3""),
+                },
+            }
+        })
+    "
+}))
+
+<h2 class="govuk-heading-l">
+    Options
+</h2>
+
+<table class="govuk-table govuk-!-margin-bottom-8"
+       id="options-for-ServiceNavigationViewModel">
+    <caption class="govuk-table__caption govuk-table__caption--m">
+        Options for <code>ServiceNavigationViewModel</code>
+    </caption>
+    <thead class="govuk-table__head">
+        <tr class="govuk-table__row">
+            <th scope="col" class="govuk-table__header">Name</th>
+            <th scope="col" class="govuk-table__header">Type</th>
+            <th scope="col" class="govuk-table__header">Description</th>
+        </tr>
+    </thead>
+    <tbody class="govuk-table__body">
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                Classes
+            </th>
+            <td class="govuk-table__cell">
+                List&lt;string&gt;
+            </td>
+            <td class="govuk-table__cell">
+                Classes to add to the service navigation container.
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                Attributes
+            </th>
+            <td class="govuk-table__cell">
+                Dictionary&lt;string, string&gt;
+            </td>
+            <td class="govuk-table__cell">
+                HTML attributes (for example, data attributes) to add to the service navigation container.
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                AriaLabel
+            </th>
+            <td class="govuk-table__cell">
+                string
+            </td>
+            <td class="govuk-table__cell">
+                The text for the <code>aria-label</code> which labels the
+                service navigation container when a service name is included.
+                Defaults to <code>"Service information"</code>.
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                MenuButtonText
+            </th>
+            <td class="govuk-table__cell">
+                string
+            </td>
+            <td class="govuk-table__cell">
+                The text of the mobile navigation menu toggle.
+                Defaults to <code>"Menu"</code>.
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                MenuButtonLabel
+            </th>
+            <td class="govuk-table__cell">
+                string
+            </td>
+            <td class="govuk-table__cell">
+                The screen reader label for the mobile navigation menu toggle.
+                Defaults to the same value as <code>MenuButtonText</code> if not specified.
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                NavigationLabel
+            </th>
+            <td class="govuk-table__cell">
+                string
+            </td>
+            <td class="govuk-table__cell">
+                The screen reader label for the mobile navigation menu.
+                Defaults to the same value as <code>MenuButtonText</code> if not specified.
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                NavigationId
+            </th>
+            <td class="govuk-table__cell">
+                string
+            </td>
+            <td class="govuk-table__cell">
+                The ID used to associate the mobile navigation toggle with the navigation menu.
+                Defaults to <code>navigation</code>.
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                NavigationClasses
+            </th>
+            <td class="govuk-table__cell">
+                string
+            </td>
+            <td class="govuk-table__cell">
+                Classes to add to the navigation menu container.
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                CollapseNavigationOnMobile
+            </th>
+            <td class="govuk-table__cell">
+                bool?
+            </td>
+            <td class="govuk-table__cell">
+                Whether the navigation should be collapsed inside a menu on mobile.
+                Defaults to true if there is more than one navigation item.
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                ServiceName
+            </th>
+            <td class="govuk-table__cell">
+                string
+            </td>
+            <td class="govuk-table__cell">
+                The name of your service.
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                ServiceUrl
+            </th>
+            <td class="govuk-table__cell">
+                string
+            </td>
+            <td class="govuk-table__cell">
+                The homepage of your service.
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                NavigationItems
+            </th>
+            <td class="govuk-table__cell">
+                List&lt;ServiceNavigationItemViewModel&gt;
+            </td>
+            <td class="govuk-table__cell">
+                <b>Required.</b>
+                Used to add navigation to the service header.
+                <a href="#options-for-ServiceNavigationItemViewModel"
+                   class="govuk-link">
+                    See options for ServiceNavigationItemViewModel
+                </a>
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                Slots
+            </th>
+            <td class="govuk-table__cell">
+                ServiceNavigationSlotsViewModel
+            </td>
+            <td class="govuk-table__cell">
+                Specified points for injecting custom HTML into the service header.
+                <a href="#options-for-ServiceNavigationSlotsViewModel"
+                   class="govuk-link">
+                    See options for ServiceNavigationSlotsViewModel
+                </a>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<table class="govuk-table govuk-!-margin-bottom-8"
+       id="options-for-ServiceNavigationItemViewModel">
+    <caption class="govuk-table__caption govuk-table__caption--m">
+        Options for <code>ServiceNavigationItemViewModel</code>
+    </caption>
+    <thead class="govuk-table__head">
+        <tr class="govuk-table__row">
+            <th scope="col" class="govuk-table__header">Name</th>
+            <th scope="col" class="govuk-table__header">Type</th>
+            <th scope="col" class="govuk-table__header">Description</th>
+        </tr>
+    </thead>
+    <tbody class="govuk-table__body">
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                Current
+            </th>
+            <td class="govuk-table__cell">
+                bool
+            </td>
+            <td class="govuk-table__cell">
+                If <code>true</code>, indicates that the user is currently on this page.
+                This takes precedence over <code>Active</code>.
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                Active
+            </th>
+            <td class="govuk-table__cell">
+                bool
+            </td>
+            <td class="govuk-table__cell">
+                If <code>true</code>, indicates that the user is within this group of pages in the navigation hierarchy.
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                HtmlOrText
+            </th>
+            <td class="govuk-table__cell">
+                HtmlOrText
+            </td>
+            <td class="govuk-table__cell">
+                <b>Required.</b>
+                HTML or text for the navigation item.
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                Href
+            </th>
+            <td class="govuk-table__cell">
+                string
+            </td>
+            <td class="govuk-table__cell">
+                URL of the navigation item anchor.
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                Attributes
+            </th>
+            <td class="govuk-table__cell">
+                Dictionary&lt;string, string&gt;
+            </td>
+            <td class="govuk-table__cell">
+                HTML attributes (for example data attributes) to add to the navigation item anchor.
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<table class="govuk-table govuk-!-margin-bottom-8"
+       id="options-for-ServiceNavigationSlotsViewModel">
+    <caption class="govuk-table__caption govuk-table__caption--m">
+        Options for <code>ServiceNavigationSlotsViewModel</code>
+    </caption>
+    <thead class="govuk-table__head">
+        <tr class="govuk-table__row">
+            <th scope="col" class="govuk-table__header">Name</th>
+            <th scope="col" class="govuk-table__header">Type</th>
+            <th scope="col" class="govuk-table__header">Description</th>
+        </tr>
+    </thead>
+    <tbody class="govuk-table__body">
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                Start
+            </th>
+            <td class="govuk-table__cell">
+                HtmlOrText
+            </td>
+            <td class="govuk-table__cell">
+                HTML injected at the start of the service header container.
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                End
+            </th>
+            <td class="govuk-table__cell">
+                HtmlOrText
+            </td>
+            <td class="govuk-table__cell">
+                HTML injected at the end of the service header container.
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                NavigationStart
+            </th>
+            <td class="govuk-table__cell">
+                HtmlOrText
+            </td>
+            <td class="govuk-table__cell">
+                HTML injected before the first list item in the navigation list.
+                Requires <code>NavigationItems</code> to be set.
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                NavigationEnd
+            </th>
+            <td class="govuk-table__cell">
+                HtmlOrText
+            </td>
+            <td class="govuk-table__cell">
+                HTML injected after the last list item in the navigation list.
+                Requires <code>NavigationItems</code> to be set.
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<h2 class="govuk-heading-l">
+    Examples
+</h2>
+
+<h3 class="govuk-heading-m">
+    Alongside the GOV.UK Header
+</h3>
+
+<p class="govuk-body">
+    See more details about the
+    <a href="@(Url.Action("Header", "Components"))"
+       class="govuk-link">
+        header component
+    </a>
+</p>
+
+@(await Html.PartialAsync("../Shared/Example", new ExampleViewModel
+{
+    ExampleName = "ServiceNavigationExampleWithHeader",
+    Code = @"
+        @using GovUkDesignSystemDotNet
+
+        @await Html.GovUkHeader(new HeaderViewModel
+        {
+            HomepageUrl = ""#""
+        })
+
+        @await Html.GovUkServiceNavigation(new ServiceNavigationViewModel
+        {
+            NavigationItems = new List<ServiceNavigationItemViewModel>
+            {
+                new ServiceNavigationItemViewModel
+                {
+                    Href = ""#"",
+                    HtmlOrText = new HtmlOrText(""Navigation item 1""),
+                },
+                new ServiceNavigationItemViewModel
+                {
+                    Href = ""#"",
+                    HtmlOrText = new HtmlOrText(""Navigation item 2""),
+                    Active = true
+                },
+                new ServiceNavigationItemViewModel
+                {
+                    Href = ""#"",
+                    HtmlOrText = new HtmlOrText(""Navigation item 3""),
+                },
+            }
+        })
+    "
+}))
+
+<h3 class="govuk-heading-m">
+    Showing service name and navigation links
+</h3>
+
+@(await Html.PartialAsync("../Shared/Example", new ExampleViewModel
+{
+    ExampleName = "ServiceNavigationExampleWithServiceName",
+    Code = @"
+        @using GovUkDesignSystemDotNet
+
+        @await Html.GovUkServiceNavigation(new ServiceNavigationViewModel
+        {
+            ServiceName = ""Design System in C#"",
+            ServiceUrl = ""#"",
+            NavigationItems = new List<ServiceNavigationItemViewModel>
+            {
+                new ServiceNavigationItemViewModel
+                {
+                    Href = ""#"",
+                    HtmlOrText = new HtmlOrText(""Navigation item 1""),
+                },
+                new ServiceNavigationItemViewModel
+                {
+                    Href = ""#"",
+                    HtmlOrText = new HtmlOrText(""Navigation item 2""),
+                    Active = true
+                },
+                new ServiceNavigationItemViewModel
+                {
+                    Href = ""#"",
+                    HtmlOrText = new HtmlOrText(""Navigation item 3""),
+                },
+            }
+        })
+    "
+}))

@@ -41,4 +41,11 @@ public static class GovUkHtmlHelperExtensions
         return await htmlHelper.PartialAsync("/GovUkDesignSystemComponents/Views/Header.cshtml", headerViewModel);
     }
 
+    public static async Task<IHtmlContent> GovUkServiceNavigation(
+        this IHtmlHelper htmlHelper,
+        ServiceNavigationViewModel serviceNavigationViewModel)
+    {
+        return await htmlHelper.PartialAsync("/GovUkDesignSystemComponents/Views/ServiceNavigation.cshtml", serviceNavigationViewModel);
+    }
+
 }
