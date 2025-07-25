@@ -1,0 +1,152 @@
+@using GovUkDesignSystemDotNet
+@using GovUkDesignSystemDotNet.Helpers
+@model GovUkDesignSystemDotNet.ServiceNavigationViewModel
+
+@{
+    string menuButtonText = !string.IsNullOrWhiteSpace(Model.MenuButtonText) ? Model.MenuButtonText : "Menu";
+    string navigationId = !string.IsNullOrWhiteSpace(Model.NavigationId) ? Model.NavigationId : "navigation";
+    
+    Func<object, object> innerContentFunc = (
+        @<text>
+            <div class="govuk-width-container">
+
+                @* Slot: start *@
+                @(Model.Slots?.Start?.Value)
+
+                <div class="govuk-service-navigation__container">
+                    @* Service name *@
+                    @if (!string.IsNullOrWhiteSpace(Model.ServiceName))
+                    {
+                        <span class="govuk-service-navigation__service-name">
+                            @if (!string.IsNullOrWhiteSpace(Model.ServiceUrl))
+                            {
+                                <a href="@(Model.ServiceUrl)"
+                                   class="govuk-service-navigation__link">
+                                    @(Model.ServiceName)
+                                </a>
+                            }
+                            else
+                            {
+                                <span class="govuk-service-navigation__text">
+                                    @(Model.ServiceName)
+                                </span>
+                            }
+                        </span>
+                    }
+
+                    @* Navigation  *@
+                    @{
+                        bool collapseNavigationOnMobile = Model.CollapseNavigationOnMobile.HasValue ? Model.CollapseNavigationOnMobile.Value : Model.NavigationItems.Count > 1;
+                    }
+                    @if (Model.NavigationItems.Count > 0 ||
+                         Model.Slots?.NavigationStart != null ||
+                         Model.Slots?.NavigationEnd != null)
+                    {
+                        <nav aria-label="@(!string.IsNullOrWhiteSpace(Model.NavigationLabel) ? Model.NavigationLabel : menuButtonText)"
+                             class="govuk-service-navigation__wrapper @(string.Join(" ", Model.NavigationClasses))">
+                            @if (collapseNavigationOnMobile)
+                            {
+                                <button type="button"
+                                        class="govuk-service-navigation__toggle govuk-js-service-navigation-toggle"
+                                        aria-controls="@(navigationId)"
+                                        aria-label="@(!string.IsNullOrWhiteSpace(Model.MenuButtonLabel) && Model.MenuButtonLabel != menuButtonText ? Model.MenuButtonLabel : null)"
+                                        hidden>
+                                    @(menuButtonText)
+                                </button>
+                            }
+
+                            <ul class="govuk-service-navigation__list" id="@(navigationId)" >
+                                @* Slot: navigationStart *@
+                                @(Model.Slots?.NavigationStart?.Value)
+
+                                @foreach (ServiceNavigationItemViewModel serviceNavigationItem in Model.NavigationItems)
+                                {
+                                    @*
+                                    If item.current, add active style and set aria-current="page"
+                                    Elseif item.active, add active style and set aria-current="true"
+                                    *@
+                                    <li class="govuk-service-navigation__item @(serviceNavigationItem.Active || serviceNavigationItem.Current ? "govuk-service-navigation__item--active" : "")">
+                                        @if (!string.IsNullOrWhiteSpace(serviceNavigationItem.Href))
+                                        {
+                                            <a class="govuk-service-navigation__link"
+                                               href="@(serviceNavigationItem.Href)"
+                                               aria-current="@(serviceNavigationItem.Current ? "page" : (serviceNavigationItem.Active ? "true" : "false"))"
+                                                @(serviceNavigationItem.Attributes.ToHtmlTagAttributes(Html))
+                                                >
+                                                @* We wrap active links in strong tags so that users who
+                                                override colours or styles will still have some indicator of
+                                                the current nav item. *@
+                                                @if (serviceNavigationItem.Active || serviceNavigationItem.Current)
+                                                {
+                                                    <strong class="govuk-service-navigation__active-fallback">
+                                                        @(serviceNavigationItem.HtmlOrText.Value)
+                                                    </strong>
+                                                }
+                                                else
+                                                {
+                                                    @(serviceNavigationItem.HtmlOrText.Value)
+                                                }
+                                            </a>
+                                        }
+                                        else if (serviceNavigationItem.HtmlOrText != null)
+                                        {
+                                            <span class="govuk-service-navigation__text"
+                                                  aria-current="@(serviceNavigationItem.Current ? "page" : (serviceNavigationItem.Active ? "true" : "false"))"
+                                                  >
+                                                @* We wrap active links in strong tags so that users who
+                                                override colours or styles will still have some indicator of
+                                                the current nav item. *@
+                                                @if (serviceNavigationItem.Active || serviceNavigationItem.Current)
+                                                {
+                                                    <strong class="govuk-service-navigation__active-fallback">
+                                                        @(serviceNavigationItem.HtmlOrText.Value)
+                                                    </strong>
+                                                }
+                                                else
+                                                {
+                                                    @(serviceNavigationItem.HtmlOrText.Value)
+                                                }
+                                            </span>
+                                        }
+                                    </li>
+                                }
+
+                                @* Slot: navigationEnd *@
+                                @(Model.Slots?.NavigationEnd?.Value)
+                            </ul>
+                        </nav>
+                    }
+                </div>
+
+                @* Slot: end *@
+                @(Model.Slots?.End?.Value)
+
+            </div>
+         </text>);
+    object innerContent = innerContentFunc(new object());
+}
+
+@* If a service name is included, we use a <section> element with an
+   aria-label to create a containing landmark region. Otherwise, the <nav> in
+   the innerContent can do the job just fine by itself. *@
+@if (!string.IsNullOrWhiteSpace(Model.ServiceName) ||
+     Model.Slots?.Start != null ||
+     Model.Slots?.End != null)
+{
+    <section aria-label="@(Model.AriaLabel ?? "Service information")"
+             class="govuk-service-navigation @(string.Join(" ", Model.Classes))"
+             data-module="govuk-service-navigation"
+             @(Model.Attributes.ToHtmlTagAttributes(Html))
+             >
+        @(innerContent)
+    </section>
+}
+else
+{
+    <div class="govuk-service-navigation @(string.Join(" ", Model.Classes))"
+         data-module="govuk-service-navigation"
+         @(Model.Attributes.ToHtmlTagAttributes(Html))
+         >
+        @(innerContent)
+    </div>
+}

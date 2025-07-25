@@ -23,6 +23,9 @@ public class ComponentsController : Controller
     [HttpGet("header")]
     public IActionResult Header() => View();
 
+    [HttpGet("service-navigation")]
+    public IActionResult ServiceNavigation() => View();
+
     [HttpGet("examples/{exampleName}")]
     public IActionResult ExamplePage(string exampleName)
     {
