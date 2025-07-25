@@ -1,4 +1,5 @@
 @using GovUkDesignSystemDotNet
+@using Microsoft.AspNetCore.Http.Extensions
 
 <!DOCTYPE html>
 <html lang="en" class="govuk-template govuk-template--rebranded">
@@ -95,7 +96,23 @@
 
     @await Html.GovUkHeader(new HeaderViewModel
     {
-        HomepageUrl = "https://gov.uk"
+        HomepageUrl = "https://gov.uk"
+    })
+    
+    @await Html.GovUkServiceNavigation(new ServiceNavigationViewModel
+    {
+        ServiceName = "Design System in C#",
+        ServiceUrl = Url.Action("Index", "Home"),
+        NavigationItems = new List<ServiceNavigationItemViewModel>
+        {
+            new ServiceNavigationItemViewModel
+            {
+                HtmlOrText = new HtmlOrText("Components"),
+                Href = Url.Action("Index", "Components"),
+                Current = Context.Request.Path.StartsWithSegments(new PathString(Url.Action("Index", "Components"))),
+                Active = Context.Request.Path.Equals(new PathString(Url.Action("Index", "Components")))
+            }
+        }
     })
 
     <div class="govuk-width-container">
