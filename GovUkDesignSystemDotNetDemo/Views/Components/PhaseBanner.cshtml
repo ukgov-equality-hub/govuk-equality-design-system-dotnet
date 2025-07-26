@@ -1,0 +1,133 @@
+﻿@using GovUkDesignSystemDotNet
+@using GovUkDesignSystemDotNetDemo.Models
+
+@{
+    ViewBag.Title = "Phase banner";
+}
+
+@section BeforeMain
+{
+    @await Html.GovUkBreadcrumbs(new BreadcrumbsViewModel
+        {
+            Crumbs = new List<CrumbViewModel>
+            {
+                new CrumbViewModel
+                {
+                    HtmlOrText = new HtmlOrText("Home"),
+                    Href = Url.Action("Index", "Home")
+                },
+                new CrumbViewModel
+                {
+                    HtmlOrText = new HtmlOrText("Components"),
+                    Href = Url.Action("Index", "Components")
+                },
+                new CrumbViewModel
+                {
+                    HtmlOrText = new HtmlOrText("Phase banner"),
+                },
+            }
+        })
+}
+
+<h1 class="govuk-heading-xl">
+    Phase banner
+</h1>
+
+<p class="govuk-body govuk-!-margin-bottom-6">
+    Read more about the
+    <a href="https://design-system.service.gov.uk/components/phase-banner/"
+       class="govuk-link">
+        <b>phase banner</b>
+        component on the Gov.UK Design System website
+    </a>
+</p>
+
+@(await Html.PartialAsync("../Shared/Example", new ExampleViewModel
+{
+    ExampleName = "PhaseBannerExampleDefault",
+    Code = @"
+        @using GovUkDesignSystemDotNet
+
+        @await Html.GovUkPhaseBanner(new PhaseBannerViewModel
+        {
+            TagViewModel = new TagViewModel
+            {
+                HtmlOrText = new HtmlOrText(""Alpha"")
+            },
+            HtmlOrText = new HtmlOrText(@<text>
+                 This is a new service.
+                 Help us improve it and <a class=""govuk-link"" href=""#"">give your feedback by email</a>.
+                                         </text>)
+        })
+    "
+}))
+
+<h2 class="govuk-heading-l">
+    Options
+</h2>
+
+<table class="govuk-table govuk-!-margin-bottom-8"
+       id="options-for-PhaseBannerViewModel">
+    <caption class="govuk-table__caption govuk-table__caption--m">
+        Options for <code>PhaseBannerViewModel</code>
+    </caption>
+    <thead class="govuk-table__head">
+        <tr class="govuk-table__row">
+            <th scope="col" class="govuk-table__header">Name</th>
+            <th scope="col" class="govuk-table__header">Type</th>
+            <th scope="col" class="govuk-table__header">Description</th>
+        </tr>
+    </thead>
+    <tbody class="govuk-table__body">
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                HtmlOrText
+            </th>
+            <td class="govuk-table__cell">
+                HtmlOrText
+            </td>
+            <td class="govuk-table__cell">
+                <b>Required.</b>
+                HTML or text to use within the phase banner.
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                TagViewModel
+            </th>
+            <td class="govuk-table__cell">
+                TagViewModel
+            </td>
+            <td class="govuk-table__cell">
+                <b>Required.</b>
+                The tag used by the phase banner component.
+                <a href="@(Url.Action("Tag", "Components"))"
+                   class="govuk-link">
+                    See options for the tag component
+                </a>
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                Classes
+            </th>
+            <td class="govuk-table__cell">
+                List&lt;string&gt;
+            </td>
+            <td class="govuk-table__cell">
+                Classes to add to the phase banner container.
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                Attributes
+            </th>
+            <td class="govuk-table__cell">
+                Dictionary&lt;string, string&gt;
+            </td>
+            <td class="govuk-table__cell">
+                HTML attributes (for example, data attributes) to add to the phase banner container.
+            </td>
+        </tr>
+    </tbody>
+</table>

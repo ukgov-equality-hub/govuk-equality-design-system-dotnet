@@ -1,0 +1,17 @@
+﻿@using GovUkDesignSystemDotNet
+
+@{
+    Layout = "_LayoutForExamples";
+}
+
+@await Html.GovUkPhaseBanner(new PhaseBannerViewModel
+{
+    Tag = new TagViewModel
+    {
+        HtmlOrText = new HtmlOrText("Alpha")
+    },
+    HtmlOrText = new HtmlOrText(@<text>
+         This is a new service.
+         Help us improve it and <a class="govuk-link" href="#">give your feedback by email</a>.
+                                 </text>)
+})
