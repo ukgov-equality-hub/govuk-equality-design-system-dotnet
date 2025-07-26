@@ -1,0 +1,21 @@
+@using GovUkDesignSystemDotNet
+@using GovUkDesignSystemDotNet.Helpers
+@model GovUkDesignSystemDotNet.PhaseBannerViewModel
+
+<div class="govuk-phase-banner @(string.Join(" ", Model.Classes))"
+     @(Model.Attributes.ToHtmlTagAttributes(Html))
+     >
+    <p class="govuk-phase-banner__content">
+        @{
+            if (!Model.Tag.Classes.Contains("govuk-phase-banner__content__tag"))
+            {
+                Model.Tag.Classes.Add(" govuk-phase-banner__content__tag");
+            }
+        }
+        @await Html.GovUkTag(Model.Tag)
+        
+        <span class="govuk-phase-banner__text">
+            @(Model.HtmlOrText?.Value)
+        </span>
+    </p>
+</div>
