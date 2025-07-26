@@ -1,0 +1,8 @@
+@using GovUkDesignSystemDotNet.Helpers
+@model GovUkDesignSystemDotNet.TagViewModel
+
+<strong class="govuk-tag @(string.Join(" ", Model.Classes))"
+        @(Model.Attributes.ToHtmlTagAttributes(Html))
+        >
+    @(Model.HtmlOrText?.Value)
+</strong>

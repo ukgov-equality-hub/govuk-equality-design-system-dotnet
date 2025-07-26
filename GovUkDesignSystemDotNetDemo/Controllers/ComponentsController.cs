@@ -26,6 +26,9 @@ public class ComponentsController : Controller
     [HttpGet("service-navigation")]
     public IActionResult ServiceNavigation() => View();
 
+    [HttpGet("tag")]
+    public IActionResult Tag() => View();
+
     [HttpGet("examples/{exampleName}")]
     public IActionResult ExamplePage(string exampleName)
     {
