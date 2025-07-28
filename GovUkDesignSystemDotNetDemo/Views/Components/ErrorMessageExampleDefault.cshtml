@@ -1,0 +1,10 @@
+﻿@using GovUkDesignSystemDotNet
+
+@{
+    Layout = "_LayoutForExamples";
+}
+
+@await Html.GovUkErrorMessage(new ErrorMessageViewModel
+{
+    HtmlOrText = new HtmlOrText("Enter an email address")
+})

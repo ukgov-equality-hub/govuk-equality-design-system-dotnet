@@ -1,0 +1,25 @@
+@using GovUkDesignSystemDotNet.Helpers
+@model GovUkDesignSystemDotNet.ErrorMessageViewModel
+
+@{
+    // Normally, we'd use the default text if string.IsNullOrWhiteSpace(Model.VisuallyHiddenText)
+    // But, in this case, we want to allow the user to specify Model.VisuallyHiddenText = "" to show no visually hidden text
+    string visuallyHiddenText = Model.VisuallyHiddenText ?? "Error";
+}
+
+<p id="@(Model.Id)"
+   class="govuk-error-message @(string.Join(" ", Model.Classes))"
+   @(Model.Attributes.ToHtmlTagAttributes(Html))
+   >
+    @if (!string.IsNullOrWhiteSpace(visuallyHiddenText))
+    {
+        <span class="govuk-visually-hidden">
+            @(visuallyHiddenText):
+        </span>
+        @(Model.HtmlOrText?.Value)
+    }
+    else
+    {
+        @(Model.HtmlOrText?.Value)
+    }
+</p>
