@@ -5,7 +5,7 @@ namespace GovUkDesignSystemDotNet;
 
 public static class GovUkHtmlHelperExtensions
 {
-    
+
     public static async Task<IHtmlContent> GovUkBackLink(
         this IHtmlHelper htmlHelper,
         BackLinkViewModel backLinkViewModel)
@@ -39,6 +39,13 @@ public static class GovUkHtmlHelperExtensions
         HeaderViewModel headerViewModel)
     {
         return await htmlHelper.PartialAsync("/GovUkDesignSystemComponents/Views/Header.cshtml", headerViewModel);
+    }
+
+    public static async Task<IHtmlContent> GovUkHint(
+        this IHtmlHelper htmlHelper,
+        HintViewModel hintViewModel)
+    {
+        return await htmlHelper.PartialAsync("/GovUkDesignSystemComponents/Views/Hint.cshtml", hintViewModel);
     }
 
     public static async Task<IHtmlContent> GovUkLabel(
