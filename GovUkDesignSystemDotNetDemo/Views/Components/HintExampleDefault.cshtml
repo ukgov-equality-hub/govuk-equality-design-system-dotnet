@@ -1,0 +1,10 @@
+﻿@using GovUkDesignSystemDotNet
+
+@{
+    Layout = "_LayoutForExamples";
+}
+
+@await Html.GovUkHint(new HintViewModel
+{
+    HtmlOrText = new HtmlOrText("Enter your full name, as shown on your passport")
+})

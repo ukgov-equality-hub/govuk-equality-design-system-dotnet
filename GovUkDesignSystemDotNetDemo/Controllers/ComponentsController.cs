@@ -23,6 +23,9 @@ public class ComponentsController : Controller
     [HttpGet("header")]
     public IActionResult Header() => View();
 
+    [HttpGet("hint")]
+    public IActionResult Hint() => View();
+
     [HttpGet("label")]
     public IActionResult Label() => View();
 
