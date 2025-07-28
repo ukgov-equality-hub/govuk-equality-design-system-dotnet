@@ -115,6 +115,16 @@
         }
     })
 
+    @await Html.GovUkPhaseBanner(new PhaseBannerViewModel
+    {
+        Tag = new TagViewModel
+        {
+            HtmlOrText = new HtmlOrText("Beta")
+        },
+        HtmlOrText = new HtmlOrText("This is a new service."),
+        Classes = ["govuk-width-container"]
+    })
+    
     <div class="govuk-width-container">
         @(RenderSection("BeforeMain", false))
         
