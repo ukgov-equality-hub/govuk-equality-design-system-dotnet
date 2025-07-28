@@ -1,0 +1,9 @@
+@using GovUkDesignSystemDotNet.Helpers
+@model GovUkDesignSystemDotNet.HintViewModel
+
+<div id="@(Model.Id)"
+     class="govuk-hint @(string.Join(" ", Model.Classes))"
+     @(Model.Attributes.ToHtmlTagAttributes(Html))
+     >
+    @(Model.HtmlOrText?.Value)
+</div>
