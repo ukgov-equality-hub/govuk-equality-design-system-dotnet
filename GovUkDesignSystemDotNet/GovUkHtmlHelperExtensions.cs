@@ -41,6 +41,13 @@ public static class GovUkHtmlHelperExtensions
         return await htmlHelper.PartialAsync("/GovUkDesignSystemComponents/Views/Header.cshtml", headerViewModel);
     }
 
+    public static async Task<IHtmlContent> GovUkLabel(
+        this IHtmlHelper htmlHelper,
+        LabelViewModel labelViewModel)
+    {
+        return await htmlHelper.PartialAsync("/GovUkDesignSystemComponents/Views/Label.cshtml", labelViewModel);
+    }
+
     public static async Task<IHtmlContent> GovUkPhaseBanner(
         this IHtmlHelper htmlHelper,
         PhaseBannerViewModel phaseBannerViewModel)

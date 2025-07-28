@@ -1,0 +1,13 @@
+﻿@using GovUkDesignSystemDotNet
+
+@{
+    Layout = "_LayoutForExamples";
+}
+
+@await Html.GovUkLabel(new LabelViewModel
+{
+    HtmlOrText = new HtmlOrText("Email address"),
+    For = "name-of-email-address-input-element",
+    IsPageHeading = true,
+    Classes = ["govuk-label--l"]
+})

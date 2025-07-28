@@ -1,0 +1,25 @@
+@using GovUkDesignSystemDotNet.Helpers
+@model GovUkDesignSystemDotNet.LabelViewModel
+
+@if (Model.HtmlOrText != null)
+{
+    Func<object, object> labelHtmlFunc = @<text>
+                             <label class="govuk-label @(string.Join(" ", Model.Classes))"
+                                    @(Model.Attributes.ToHtmlTagAttributes(Html))
+                                    for="@(Model.For)">
+                                 @(Model.HtmlOrText.Value)
+                             </label>
+                         </text>;
+    object labelHtml = labelHtmlFunc(new object());
+
+    @if (Model.IsPageHeading)
+    {
+        <h1 class="govuk-label-wrapper">
+            @(labelHtml)
+        </h1>
+    }
+    else
+    {
+        @(labelHtml)
+    }
+}
