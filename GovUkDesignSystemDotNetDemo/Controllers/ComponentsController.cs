@@ -23,6 +23,9 @@ public class ComponentsController : Controller
     [HttpGet("header")]
     public IActionResult Header() => View();
 
+    [HttpGet("label")]
+    public IActionResult Label() => View();
+
     [HttpGet("phase-banner")]
     public IActionResult PhaseBanner() => View();
 

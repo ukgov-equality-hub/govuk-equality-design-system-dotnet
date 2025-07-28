@@ -1,0 +1,164 @@
+﻿@using GovUkDesignSystemDotNet
+@using GovUkDesignSystemDotNetDemo.Models
+
+@{
+    ViewBag.Title = "Label";
+}
+
+@section BeforeMain
+{
+    @await Html.GovUkBreadcrumbs(new BreadcrumbsViewModel
+        {
+            Crumbs = new List<CrumbViewModel>
+            {
+                new CrumbViewModel
+                {
+                    HtmlOrText = new HtmlOrText("Home"),
+                    Href = Url.Action("Index", "Home")
+                },
+                new CrumbViewModel
+                {
+                    HtmlOrText = new HtmlOrText("Components"),
+                    Href = Url.Action("Index", "Components")
+                },
+                new CrumbViewModel
+                {
+                    HtmlOrText = new HtmlOrText("Label"),
+                },
+            }
+        })
+}
+
+<h1 class="govuk-heading-xl">
+    Label
+</h1>
+
+<div class="govuk-inset-text">
+    <b>Note:</b>
+    you normally wouldn't use the Label component on its own,
+    it's typically used as part of a bigger component, like a text input 
+</div>
+
+<p class="govuk-body govuk-!-margin-bottom-6">
+    Read more about the
+    <a href="https://design-system.service.gov.uk/get-started/labels-legends-headings/"
+       class="govuk-link">
+        <b>label</b>
+        component on the Gov.UK Design System website
+    </a>
+</p>
+
+@(await Html.PartialAsync("../Shared/Example", new ExampleViewModel
+{
+    ExampleName = "LabelExampleDefault",
+    Code = @"
+        @using GovUkDesignSystemDotNet
+
+        @await Html.GovUkLabel(new LabelViewModel
+        {
+            HtmlOrText = new HtmlOrText(""Email address""),
+            For = ""name-of-email-address-input-element""
+        })
+    "
+}))
+
+<h2 class="govuk-heading-l">
+    Options
+</h2>
+
+<table class="govuk-table govuk-!-margin-bottom-8"
+       id="options-for-LabelViewModel">
+    <caption class="govuk-table__caption govuk-table__caption--m">
+        Options for <code>LabelViewModel</code>
+    </caption>
+    <thead class="govuk-table__head">
+        <tr class="govuk-table__row">
+            <th scope="col" class="govuk-table__header">Name</th>
+            <th scope="col" class="govuk-table__header">Type</th>
+            <th scope="col" class="govuk-table__header">Description</th>
+        </tr>
+    </thead>
+    <tbody class="govuk-table__body">
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                HtmlOrText
+            </th>
+            <td class="govuk-table__cell">
+                HtmlOrText
+            </td>
+            <td class="govuk-table__cell">
+                <b>Required.</b>
+                HTML or text to use within the label.
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                For
+            </th>
+            <td class="govuk-table__cell">
+                string
+            </td>
+            <td class="govuk-table__cell">
+                The value of the <code>for</code> attribute,
+                the ID of the input the label is associated with.
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                IsPageHeading
+            </th>
+            <td class="govuk-table__cell">
+                bool
+            </td>
+            <td class="govuk-table__cell">
+                Whether the label also acts as the heading for the page.
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                Classes
+            </th>
+            <td class="govuk-table__cell">
+                List&lt;string&gt;
+            </td>
+            <td class="govuk-table__cell">
+                Classes to add to the label tag.
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                Attributes
+            </th>
+            <td class="govuk-table__cell">
+                Dictionary&lt;string, string&gt;
+            </td>
+            <td class="govuk-table__cell">
+                HTML attributes (for example data attributes) to add to the label tag.
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<h2 class="govuk-heading-l">
+    Examples
+</h2>
+
+<h3 class="govuk-heading-m">
+    Using <code>IsPageHeading</code>
+</h3>
+
+@(await Html.PartialAsync("../Shared/Example", new ExampleViewModel
+{
+    ExampleName = "LabelExampleIsPageHeading",
+    Code = @"
+            @using GovUkDesignSystemDotNet
+
+            @await Html.GovUkLabel(new LabelViewModel
+            {
+                HtmlOrText = new HtmlOrText(""Email address""),
+                For = ""name-of-email-address-input-element"",
+                IsPageHeading = true,
+                Classes = [""govuk-label--l""]
+            })
+    "
+}))
