@@ -1,0 +1,600 @@
+﻿@using GovUkDesignSystemDotNet
+@using GovUkDesignSystemDotNetDemo.Models
+
+@{
+    ViewBag.Title = "Text input";
+}
+
+@section BeforeMain
+{
+    @await Html.GovUkBreadcrumbs(new BreadcrumbsViewModel
+        {
+            Crumbs = new List<CrumbViewModel>
+            {
+                new CrumbViewModel
+                {
+                    HtmlOrText = new HtmlOrText("Home"),
+                    Href = Url.Action("Index", "Home")
+                },
+                new CrumbViewModel
+                {
+                    HtmlOrText = new HtmlOrText("Components"),
+                    Href = Url.Action("Index", "Components")
+                },
+                new CrumbViewModel
+                {
+                    HtmlOrText = new HtmlOrText("Text input"),
+                },
+            }
+        })
+}
+
+<h1 class="govuk-heading-xl">
+    Text input
+</h1>
+
+<p class="govuk-body govuk-!-margin-bottom-6">
+    Read more about the
+    <a href="https://design-system.service.gov.uk/components/text-input/"
+       class="govuk-link">
+        <b>text input</b>
+        component on the Gov.UK Design System website
+    </a>
+</p>
+
+@(await Html.PartialAsync("../Shared/Example", new ExampleViewModel
+{
+    ExampleName = "TextInputExampleDefault",
+    Code = @"
+        @using GovUkDesignSystemDotNet
+
+        @await Html.GovUkTextInput(new TextInputViewModel
+        {
+            Name = ""event-name"",
+            Label = new LabelViewModel
+            {
+                HtmlOrText = new HtmlOrText(""What is the name of the event?""),
+                IsPageHeading = true,
+                Classes = [""govuk-label--l""]
+            }
+        })
+    "
+}))
+
+<h2 class="govuk-heading-l">
+    Options
+</h2>
+
+<table class="govuk-table govuk-!-margin-bottom-8"
+       id="options-for-TextInputViewModel">
+    <caption class="govuk-table__caption govuk-table__caption--m">
+        Options for <code>TextInputViewModel</code>
+    </caption>
+    <thead class="govuk-table__head">
+        <tr class="govuk-table__row">
+            <th scope="col" class="govuk-table__header">Name</th>
+            <th scope="col" class="govuk-table__header">Type</th>
+            <th scope="col" class="govuk-table__header">Description</th>
+        </tr>
+    </thead>
+    <tbody class="govuk-table__body">
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                Id
+            </th>
+            <td class="govuk-table__cell">
+                string
+            </td>
+            <td class="govuk-table__cell">
+                The ID of the input. Defaults to the value of <code>Name</code>.
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                Name
+            </th>
+            <td class="govuk-table__cell">
+                string
+            </td>
+            <td class="govuk-table__cell">
+                <b>Required.</b>
+                The name of the input, which is submitted with the form data.
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                Type
+            </th>
+            <td class="govuk-table__cell">
+                string
+            </td>
+            <td class="govuk-table__cell">
+                Type of input control to render, for example, a password input control.
+                Defaults to <code>"text"</code>.
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                InputMode
+            </th>
+            <td class="govuk-table__cell">
+                string
+            </td>
+            <td class="govuk-table__cell">
+                Optional value for
+                <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/inputmode"
+                   class="govuk-link">
+                    the inputmode attribute</a>.
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                Value
+            </th>
+            <td class="govuk-table__cell">
+                string
+            </td>
+            <td class="govuk-table__cell">
+                Optional initial value of the input.
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                Disabled
+            </th>
+            <td class="govuk-table__cell">
+                bool
+            </td>
+            <td class="govuk-table__cell">
+                If <code>true</code>, input will be disabled.
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                DescribedBy
+            </th>
+            <td class="govuk-table__cell">
+                List&lt;string&gt;
+            </td>
+            <td class="govuk-table__cell">
+                One or more element IDs to add to the <code>aria-describedby</code> attribute,
+                used to provide additional descriptive information for screenreader users.
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                Label
+            </th>
+            <td class="govuk-table__cell">
+                LabelViewModel
+            </td>
+            <td class="govuk-table__cell">
+                <b>Required.</b>
+                The label used by the text input component.
+                <a href="@(Url.Action("Label", "Components"))#options-for-LabelViewModel"
+                   class="govuk-link">
+                    See options for LabelViewModel
+                </a>
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                Hint
+            </th>
+            <td class="govuk-table__cell">
+                HintViewModel
+            </td>
+            <td class="govuk-table__cell">
+                Can be used to add a hint to a text input component.
+                <a href="@(Url.Action("Hint", "Components"))#options-for-HintViewModel"
+                   class="govuk-link">
+                    See options for HintViewModel
+                </a>
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                ErrorMessage
+            </th>
+            <td class="govuk-table__cell">
+                ErrorMessageViewModel
+            </td>
+            <td class="govuk-table__cell">
+                Can be used to add an error message to the text input component.
+                The error message component will not display if <code>ErrorMessage</code> is <code>null</code>.
+                <a href="@(Url.Action("ErrorMessage", "Components"))#options-for-ErrorMessageViewModel"
+                   class="govuk-link">
+                    See options for ErrorMessageViewModel
+                </a>
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                Prefix
+            </th>
+            <td class="govuk-table__cell">
+                TextInputPrefixSuffixViewModel
+            </td>
+            <td class="govuk-table__cell">
+                Can be used to add a prefix to the text input component.
+                <a href="#options-for-TextInputPrefixSuffixViewModel"
+                   class="govuk-link">
+                    See options for TextInputPrefixSuffixViewModel
+                </a>
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                Suffix
+            </th>
+            <td class="govuk-table__cell">
+                TextInputPrefixSuffixViewModel
+            </td>
+            <td class="govuk-table__cell">
+                Can be used to add a suffix to the text input component.
+                <a href="#options-for-TextInputPrefixSuffixViewModel"
+                   class="govuk-link">
+                    See options for TextInputPrefixSuffixViewModel
+                </a>
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                FormGroup
+            </th>
+            <td class="govuk-table__cell">
+                FormGroupViewModel
+            </td>
+            <td class="govuk-table__cell">
+                Additional options for the form group containing the text input component.
+                <a href="#options-for-FormGroupViewModel"
+                   class="govuk-link">
+                    See options for FormGroupViewModel
+                </a>
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                Classes
+            </th>
+            <td class="govuk-table__cell">
+                List&lt;string&gt;
+            </td>
+            <td class="govuk-table__cell">
+                Classes to add to the input.
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                Autocomplete
+            </th>
+            <td class="govuk-table__cell">
+                string
+            </td>
+            <td class="govuk-table__cell">
+                Attribute to meet
+                <a href="https://www.w3.org/WAI/WCAG22/Understanding/identify-input-purpose.html"
+                   class="govuk-link">
+                    WCAG success criterion 1.3.5: Identify input purpose</a>,
+                for instance <code>"bday-day"</code>.
+                See the
+                <a href="https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#autofill"
+                   class="govuk-link">
+                    Autofill section in the HTML standard</a>
+                 section in the HTML standard for full list of attributes that can be used.
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                Pattern
+            </th>
+            <td class="govuk-table__cell">
+                string
+            </td>
+            <td class="govuk-table__cell">
+                Attribute to
+                <a href="https://html.spec.whatwg.org/multipage/input.html#the-pattern-attribute"
+                   class="govuk-link">
+                    provide a regular expression pattern</a>,
+                used to match allowed character combinations for the input value.
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                Spellcheck
+            </th>
+            <td class="govuk-table__cell">
+                bool?
+            </td>
+            <td class="govuk-table__cell">
+                Optional field to enable or disable the <code>spellcheck</code> attribute on the input.
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                Autocapitalize
+            </th>
+            <td class="govuk-table__cell">
+                string
+            </td>
+            <td class="govuk-table__cell">
+                Optional field to enable or disable autocapitalisation of user input.
+                <a href="https://html.spec.whatwg.org/multipage/interaction.html#autocapitalization"
+                   class="govuk-link">
+                    See the Autocapitalization section in the HTML spec</a>
+                for a full list of values that can be used.
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                InputWrapper
+            </th>
+            <td class="govuk-table__cell">
+                TextInputWrapperViewModel
+            </td>
+            <td class="govuk-table__cell">
+                If any of <code>Prefix</code>, <code>Suffix</code>, <code>FormGroup.BeforeInput</code> or <code>FormGroup.AfterInput</code>
+                have a value, a wrapping element is added around the input and inserted content.
+                This object allows you to customise that wrapping element.
+                <a href="#options-for-TextInputWrapperViewModel"
+                   class="govuk-link">
+                    See options for TextInputWrapperViewModel
+                </a>
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                Attributes
+            </th>
+            <td class="govuk-table__cell">
+                Dictionary&lt;string, string&gt;
+            </td>
+            <td class="govuk-table__cell">
+                HTML attributes (for example, data attributes) to add to the input.
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<table class="govuk-table govuk-!-margin-bottom-8"
+       id="options-for-TextInputPrefixSuffixViewModel">
+    <caption class="govuk-table__caption govuk-table__caption--m">
+        Options for <code>TextInputPrefixSuffixViewModel</code>
+    </caption>
+    <thead class="govuk-table__head">
+        <tr class="govuk-table__row">
+            <th scope="col" class="govuk-table__header">Name</th>
+            <th scope="col" class="govuk-table__header">Type</th>
+            <th scope="col" class="govuk-table__header">Description</th>
+        </tr>
+    </thead>
+    <tbody class="govuk-table__body">
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                HtmlOrText
+            </th>
+            <td class="govuk-table__cell">
+                HtmlOrText
+            </td>
+            <td class="govuk-table__cell">
+                <b>Required.</b>
+                HTML or text to use within the prefix/suffix.
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                Classes
+            </th>
+            <td class="govuk-table__cell">
+                List&lt;string&gt;
+            </td>
+            <td class="govuk-table__cell">
+                Classes to add to the prefix/suffix.
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                Attributes
+            </th>
+            <td class="govuk-table__cell">
+                Dictionary&lt;string, string&gt;
+            </td>
+            <td class="govuk-table__cell">
+                HTML attributes (for example, data attributes) to add to the prefix/suffix element.
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<table class="govuk-table govuk-!-margin-bottom-8"
+       id="options-for-FormGroupViewModel">
+    <caption class="govuk-table__caption govuk-table__caption--m">
+        Options for <code>FormGroupViewModel</code>
+    </caption>
+    <thead class="govuk-table__head">
+        <tr class="govuk-table__row">
+            <th scope="col" class="govuk-table__header">Name</th>
+            <th scope="col" class="govuk-table__header">Type</th>
+            <th scope="col" class="govuk-table__header">Description</th>
+        </tr>
+    </thead>
+    <tbody class="govuk-table__body">
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                Classes
+            </th>
+            <td class="govuk-table__cell">
+                List&lt;string&gt;
+            </td>
+            <td class="govuk-table__cell">
+                Classes to add to the form group (for example to show error state for the whole group).
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                Attributes
+            </th>
+            <td class="govuk-table__cell">
+                Dictionary&lt;string, string&gt;
+            </td>
+            <td class="govuk-table__cell">
+                HTML attributes (for example data attributes) to add to the form group.
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                BeforeInput
+            </th>
+            <td class="govuk-table__cell">
+                HtmlOrText
+            </td>
+            <td class="govuk-table__cell">
+                HTML or text to add before the input used by the text input component.
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                AfterInput
+            </th>
+            <td class="govuk-table__cell">
+                HtmlOrText
+            </td>
+            <td class="govuk-table__cell">
+                HTML or text to add after the input used by the text input component
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<table class="govuk-table govuk-!-margin-bottom-8"
+       id="options-for-TextInputWrapperViewModel">
+    <caption class="govuk-table__caption govuk-table__caption--m">
+        Options for <code>TextInputWrapperViewModel</code>
+    </caption>
+    <thead class="govuk-table__head">
+        <tr class="govuk-table__row">
+            <th scope="col" class="govuk-table__header">Name</th>
+            <th scope="col" class="govuk-table__header">Type</th>
+            <th scope="col" class="govuk-table__header">Description</th>
+        </tr>
+    </thead>
+    <tbody class="govuk-table__body">
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                Classes
+            </th>
+            <td class="govuk-table__cell">
+                List&lt;string&gt;
+            </td>
+            <td class="govuk-table__cell">
+                Classes to add to the wrapping element.
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                Attributes
+            </th>
+            <td class="govuk-table__cell">
+                Dictionary&lt;string, string&gt;
+            </td>
+            <td class="govuk-table__cell">
+                HTML attributes (for example, data attributes) to add to the wrapping element.
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<h2 class="govuk-heading-l">
+    Examples
+</h2>
+
+<h3 class="govuk-heading-m">
+    Using hints
+</h3>
+
+@(await Html.PartialAsync("../Shared/Example", new ExampleViewModel
+{
+    ExampleName = "TextInputExampleWithHint",
+    Code = @"
+        @using GovUkDesignSystemDotNet
+
+        @await Html.GovUkTextInput(new TextInputViewModel
+        {
+            Name = ""account-number"",
+            Classes = [""govuk-input--width-10""],
+            Label = new LabelViewModel
+            {
+                HtmlOrText = new HtmlOrText(""What is your account number?""),
+                IsPageHeading = true,
+                Classes = [""govuk-label--l""]
+            },
+            Hint = new HintViewModel
+            {
+                HtmlOrText = new HtmlOrText(""Must be between 6 and 8 digits long"")
+            }
+        })
+    "
+}))
+
+<h3 class="govuk-heading-m">
+    Prefixes and suffixes
+</h3>
+
+@(await Html.PartialAsync("../Shared/Example", new ExampleViewModel
+{
+    ExampleName = "TextInputExampleWithPrefixSuffix",
+    Code = @"
+        @using GovUkDesignSystemDotNet
+
+        @await Html.GovUkTextInput(new TextInputViewModel
+        {
+            Name = ""cost-per-item"",
+            Classes = [""govuk-input--width-5""],
+            Label = new LabelViewModel
+            {
+                HtmlOrText = new HtmlOrText(""What is the cost per item, in pounds?""),
+                IsPageHeading = true,
+                Classes = [""govuk-label--l""]
+            },
+            Prefix = new TextInputPrefixViewModel
+            {
+                HtmlOrText = new HtmlOrText(""£"")
+            },
+            Suffix = new TextInputSuffixViewModel
+            {
+                HtmlOrText = new HtmlOrText(""per item"")
+            }
+        })
+    "
+}))
+
+<h3 class="govuk-heading-m">
+    Error messages
+</h3>
+
+@(await Html.PartialAsync("../Shared/Example", new ExampleViewModel
+{
+    ExampleName = "TextInputExampleWithErrorMessage",
+    Code = @"
+        @using GovUkDesignSystemDotNet
+
+        @await Html.GovUkTextInput(new TextInputViewModel
+        {
+            Name = ""event-name"",
+            Label = new LabelViewModel
+            {
+                HtmlOrText = new HtmlOrText(""What is the name of the event?""),
+                IsPageHeading = true,
+                Classes = [""govuk-label--l""]
+            },
+            Hint = new HintViewModel
+            {
+                HtmlOrText = new HtmlOrText(""The name you’ll use on promotional material"")
+            },
+            ErrorMessage = new ErrorMessageViewModel
+            {
+                HtmlOrText = new HtmlOrText(""Enter an event name"")
+            }
+        })
+    "
+}))

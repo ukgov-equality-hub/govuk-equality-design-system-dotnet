@@ -1,0 +1,21 @@
+﻿@using GovUkDesignSystemDotNet
+
+@{
+    Layout = "_LayoutForExamples";
+}
+
+@await Html.GovUkTextInput(new TextInputViewModel
+{
+    Name = "account-number",
+    Classes = ["govuk-input--width-10"],
+    Label = new LabelViewModel
+    {
+        HtmlOrText = new HtmlOrText("What is your account number?"),
+        IsPageHeading = true,
+        Classes = ["govuk-label--l"]
+    },
+    Hint = new HintViewModel
+    {
+        HtmlOrText = new HtmlOrText("Must be between 6 and 8 digits long")
+    }
+})

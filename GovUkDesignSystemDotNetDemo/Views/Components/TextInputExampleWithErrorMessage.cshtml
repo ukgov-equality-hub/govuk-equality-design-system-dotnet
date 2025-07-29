@@ -1,0 +1,24 @@
+﻿@using GovUkDesignSystemDotNet
+
+@{
+    Layout = "_LayoutForExamples";
+}
+
+@await Html.GovUkTextInput(new TextInputViewModel
+{
+    Name = "event-name",
+    Label = new LabelViewModel
+    {
+        HtmlOrText = new HtmlOrText("What is the name of the event?"),
+        IsPageHeading = true,
+        Classes = ["govuk-label--l"]
+    },
+    Hint = new HintViewModel
+    {
+        HtmlOrText = new HtmlOrText("The name you’ll use on promotional material")
+    },
+    ErrorMessage = new ErrorMessageViewModel
+    {
+        HtmlOrText = new HtmlOrText("Enter an event name")
+    }
+})

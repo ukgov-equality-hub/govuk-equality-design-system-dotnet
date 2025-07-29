@@ -41,6 +41,9 @@ public class ComponentsController : Controller
     [HttpGet("tag")]
     public IActionResult Tag() => View();
 
+    [HttpGet("text-input")]
+    public IActionResult TextInput() => View();
+
     [HttpGet("examples/{exampleName}")]
     public IActionResult ExamplePage(string exampleName)
     {

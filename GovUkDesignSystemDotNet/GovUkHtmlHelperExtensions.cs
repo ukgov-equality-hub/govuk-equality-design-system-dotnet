@@ -83,4 +83,11 @@ public static class GovUkHtmlHelperExtensions
         return await htmlHelper.PartialAsync("/GovUkDesignSystemComponents/Views/Tag.cshtml", tagViewModel);
     }
 
+    public static async Task<IHtmlContent> GovUkTextInput(
+        this IHtmlHelper htmlHelper,
+        TextInputViewModel textInputViewModel)
+    {
+        return await htmlHelper.PartialAsync("/GovUkDesignSystemComponents/Views/TextInput.cshtml", textInputViewModel);
+    }
+
 }
