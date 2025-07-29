@@ -1,0 +1,25 @@
+﻿@using GovUkDesignSystemDotNet
+
+@{
+    Layout = "_LayoutForExamples";
+}
+
+@await Html.GovUkTextInput(new TextInputViewModel
+{
+    Name = "cost-per-item",
+    Classes = ["govuk-input--width-5"],
+    Label = new LabelViewModel
+    {
+        HtmlOrText = new HtmlOrText("What is the cost per item, in pounds?"),
+        IsPageHeading = true,
+        Classes = ["govuk-label--l"]
+    },
+    Prefix = new TextInputPrefixSuffixViewModel
+    {
+        HtmlOrText = new HtmlOrText("£")
+    },
+    Suffix = new TextInputPrefixSuffixViewModel
+    {
+        HtmlOrText = new HtmlOrText("per item")
+    }
+})
