@@ -1,0 +1,105 @@
+@using GovUkDesignSystemDotNet
+@using GovUkDesignSystemDotNet.Helpers
+@model GovUkDesignSystemDotNet.TextInputViewModel
+
+@{
+    // Set classes for this component
+    string classNames = $"govuk-input {string.Join(" ", Model.Classes)} {(Model.ErrorMessage != null ? "govuk-input--error" : "")}";
+
+    // A record of other elements that we need to associate with the input using
+    // aria-describedby – for example hints or error messages
+    List<string> describedBy = Model.DescribedBy ?? new List<string>();
+
+    Model.Id ??= Model.Name;
+
+    bool hasPrefix = Model.Prefix != null && Model.Prefix.HtmlOrText != null;
+    bool hasSuffix = Model.Suffix != null && Model.Suffix.HtmlOrText != null;
+    bool hasBeforeInput = Model.FormGroup != null && Model.FormGroup.BeforeInput != null;
+    bool hasAfterInput = Model.FormGroup != null && Model.FormGroup.AfterInput != null;
+
+    Func<object, object> inputElement =
+        @<text>
+             <input class="@(classNames)"
+                    id="@(Model.Id)"
+                    name="@(Model.Name)"
+                    type="@(Model.Type ?? "text")"
+                    spellcheck="@(Model.Spellcheck.HasValue ? Model.Spellcheck.Value : null)"
+                    value="@(Model.Value)"
+                    disabled="@(Model.Disabled)"
+                    aria-describedby="@(string.Join(" ", describedBy))"
+                    autocomplete="@(Model.Autocomplete)"
+                    autocapitalize="@(Model.Autocapitalize)"
+                    pattern="@(Model.Pattern)"
+                    inputmode="@(Model.InputMode)"
+                    @(Model.Attributes.ToHtmlTagAttributes(Html))>
+         </text>;
+}
+
+<div class="govuk-form-group @(Model.ErrorMessage != null ? "govuk-form-group--error" : "") @string.Join(" ", Model.FormGroup?.Classes ?? [])"
+     @(Model.FormGroup?.Attributes.ToHtmlTagAttributes(Html))
+     >
+
+    @{
+        Model.Label.For ??= Model.Id;
+    }
+    @await Html.GovUkLabel(Model.Label)
+    
+    @if (Model.Hint != null)
+    {
+        Model.Hint.Id ??= $"{Model.Id}-hint";
+        if (!describedBy.Contains(Model.Hint.Id))
+        {
+            describedBy.Add(Model.Hint.Id);
+        }
+        @await Html.GovUkHint(Model.Hint)
+    }
+
+    @if (Model.ErrorMessage != null)
+    {
+        Model.ErrorMessage.Id ??= $"{Model.Id}-error";
+        if (!describedBy.Contains(Model.ErrorMessage.Id))
+        {
+            describedBy.Add(Model.ErrorMessage.Id);
+        }
+        @await Html.GovUkErrorMessage(Model.ErrorMessage)
+    }
+    
+    @if (hasPrefix || hasSuffix || hasBeforeInput || hasAfterInput)
+    {
+        <div class="govuk-input__wrapper @(string.Join(" ", Model.InputWrapper?.Classes ?? []))"
+             @(Model.InputWrapper?.Attributes.ToHtmlTagAttributes(Html))
+             >
+            @if (hasBeforeInput)
+            {
+                @(Model.FormGroup.BeforeInput.Value)
+            }
+            @if (hasPrefix)
+            {
+                <div class="govuk-input__prefix @(string.Join(" ", Model.Prefix.Classes))"
+                     aria-hidden="true"
+                     @(Model.Prefix.Attributes.ToHtmlTagAttributes(Html))
+                     >
+                     @(Model.Prefix.HtmlOrText.Value)
+                </div>
+            }
+            @(inputElement(new object()))
+            @if (hasSuffix)
+            {
+                <div class="govuk-input__suffix @(string.Join(" ", Model.Suffix.Classes))"
+                     aria-hidden="true"
+                     @(Model.Suffix.Attributes.ToHtmlTagAttributes(Html))
+                     >
+                     @(Model.Suffix.HtmlOrText.Value)
+                </div>
+            }
+            @if (hasAfterInput)
+            {
+                @(Model.FormGroup.AfterInput.Value)
+            }
+        </div>
+    }
+    else
+    {
+        @(inputElement(new object()))
+    }
+</div>
