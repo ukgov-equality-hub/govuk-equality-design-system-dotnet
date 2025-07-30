@@ -1,0 +1,61 @@
+@using GovUkDesignSystemDotNet
+@using GovUkDesignSystemDotNet.Helpers
+@model GovUkDesignSystemDotNet.TextareaViewModel
+
+@{
+    // A record of other elements that we need to associate with the input using
+    // aria-describedby – for example hints or error messages
+    List<string> describedBy = Model.DescribedBy ?? new List<string>();
+
+    Model.Id ??= Model.Name;
+}
+
+<div class="govuk-form-group @(Model.ErrorMessage != null ? "govuk-form-group--error" : "") @string.Join(" ", Model.FormGroup?.Classes ?? [])"
+     @(Model.FormGroup?.Attributes.ToHtmlTagAttributes(Html))
+    >
+    @{
+        Model.Label.For ??= Model.Id;
+    }
+    @await Html.GovUkLabel(Model.Label)
+    
+    @if (Model.Hint != null)
+    {
+        Model.Hint.Id ??= $"{Model.Id}-hint";
+        if (!describedBy.Contains(Model.Hint.Id))
+        {
+            describedBy.Add(Model.Hint.Id);
+        }
+        @await Html.GovUkHint(Model.Hint)
+    }
+
+    @if (Model.ErrorMessage != null)
+    {
+        Model.ErrorMessage.Id ??= $"{Model.Id}-error";
+        if (!describedBy.Contains(Model.ErrorMessage.Id))
+        {
+            describedBy.Add(Model.ErrorMessage.Id);
+        }
+        @await Html.GovUkErrorMessage(Model.ErrorMessage)
+    }
+    
+    @if (Model.FormGroup?.BeforeInput != null)
+    {
+        @(Model.FormGroup.BeforeInput.Value)
+    }
+    
+    <textarea class="govuk-textarea @(Model.ErrorMessage != null ? "govuk-textarea--error" : "") @(string.Join(" ", Model.Classes))"
+              id="@(Model.Id)"
+              name="@(Model.Name)"
+              rows="@(Model.Rows ?? 5)"
+              spellcheck="@(Model.Spellcheck.HasValue ? Model.Spellcheck.Value : null)"
+              disabled="@(Model.Disabled)"
+              aria-describedby="@(string.Join(" ", describedBy))"
+              autocomplete="@(Model.Autocomplete)"
+              @(Model.Attributes.ToHtmlTagAttributes(Html))
+              >@(Model.Value)</textarea>
+    
+    @if (Model.FormGroup?.AfterInput != null)
+    {
+        @(Model.FormGroup.AfterInput.Value)
+    }
+</div>

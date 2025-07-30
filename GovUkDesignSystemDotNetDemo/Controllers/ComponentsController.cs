@@ -41,6 +41,9 @@ public class ComponentsController : Controller
     [HttpGet("tag")]
     public IActionResult Tag() => View();
 
+    [HttpGet("textarea")]
+    public IActionResult Textarea() => View();
+
     [HttpGet("text-input")]
     public IActionResult TextInput() => View();
 
