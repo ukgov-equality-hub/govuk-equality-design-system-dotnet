@@ -27,6 +27,13 @@ public static class GovUkHtmlHelperExtensions
         return await htmlHelper.PartialAsync("/GovUkDesignSystemComponents/Views/Button.cshtml", buttonViewModel);
     }
 
+    public static async Task<IHtmlContent> GovUkCheckboxItem(
+        this IHtmlHelper htmlHelper,
+        CheckboxItemViewModel checkboxItemViewModel)
+    {
+        return await htmlHelper.PartialAsync("/GovUkDesignSystemComponents/Views/CheckboxItem.cshtml", checkboxItemViewModel);
+    }
+
     public static async Task<IHtmlContent> GovUkErrorMessage(
         this IHtmlHelper htmlHelper,
         ErrorMessageViewModel errorMessageViewModel)

@@ -17,6 +17,9 @@ public class ComponentsController : Controller
     [HttpGet("button")]
     public IActionResult Button() => View();
 
+    [HttpGet("checkbox-item")]
+    public IActionResult CheckboxItem() => View();
+
     [HttpGet("error-message")]
     public IActionResult ErrorMessage() => View();
 
