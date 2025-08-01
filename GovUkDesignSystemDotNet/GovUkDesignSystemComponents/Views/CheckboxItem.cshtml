@@ -1,0 +1,63 @@
+@using GovUkDesignSystemDotNet
+@using GovUkDesignSystemDotNet.Helpers
+@model GovUkDesignSystemDotNet.CheckboxItemViewModel
+
+@{
+    Model.Id ??= $"{Model.Name}-{Model.Value}";
+    
+    string conditionalId = "conditional-" + Model.Id;
+
+    if (Model.Hint != null)
+    {
+        Model.Hint.Id ??= $"{Model.Id}-item-hint";
+        if (!Model.DescribedBy.Contains(Model.Hint.Id))
+        {
+            Model.DescribedBy.Add(Model.Hint.Id);
+        }
+    }
+}
+
+@if (!string.IsNullOrWhiteSpace(Model.Divider))
+{
+    <div class="govuk-checkboxes__divider">
+        @(Model.Divider)
+    </div>
+}
+else
+{
+    <div class="govuk-checkboxes__item">
+        <input class="govuk-checkboxes__input"
+               id="@(Model.Id)"
+               name="@(Model.Name)"
+               type="checkbox"
+               value="@(Model.Value)"
+               checked="@(Model.Checked)"
+               disabled="@(Model.Disabled)"
+               data-aria-controls="@(Model.Conditional != null ? conditionalId : null)"
+               data-behaviour="@(Model.Exclusive ? "exclusive" : null)"
+               aria-describedby="@(string.Join(" ", Model.DescribedBy))"
+               @(Model.Attributes.ToHtmlTagAttributes(Html))
+        >
+
+        @{
+            Model.Label.For ??= Model.Id;
+            Model.Label.Classes.Add("govuk-checkboxes__label");
+            Model.Label.IsPageHeading = false;
+        }
+        @await Html.GovUkLabel(Model.Label)
+        
+        @if (Model.Hint != null)
+        {
+            Model.Hint.Classes.Add("govuk-checkboxes__hint");
+            @await Html.GovUkHint(Model.Hint)
+        }
+    </div>
+    
+    @if (Model.Conditional != null)
+    {
+        <div class="govuk-checkboxes__conditional @(!Model.Checked ? "govuk-checkboxes__conditional--hidden" : "")"
+             id="@(conditionalId)">
+            @(Model.Conditional.Value)
+        </div>
+    }
+}

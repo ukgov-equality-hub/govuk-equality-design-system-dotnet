@@ -1,0 +1,32 @@
+﻿@using GovUkDesignSystemDotNet
+
+@{
+    Layout = "_LayoutForExamples";
+}
+
+<div class="govuk-checkboxes" data-module="govuk-checkboxes">
+    @await Html.GovUkCheckboxItem(new CheckboxItemViewModel
+    {
+        Name = "mailing-list",
+        Value = "sign-up",
+        Label = new LabelViewModel
+        {
+            HtmlOrText = new HtmlOrText("Receive our monthly email newsletter")
+        },
+        Hint = new HintViewModel
+        {
+            HtmlOrText = new HtmlOrText("We won't use your email address for any other purposes")
+        },
+        Conditional = new HtmlOrText(
+            @<text>
+                 @await Html.GovUkTextInput(new TextInputViewModel
+                 {
+                     Name = "email-address",
+                     Label = new LabelViewModel
+                     {
+                         HtmlOrText = new HtmlOrText("Email address")
+                     }
+                 })
+             </text>)
+    })
+</div>

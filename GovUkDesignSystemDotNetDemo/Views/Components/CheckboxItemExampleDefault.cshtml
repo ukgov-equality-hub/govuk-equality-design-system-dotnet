@@ -1,0 +1,15 @@
+﻿@using GovUkDesignSystemDotNet
+
+@{
+    Layout = "_LayoutForExamples";
+}
+
+@await Html.GovUkCheckboxItem(new CheckboxItemViewModel
+{
+    Name = "declaration",
+    Value = "confirmed",
+    Label = new LabelViewModel
+    {
+        HtmlOrText = new HtmlOrText("I declare the information provided above is correct")
+    }
+})
