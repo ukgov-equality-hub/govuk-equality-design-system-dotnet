@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Html;
+﻿using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace GovUkDesignSystemDotNet;
@@ -32,6 +32,13 @@ public static class GovUkHtmlHelperExtensions
         CheckboxItemViewModel checkboxItemViewModel)
     {
         return await htmlHelper.PartialAsync("/GovUkDesignSystemComponents/Views/CheckboxItem.cshtml", checkboxItemViewModel);
+    }
+
+    public static async Task<IHtmlContent> GovUkCheckboxes(
+        this IHtmlHelper htmlHelper,
+        CheckboxesViewModel checkboxesViewModel)
+    {
+        return await htmlHelper.PartialAsync("/GovUkDesignSystemComponents/Views/Checkboxes.cshtml", checkboxesViewModel);
     }
 
     public static async Task<IHtmlContent> GovUkErrorMessage(
