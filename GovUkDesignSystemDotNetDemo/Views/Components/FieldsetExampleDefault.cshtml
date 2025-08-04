@@ -1,0 +1,42 @@
+﻿@using GovUkDesignSystemDotNet
+
+@{
+    Layout = "_LayoutForExamples";
+}
+
+@await Html.GovUkFieldset(new FieldsetViewModel
+{
+    Legend = new FieldsetLegendViewModel
+    {
+        HtmlOrText = new HtmlOrText("What is your address?"),
+        Classes = ["govuk-fieldset__legend--l"],
+        IsPageHeading = true
+    },
+    HtmlOrText = new HtmlOrText(
+        @<text>
+             @await Html.GovUkTextInput(new TextInputViewModel
+                 {
+                     Name = "address-line-1",
+                     Label = new LabelViewModel
+                     {
+                         HtmlOrText = new HtmlOrText("Address line 1")
+                     }
+                 })
+             @await Html.GovUkTextInput(new TextInputViewModel
+                 {
+                     Name = "town-city",
+                     Label = new LabelViewModel
+                     {
+                         HtmlOrText = new HtmlOrText("Town or city")
+                     }
+                 })
+             @await Html.GovUkTextInput(new TextInputViewModel
+                 {
+                     Name = "postcode",
+                     Label = new LabelViewModel
+                     {
+                         HtmlOrText = new HtmlOrText("Postcode")
+                     }
+                 })
+         </text>)
+})
