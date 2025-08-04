@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Html;
+using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace GovUkDesignSystemDotNet;
@@ -39,6 +39,13 @@ public static class GovUkHtmlHelperExtensions
         ErrorMessageViewModel errorMessageViewModel)
     {
         return await htmlHelper.PartialAsync("/GovUkDesignSystemComponents/Views/ErrorMessage.cshtml", errorMessageViewModel);
+    }
+
+    public static async Task<IHtmlContent> GovUkFieldset(
+        this IHtmlHelper htmlHelper,
+        FieldsetViewModel fieldsetViewModel)
+    {
+        return await htmlHelper.PartialAsync("/GovUkDesignSystemComponents/Views/Fieldset.cshtml", fieldsetViewModel);
     }
 
     public static async Task<IHtmlContent> GovUkFooter(

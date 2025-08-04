@@ -1,0 +1,26 @@
+@using GovUkDesignSystemDotNet.Helpers
+@model GovUkDesignSystemDotNet.FieldsetViewModel
+
+<fieldset class="govuk-fieldset @(string.Join(" ", Model.Classes))"
+          role="@(Model.Role)"
+          aria-describedby="@(string.Join(" ", Model.DescribedBy))"
+          @(Model.Attributes.ToHtmlTagAttributes(Html))
+          >
+    @if (Model.Legend?.HtmlOrText != null)
+    {
+        <legend class="govuk-fieldset__legend @(string.Join(" ", Model.Legend.Classes))">
+            @if (Model.Legend.IsPageHeading)
+            {
+                <h1 class="govuk-fieldset__heading">
+                    @(Model.Legend.HtmlOrText.Value)
+                </h1>
+            }
+            else
+            {
+                @(Model.Legend.HtmlOrText.Value)
+            }
+        </legend>
+    }
+    
+    @(Model.HtmlOrText.Value)
+</fieldset>

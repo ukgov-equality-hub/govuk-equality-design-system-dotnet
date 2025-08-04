@@ -1,0 +1,229 @@
+﻿@using GovUkDesignSystemDotNet
+@using GovUkDesignSystemDotNetDemo.Models
+
+@{
+    ViewBag.Title = "Fieldset";
+}
+
+@section BeforeMain
+{
+    @await Html.GovUkBreadcrumbs(new BreadcrumbsViewModel
+        {
+            Crumbs = new List<CrumbViewModel>
+            {
+                new CrumbViewModel
+                {
+                    HtmlOrText = new HtmlOrText("Home"),
+                    Href = Url.Action("Index", "Home")
+                },
+                new CrumbViewModel
+                {
+                    HtmlOrText = new HtmlOrText("Components"),
+                    Href = Url.Action("Index", "Components")
+                },
+                new CrumbViewModel
+                {
+                    HtmlOrText = new HtmlOrText("Fieldset"),
+                },
+            }
+        })
+}
+
+<h1 class="govuk-heading-xl">
+    Fieldset
+</h1>
+
+<p class="govuk-body govuk-!-margin-bottom-6">
+    Read more about the
+    <a href="https://design-system.service.gov.uk/components/fieldset/"
+       class="govuk-link">
+        <b>fieldset</b>
+        component on the Gov.UK Design System website
+    </a>
+</p>
+
+@(await Html.PartialAsync("../Shared/Example", new ExampleViewModel
+{
+    ExampleName = "FieldsetExampleDefault",
+    Code = @"
+        @using GovUkDesignSystemDotNet
+
+        @await Html.GovUkFieldset(new FieldsetViewModel
+        {
+            Legend = new FieldsetLegendViewModel
+            {
+                HtmlOrText = new HtmlOrText(""What is your address?""),
+                Classes = [""govuk-fieldset__legend--l""],
+                IsPageHeading = true
+            },
+            HtmlOrText = new HtmlOrText(
+                @<text>
+                     @await Html.GovUkTextInput(new TextInputViewModel
+                         {
+                             Name = ""address-line-1"",
+                             Label = new LabelViewModel
+                             {
+                                 HtmlOrText = new HtmlOrText(""Address line 1"")
+                             }
+                         })
+                     @await Html.GovUkTextInput(new TextInputViewModel
+                         {
+                             Name = ""town-city"",
+                             Label = new LabelViewModel
+                             {
+                                 HtmlOrText = new HtmlOrText(""Town or city"")
+                             }
+                         })
+                     @await Html.GovUkTextInput(new TextInputViewModel
+                         {
+                             Name = ""postcode"",
+                             Label = new LabelViewModel
+                             {
+                                 HtmlOrText = new HtmlOrText(""Postcode"")
+                             }
+                         })
+                 </text>)
+        })
+    "
+}))
+
+<h2 class="govuk-heading-l">
+    Options
+</h2>
+
+<table class="govuk-table govuk-!-margin-bottom-8"
+       id="options-for-FieldsetViewModel">
+    <caption class="govuk-table__caption govuk-table__caption--m">
+        Options for <code>FieldsetViewModel</code>
+    </caption>
+    <thead class="govuk-table__head">
+        <tr class="govuk-table__row">
+            <th scope="col" class="govuk-table__header">Name</th>
+            <th scope="col" class="govuk-table__header">Type</th>
+            <th scope="col" class="govuk-table__header">Description</th>
+        </tr>
+    </thead>
+    <tbody class="govuk-table__body">
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                DescribedBy
+            </th>
+            <td class="govuk-table__cell">
+                List&lt;string&gt;
+            </td>
+            <td class="govuk-table__cell">
+                One or more element IDs to add to the input <code>aria-describedby</code> attribute,
+                used to provide additional descriptive information for screenreader users.
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                Legend
+            </th>
+            <td class="govuk-table__cell">
+                FieldsetLegendViewModel
+            </td>
+            <td class="govuk-table__cell">
+                The legend for the fieldset component.
+                <a href="#options-for-FieldsetLegendViewModel"
+                   class="govuk-link">
+                    See options for FieldsetLegendViewModel
+                </a>
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                Classes
+            </th>
+            <td class="govuk-table__cell">
+                List&lt;string&gt;
+            </td>
+            <td class="govuk-table__cell">
+                Classes to add to the fieldset container.
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                Role
+            </th>
+            <td class="govuk-table__cell">
+                string
+            </td>
+            <td class="govuk-table__cell">
+                Optional ARIA <code>role</code> attribute.
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                Attributes
+            </th>
+            <td class="govuk-table__cell">
+                Dictionary&lt;string, string&gt;
+            </td>
+            <td class="govuk-table__cell">
+                HTML attributes (for example data attributes) to add to the fieldset container.
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                HtmlOrText
+            </th>
+            <td class="govuk-table__cell">
+                HtmlOrText
+            </td>
+            <td class="govuk-table__cell">
+                HTML or text to use/render within the fieldset element.
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<table class="govuk-table govuk-!-margin-bottom-8"
+       id="options-for-FieldsetLegendViewModel">
+    <caption class="govuk-table__caption govuk-table__caption--m">
+        Options for <code>FieldsetLegendViewModel</code>
+    </caption>
+    <thead class="govuk-table__head">
+        <tr class="govuk-table__row">
+            <th scope="col" class="govuk-table__header">Name</th>
+            <th scope="col" class="govuk-table__header">Type</th>
+            <th scope="col" class="govuk-table__header">Description</th>
+        </tr>
+    </thead>
+    <tbody class="govuk-table__body">
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                HtmlOrText
+            </th>
+            <td class="govuk-table__cell">
+                HtmlOrText
+            </td>
+            <td class="govuk-table__cell">
+                <b>Required.</b>
+                HTML or text to use within the legend.
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                Classes
+            </th>
+            <td class="govuk-table__cell">
+                List&lt;string&gt;
+            </td>
+            <td class="govuk-table__cell">
+                Classes to add to the legend.
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                IsPageHeading
+            </th>
+            <td class="govuk-table__cell">
+                bool
+            </td>
+            <td class="govuk-table__cell">
+                Whether the legend also acts as the heading for the page.
+            </td>
+        </tr>
+    </tbody>
+</table>
