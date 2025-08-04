@@ -1,0 +1,51 @@
+﻿@using GovUkDesignSystemDotNet
+
+@{
+    Layout = "_LayoutForExamples";
+}
+
+
+@await Html.GovUkCheckboxes(new CheckboxesViewModel
+{
+    Name = "waste",
+    Fieldset = new FieldsetViewModel
+    {
+        Legend = new FieldsetLegendViewModel
+        {
+            HtmlOrText = new HtmlOrText("Which types of waste do you transport?"),
+            IsPageHeading = true,
+            Classes = ["govuk-fieldset__legend--l"]
+        }
+    },
+    Hint = new HintViewModel
+    {
+        HtmlOrText = new HtmlOrText("Select all that apply")
+    },
+    CheckboxItems = new List<CheckboxItemViewModel>
+    {
+        new CheckboxItemViewModel
+        {
+            Value = "carcasses",
+            Label = new LabelViewModel
+            {
+                HtmlOrText = new HtmlOrText("Waste from animal carcasses")
+            }
+        },
+        new CheckboxItemViewModel
+        {
+            Value = "mines",
+            Label = new LabelViewModel
+            {
+                HtmlOrText = new HtmlOrText("Waste from mines or quarries")
+            }
+        },
+        new CheckboxItemViewModel
+        {
+            Value = "farm",
+            Label = new LabelViewModel
+            {
+                HtmlOrText = new HtmlOrText("Farm or agricultural waste")
+            }
+        },
+    }
+})

@@ -1,0 +1,80 @@
+@using GovUkDesignSystemDotNet
+@using GovUkDesignSystemDotNet.Helpers
+@model GovUkDesignSystemDotNet.CheckboxesViewModel
+
+@{
+    // If an id 'prefix' is not passed, fall back to using the name attribute instead.
+    // We need this for error messages and hints as well
+    Model.IdPrefix ??= Model.Name;
+    
+    @if (Model.Hint != null)
+    {
+        Model.Hint.Id ??= $"{Model.IdPrefix}-hint";
+        Model.DescribedBy.Add(Model.Hint.Id);
+    }
+
+    @if (Model.ErrorMessage != null)
+    {
+        Model.ErrorMessage.Id ??= $"{Model.IdPrefix}-error";
+        Model.DescribedBy.Add(Model.ErrorMessage.Id);
+    }
+}
+
+@{
+    // Capture the HTML so we can optionally nest it in a fieldset
+    Func<object, object> innerHtmlFunc =
+        @<text>
+            @if (Model.Hint != null)
+            {
+                @await Html.GovUkHint(Model.Hint)
+            }
+
+            @if (Model.ErrorMessage != null)
+            {
+                @await Html.GovUkErrorMessage(Model.ErrorMessage)
+            }
+            
+            <div class="govuk-checkboxes @(string.Join(" ", Model.Classes))"
+                 @(Model.Attributes.ToHtmlTagAttributes(Html))
+                 data-module="govuk-checkboxes">
+
+                @if (Model.FormGroup?.BeforeInput != null)
+                {
+                    @(Model.FormGroup?.BeforeInput?.Value)
+                }
+                
+                @for (int i = 1; i <= Model.CheckboxItems.Count; i++)
+                {
+                    CheckboxItemViewModel checkboxItem = Model.CheckboxItems[i - 1];
+                    
+                    checkboxItem.Id ??= (i > 1 ? $"{Model.IdPrefix}-{i}" : Model.IdPrefix);
+                    checkboxItem.Name ??= Model.Name;
+                    if (Model.Fieldset == null)
+                    {
+                        checkboxItem.DescribedBy.AddRange(Model.DescribedBy);
+                    }
+                    
+                    @await Html.GovUkCheckboxItem(checkboxItem)
+                }
+                @if (Model.FormGroup?.AfterInput != null)
+                {
+                    @(Model.FormGroup?.AfterInput?.Value)
+                }
+            </div>
+         </text>;
+}
+
+<div class="govuk-form-group @(Model.ErrorMessage != null ? "govuk-form-group--error" : "") @string.Join(" ", Model.FormGroup?.Classes ?? [])"
+     @(Model.FormGroup?.Attributes.ToHtmlTagAttributes(Html))
+     >
+    @if (Model.Fieldset != null)
+    {
+        Model.Fieldset.DescribedBy.AddRange(Model.DescribedBy);
+        Model.Fieldset.HtmlOrText ??= new HtmlOrText(innerHtmlFunc);
+        @await Html.GovUkFieldset(Model.Fieldset)
+    }
+    else
+    {
+        @(innerHtmlFunc(new object()))
+    }
+</div>

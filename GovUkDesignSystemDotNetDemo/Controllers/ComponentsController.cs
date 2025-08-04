@@ -20,6 +20,9 @@ public class ComponentsController : Controller
     [HttpGet("checkbox-item")]
     public IActionResult CheckboxItem() => View();
 
+    [HttpGet("checkboxes")]
+    public IActionResult Checkboxes() => View();
+
     [HttpGet("error-message")]
     public IActionResult ErrorMessage() => View();
 
