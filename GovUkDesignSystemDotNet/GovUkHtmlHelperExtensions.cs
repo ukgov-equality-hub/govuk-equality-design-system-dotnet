@@ -48,6 +48,13 @@ public static class GovUkHtmlHelperExtensions
         return await htmlHelper.PartialAsync("/GovUkDesignSystemComponents/Views/ErrorMessage.cshtml", errorMessageViewModel);
     }
 
+    public static async Task<IHtmlContent> GovUkErrorSummary(
+        this IHtmlHelper htmlHelper,
+        ErrorSummaryViewModel errorSummaryViewModel)
+    {
+        return await htmlHelper.PartialAsync("/GovUkDesignSystemComponents/Views/ErrorSummary.cshtml", errorSummaryViewModel);
+    }
+
     public static async Task<IHtmlContent> GovUkFieldset(
         this IHtmlHelper htmlHelper,
         FieldsetViewModel fieldsetViewModel)
