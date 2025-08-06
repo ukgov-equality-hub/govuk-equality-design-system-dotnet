@@ -1,0 +1,44 @@
+﻿@using GovUkDesignSystemDotNet
+
+@{
+    Layout = "_LayoutForExamples";
+}
+
+@await Html.GovUkErrorSummary(new ErrorSummaryViewModel
+{
+    Title = new HtmlOrText("There is a problem"),
+    Errors = new List<ErrorSummaryItemViewModel>
+    {
+        new ErrorSummaryItemViewModel
+        {
+            HtmlOrText = new HtmlOrText("Enter your full name"),
+            Href = "#full-name"
+        },
+    },
+    DisableAutoFocus = true
+})
+
+@await Html.GovUkFieldset(new FieldsetViewModel
+{
+    Legend = new FieldsetLegendViewModel
+    {
+        HtmlOrText = new HtmlOrText("Your details"),
+        IsPageHeading = true,
+        Classes = ["govuk-fieldset__legend--l"]
+    },
+    HtmlOrText = new HtmlOrText(
+        @<text>
+            @await Html.GovUkTextInput(new TextInputViewModel
+            {
+                Name = "full-name",
+                Label = new LabelViewModel
+                {
+                    HtmlOrText = new HtmlOrText("Full name"),
+                },
+                ErrorMessage = new ErrorMessageViewModel
+                {
+                    HtmlOrText = new HtmlOrText("Enter your full name")
+                }
+            })
+         </text>)
+})

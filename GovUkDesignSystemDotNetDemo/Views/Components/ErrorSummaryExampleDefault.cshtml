@@ -1,0 +1,24 @@
+﻿@using GovUkDesignSystemDotNet
+
+@{
+    Layout = "_LayoutForExamples";
+}
+
+@await Html.GovUkErrorSummary(new ErrorSummaryViewModel
+{
+    Title = new HtmlOrText("There is a problem"),
+    Errors = new List<ErrorSummaryItemViewModel>
+    {
+        new ErrorSummaryItemViewModel
+        {
+            HtmlOrText = new HtmlOrText("Enter your full name"),
+            Href = "#"
+        },
+        new ErrorSummaryItemViewModel
+        {
+            HtmlOrText = new HtmlOrText("The date your passport was issued must be in the past"),
+            Href = "#"
+        },
+    },
+    DisableAutoFocus = true
+})

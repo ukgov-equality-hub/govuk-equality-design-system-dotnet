@@ -1,0 +1,93 @@
+﻿@using GovUkDesignSystemDotNet
+
+@{
+    Layout = "_LayoutForExamples";
+}
+
+@await Html.GovUkErrorSummary(new ErrorSummaryViewModel
+{
+    Title = new HtmlOrText("There is a problem"),
+    Errors = new List<ErrorSummaryItemViewModel>
+    {
+        new ErrorSummaryItemViewModel
+        {
+            HtmlOrText = new HtmlOrText("Select the cities you are travelling to, or None"),
+            Href = "#city"
+        },
+    },
+    DisableAutoFocus = true
+})
+
+@await Html.GovUkCheckboxes(new CheckboxesViewModel
+{
+    Name = "city",
+    Fieldset = new FieldsetViewModel
+    {
+        Legend = new FieldsetLegendViewModel
+        {
+            HtmlOrText = new HtmlOrText("Which cities are you travelling to?"),
+            IsPageHeading = true,
+            Classes = ["govuk-fieldset__legend--l"]
+        }
+    },
+    Hint = new HintViewModel
+    {
+        HtmlOrText = new HtmlOrText("Select all that apply")
+    },
+    CheckboxItems = new List<CheckboxItemViewModel>
+    {
+        new CheckboxItemViewModel
+        {
+            Value = "paris",
+            Label = new LabelViewModel
+            {
+                HtmlOrText = new HtmlOrText("Paris")
+            },
+            Hint = new HintViewModel
+            {
+                HtmlOrText = new HtmlOrText("The capital of France")
+            }
+        },
+        new CheckboxItemViewModel
+        {
+            Value = "lisbon",
+            Label = new LabelViewModel
+            {
+                HtmlOrText = new HtmlOrText("Lisbon")
+            },
+            Hint = new HintViewModel
+            {
+                HtmlOrText = new HtmlOrText("The capital of Portugal")
+            }
+        },
+        new CheckboxItemViewModel
+        {
+            Value = "madrid",
+            Label = new LabelViewModel
+            {
+                HtmlOrText = new HtmlOrText("Madrid")
+            },
+            Hint = new HintViewModel
+            {
+                HtmlOrText = new HtmlOrText("The capital of Spain")
+            }
+        },
+        new CheckboxItemViewModel
+        {
+            Divider = "or"
+        },
+        new CheckboxItemViewModel
+        {
+            Value = "none",
+            Label = new LabelViewModel
+            {
+                HtmlOrText = new HtmlOrText("None")
+            },
+            Exclusive = true
+        },
+    },
+    ErrorMessage = new ErrorMessageViewModel
+    {
+        HtmlOrText = new HtmlOrText("Select the cities you are travelling to, or None")
+    }
+})

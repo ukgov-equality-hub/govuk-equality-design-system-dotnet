@@ -1,0 +1,355 @@
+﻿@using GovUkDesignSystemDotNet
+@using GovUkDesignSystemDotNetDemo.Models
+
+@{
+    ViewBag.Title = "Error summary";
+}
+
+@section BeforeMain
+{
+    @await Html.GovUkBreadcrumbs(new BreadcrumbsViewModel
+        {
+            Crumbs = new List<CrumbViewModel>
+            {
+                new CrumbViewModel
+                {
+                    HtmlOrText = new HtmlOrText("Home"),
+                    Href = Url.Action("Index", "Home")
+                },
+                new CrumbViewModel
+                {
+                    HtmlOrText = new HtmlOrText("Components"),
+                    Href = Url.Action("Index", "Components")
+                },
+                new CrumbViewModel
+                {
+                    HtmlOrText = new HtmlOrText("Error summary"),
+                },
+            }
+        })
+}
+
+<h1 class="govuk-heading-xl">
+    Error summary
+</h1>
+
+<p class="govuk-body govuk-!-margin-bottom-6">
+    Read more about the
+    <a href="https://design-system.service.gov.uk/components/error-summary/"
+       class="govuk-link">
+        <b>error summary</b>
+        component on the Gov.UK Design System website
+    </a>
+</p>
+
+@(await Html.PartialAsync("../Shared/Example", new ExampleViewModel
+{
+    ExampleName = "ErrorSummaryExampleDefault",
+    Code = @"
+        @using GovUkDesignSystemDotNet
+
+        @await Html.GovUkErrorSummary(new ErrorSummaryViewModel
+        {
+            Title = new HtmlOrText(""There is a problem""),
+            Errors = new List<ErrorSummaryItemViewModel>
+            {
+                new ErrorSummaryItemViewModel
+                {
+                    HtmlOrText = new HtmlOrText(""Enter your full name""),
+                    Href = ""#""
+                },
+                new ErrorSummaryItemViewModel
+                {
+                    HtmlOrText = new HtmlOrText(""The date your passport was issued must be in the past""),
+                    Href = ""#""
+                },
+            }
+        })
+    "
+}))
+
+<h2 class="govuk-heading-l">
+    Options
+</h2>
+
+<table class="govuk-table govuk-!-margin-bottom-8"
+       id="options-for-ErrorSummaryViewModel">
+    <caption class="govuk-table__caption govuk-table__caption--m">
+        Options for <code>ErrorSummaryViewModel</code>
+    </caption>
+    <thead class="govuk-table__head">
+        <tr class="govuk-table__row">
+            <th scope="col" class="govuk-table__header">Name</th>
+            <th scope="col" class="govuk-table__header">Type</th>
+            <th scope="col" class="govuk-table__header">Description</th>
+        </tr>
+    </thead>
+    <tbody class="govuk-table__body">
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                Title
+            </th>
+            <td class="govuk-table__cell">
+                HtmlOrText
+            </td>
+            <td class="govuk-table__cell">
+                <b>Required.</b>
+                HTML or text to use for the heading of the error summary block.
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                Description
+            </th>
+            <td class="govuk-table__cell">
+                HtmlOrText
+            </td>
+            <td class="govuk-table__cell">
+                HTML or text to use for the description of the errors.
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                Errors
+            </th>
+            <td class="govuk-table__cell">
+                List&lt;ErrorSummaryItemViewModel&gt;
+            </td>
+            <td class="govuk-table__cell">
+                A list of errors to include in the error summary.
+                <a href="#options-for-ErrorSummaryItemViewModel"
+                   class="govuk-link">
+                    See options for ErrorSummaryItemViewModel
+                </a>
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                DisableAutoFocus
+            </th>
+            <td class="govuk-table__cell">
+                bool
+            </td>
+            <td class="govuk-table__cell">
+                Prevent moving focus to the error summary when the page loads.
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                Classes
+            </th>
+            <td class="govuk-table__cell">
+                List&lt;string&gt;
+            </td>
+            <td class="govuk-table__cell">
+                Classes to add to the error-summary container.
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                Attributes
+            </th>
+            <td class="govuk-table__cell">
+                Dictionary&lt;string, string&gt;
+            </td>
+            <td class="govuk-table__cell">
+                HTML attributes (for example data attributes) to add to the error-summary container.
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<table class="govuk-table govuk-!-margin-bottom-8"
+       id="options-for-ErrorSummaryItemViewModel">
+    <caption class="govuk-table__caption govuk-table__caption--m">
+        Options for <code>ErrorSummaryItemViewModel</code>
+    </caption>
+    <thead class="govuk-table__head">
+        <tr class="govuk-table__row">
+            <th scope="col" class="govuk-table__header">Name</th>
+            <th scope="col" class="govuk-table__header">Type</th>
+            <th scope="col" class="govuk-table__header">Description</th>
+        </tr>
+    </thead>
+    <tbody class="govuk-table__body">
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                Href
+            </th>
+            <td class="govuk-table__cell">
+                string
+            </td>
+            <td class="govuk-table__cell">
+                Href attribute for the error link item.
+                If provided item will be an anchor.
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                HtmlOrText
+            </th>
+            <td class="govuk-table__cell">
+                HtmlOrText
+            </td>
+            <td class="govuk-table__cell">
+                <b>Required.</b>
+                HTML or text for the error link item.
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                Attributes
+            </th>
+            <td class="govuk-table__cell">
+                Dictionary&lt;string, string&gt;
+            </td>
+            <td class="govuk-table__cell">
+                HTML attributes (for example data attributes) to add to the error link anchor.
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<h2 class="govuk-heading-l">
+    Examples
+</h2>
+
+<h3 class="govuk-heading-m">
+    Linking from the error summary to each answer
+</h3>
+
+<h4 class="govuk-heading-s">
+    Example with text input component
+</h4>
+
+@(await Html.PartialAsync("../Shared/Example", new ExampleViewModel
+{
+    ExampleName = "ErrorSummaryExampleLinkToTextInput",
+    Code = @"
+            @using GovUkDesignSystemDotNet
+
+            @await Html.GovUkFieldset(new FieldsetViewModel
+            {
+                Legend = new FieldsetLegendViewModel
+                {
+                    HtmlOrText = new HtmlOrText(""Your details""),
+                    IsPageHeading = true,
+                    Classes = [""govuk-fieldset__legend--l""]
+                },
+                HtmlOrText = new HtmlOrText(
+                    @<text>
+                        @await Html.GovUkTextInput(new TextInputViewModel
+                        {
+                            Name = ""full-name"",
+                            Label = new LabelViewModel
+                            {
+                                HtmlOrText = new HtmlOrText(""Full name""),
+                            },
+                            ErrorMessage = new ErrorMessageViewModel
+                            {
+                                HtmlOrText = new HtmlOrText(""Enter your full name"")
+                            }
+                        })
+                     </text>)
+            })
+    "
+}))
+
+<h4 class="govuk-heading-s">
+    Example with checkboxes component
+</h4>
+
+@(await Html.PartialAsync("../Shared/Example", new ExampleViewModel
+{
+    ExampleName = "ErrorSummaryExampleLinkToCheckboxes",
+    Code = @"
+            @using GovUkDesignSystemDotNet
+
+            @await Html.GovUkErrorSummary(new ErrorSummaryViewModel
+            {
+                Title = new HtmlOrText(""There is a problem""),
+                Errors = new List<ErrorSummaryItemViewModel>
+                {
+                    new ErrorSummaryItemViewModel
+                    {
+                        HtmlOrText = new HtmlOrText(""Select the cities you are travelling to, or None""),
+                        Href = ""#city""
+                    },
+                }
+            })
+
+            @await Html.GovUkCheckboxes(new CheckboxesViewModel
+            {
+                Name = ""city"",
+                Fieldset = new FieldsetViewModel
+                {
+                    Legend = new FieldsetLegendViewModel
+                    {
+                        HtmlOrText = new HtmlOrText(""Which cities are you travelling to?""),
+                        IsPageHeading = true,
+                        Classes = [""govuk-fieldset__legend--l""]
+                    }
+                },
+                Hint = new HintViewModel
+                {
+                    HtmlOrText = new HtmlOrText(""Select all that apply"")
+                },
+                CheckboxItems = new List<CheckboxItemViewModel>
+                {
+                    new CheckboxItemViewModel
+                    {
+                        Value = ""paris"",
+                        Label = new LabelViewModel
+                        {
+                            HtmlOrText = new HtmlOrText(""Paris"")
+                        },
+                        Hint = new HintViewModel
+                        {
+                            HtmlOrText = new HtmlOrText(""The capital of France"")
+                        }
+                    },
+                    new CheckboxItemViewModel
+                    {
+                        Value = ""lisbon"",
+                        Label = new LabelViewModel
+                        {
+                            HtmlOrText = new HtmlOrText(""Lisbon"")
+                        },
+                        Hint = new HintViewModel
+                        {
+                            HtmlOrText = new HtmlOrText(""The capital of Portugal"")
+                        }
+                    },
+                    new CheckboxItemViewModel
+                    {
+                        Value = ""madrid"",
+                        Label = new LabelViewModel
+                        {
+                            HtmlOrText = new HtmlOrText(""Madrid"")
+                        },
+                        Hint = new HintViewModel
+                        {
+                            HtmlOrText = new HtmlOrText(""The capital of Spain"")
+                        }
+                    },
+                    new CheckboxItemViewModel
+                    {
+                        Divider = ""or""
+                    },
+                    new CheckboxItemViewModel
+                    {
+                        Value = ""none"",
+                        Label = new LabelViewModel
+                        {
+                            HtmlOrText = new HtmlOrText(""None"")
+                        },
+                        Exclusive = true
+                    },
+                },
+                ErrorMessage = new ErrorMessageViewModel
+                {
+                    HtmlOrText = new HtmlOrText(""Select the cities you are travelling to, or None"")
+                }
+            })
+    "
+}))

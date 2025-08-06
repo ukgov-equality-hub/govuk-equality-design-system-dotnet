@@ -26,6 +26,9 @@ public class ComponentsController : Controller
     [HttpGet("error-message")]
     public IActionResult ErrorMessage() => View();
 
+    [HttpGet("error-summary")]
+    public IActionResult ErrorSummary() => View();
+
     [HttpGet("fieldset")]
     public IActionResult Fieldset() => View();
 
