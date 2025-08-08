@@ -1,0 +1,15 @@
+﻿@using GovUkDesignSystemDotNet
+
+@{
+    Layout = "_LayoutForExamples";
+}
+
+@await Html.GovUkRadioItem(new RadioItemViewModel
+{
+    Name = "where-do-you-live",
+    Value = "england",
+    Label = new LabelViewModel
+    {
+        HtmlOrText = new HtmlOrText("England")
+    }
+})
