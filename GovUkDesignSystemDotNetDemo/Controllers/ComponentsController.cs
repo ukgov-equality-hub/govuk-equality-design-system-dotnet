@@ -50,6 +50,9 @@ public class ComponentsController : Controller
     [HttpGet("phase-banner")]
     public IActionResult PhaseBanner() => View();
 
+    [HttpGet("radio-item")]
+    public IActionResult RadioItem() => View();
+
     [HttpGet("service-navigation")]
     public IActionResult ServiceNavigation() => View();
 

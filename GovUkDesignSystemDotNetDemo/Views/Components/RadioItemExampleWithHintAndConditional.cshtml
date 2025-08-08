@@ -1,0 +1,32 @@
+﻿@using GovUkDesignSystemDotNet
+
+@{
+    Layout = "_LayoutForExamples";
+}
+
+<div class="govuk-radios" data-module="govuk-radios">
+    @await Html.GovUkRadioItem(new RadioItemViewModel
+    {
+        Name = "preferred-contact",
+        Value = "email",
+        Label = new LabelViewModel
+        {
+            HtmlOrText = new HtmlOrText("Email")
+        },
+        Hint = new HintViewModel
+        {
+            HtmlOrText = new HtmlOrText("We won't use your email address for any other purposes")
+        },
+        Conditional = new HtmlOrText(
+            @<text>
+                 @await Html.GovUkTextInput(new TextInputViewModel
+                 {
+                     Name = "email-address",
+                     Label = new LabelViewModel
+                     {
+                         HtmlOrText = new HtmlOrText("Email address")
+                     }
+                 })
+             </text>)
+    })
+</div>
