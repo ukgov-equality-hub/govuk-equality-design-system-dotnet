@@ -1,0 +1,44 @@
+﻿@using GovUkDesignSystemDotNet
+
+@{
+    Layout = "_LayoutForExamples";
+}
+
+
+@await Html.GovUkRadios(new RadiosViewModel
+{
+    Name = "changed-name",
+    Classes = ["govuk-radios--inline"],
+    Fieldset = new FieldsetViewModel
+    {
+        Legend = new FieldsetLegendViewModel
+        {
+            HtmlOrText = new HtmlOrText("Have you changed your name?"),
+            IsPageHeading = true,
+            Classes = ["govuk-fieldset__legend--l"]
+        }
+    },
+    Hint = new HintViewModel
+    {
+        HtmlOrText = new HtmlOrText("This includes changing your last name or spelling your name differently")
+    },
+    RadioItems = new List<RadioItemViewModel>
+    {
+        new RadioItemViewModel
+        {
+            Value = "yes",
+            Label = new LabelViewModel
+            {
+                HtmlOrText = new HtmlOrText("Yes")
+            }
+        },
+        new RadioItemViewModel
+        {
+            Value = "no",
+            Label = new LabelViewModel
+            {
+                HtmlOrText = new HtmlOrText("No")
+            }
+        },
+    }
+})

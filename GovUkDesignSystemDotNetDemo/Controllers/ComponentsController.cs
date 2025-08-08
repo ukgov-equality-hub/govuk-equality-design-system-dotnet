@@ -53,6 +53,9 @@ public class ComponentsController : Controller
     [HttpGet("radio-item")]
     public IActionResult RadioItem() => View();
 
+    [HttpGet("radios")]
+    public IActionResult Radios() => View();
+
     [HttpGet("service-navigation")]
     public IActionResult ServiceNavigation() => View();
 

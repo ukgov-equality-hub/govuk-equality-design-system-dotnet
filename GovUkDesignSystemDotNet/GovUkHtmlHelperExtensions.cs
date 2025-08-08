@@ -111,6 +111,13 @@ public static class GovUkHtmlHelperExtensions
         return await htmlHelper.PartialAsync("/GovUkDesignSystemComponents/Views/RadioItem.cshtml", radioItemViewModel);
     }
 
+    public static async Task<IHtmlContent> GovUkRadios(
+        this IHtmlHelper htmlHelper,
+        RadiosViewModel radiosViewModel)
+    {
+        return await htmlHelper.PartialAsync("/GovUkDesignSystemComponents/Views/Radios.cshtml", radiosViewModel);
+    }
+
     public static async Task<IHtmlContent> GovUkServiceNavigation(
         this IHtmlHelper htmlHelper,
         ServiceNavigationViewModel serviceNavigationViewModel)
