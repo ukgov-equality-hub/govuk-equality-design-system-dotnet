@@ -1,0 +1,103 @@
+@using GovUkDesignSystemDotNet
+@using GovUkDesignSystemDotNet.Helpers
+@model GovUkDesignSystemDotNet.CharacterCountViewModel
+
+@{
+    bool hasNoLimit = Model.Limit == null;
+    if (!hasNoLimit)
+    {
+        Model.TextareaDescriptionText ??= $"You can enter up to %{{count}} {(Model.Limit.IsCharacters ? "characters" : "words")}";
+        Model.TextareaDescriptionText = Model.TextareaDescriptionText.Replace("%{count}", Model.Limit.Limit.ToString());
+    }
+
+    Model.Id ??= Model.Name;
+    
+    string countMessageId = $"{Model.Id}-info"; // The suffix MUST be -info for the javascript to work
+
+    var formGroupAttributes = new Dictionary<string, string>(Model.FormGroup?.Attributes ?? new());
+    formGroupAttributes.Add("data-module", "govuk-character-count");
+    if (Model.Threshold.HasValue)
+    {
+        formGroupAttributes.Add("data-threshold", Model.Threshold.Value.ToString());
+    }
+    if (Model.Limit != null && Model.Limit.IsCharacters)
+    {
+        formGroupAttributes.Add("data-maxlength", Model.Limit.Limit.ToString());
+    }
+    if (Model.Limit != null && Model.Limit.IsWords)
+    {
+        formGroupAttributes.Add("data-maxwords", Model.Limit.Limit.ToString());
+    }
+
+    @*
+    Without maxlength or maxwords, we can't guess if the component will count words or characters.
+    We can't guess a default textarea description to be interpolated in JavaScript
+    once the maximum gets configured there.
+    So we only add the attribute if a textarea description was explicitely provided.
+    *@
+    if (hasNoLimit && Model.TextareaDescriptionText != null)
+    {
+        formGroupAttributes.AddI18nAttributes("textarea-description", new PluralisationOptions{ Other = Model.TextareaDescriptionText });
+    }
+
+    if (Model.Limit != null && Model.Limit.IsCharacters)
+    {
+        formGroupAttributes.AddI18nAttributes("characters-under-limit", Model.UnderLimitText);
+        formGroupAttributes.AddI18nAttribute("characters-at-limit", Model.AtLimitText);
+        formGroupAttributes.AddI18nAttributes("characters-over-limit", Model.OverLimitText);
+    }
+    if (Model.Limit != null && Model.Limit.IsWords)
+    {
+        formGroupAttributes.AddI18nAttributes("words-under-limit", Model.UnderLimitText);
+        formGroupAttributes.AddI18nAttribute("words-at-limit", Model.AtLimitText);
+        formGroupAttributes.AddI18nAttributes("words-over-limit", Model.OverLimitText);
+    }
+    
+    Model.Label.For = Model.Id;
+    
+    List<string> classes = ["govuk-js-character-count"];
+    classes.AddRange(Model.Classes);
+    
+    List<string> formGroupClasses = ["govuk-character-count"];
+    formGroupClasses.AddRange(Model.FormGroup?.Classes ?? []);
+    
+    List<string> countMessageClasses = ["govuk-character-count__message"];
+    countMessageClasses.AddRange(Model.CountMessageClasses);
+}
+
+@await Html.GovUkTextarea(new TextareaViewModel
+{
+    Id = Model.Id,
+    Name = Model.Name,
+    DescribedBy = [countMessageId],
+    Rows = Model.Rows,
+    Spellcheck = Model.Spellcheck,
+    Value = Model.Value,
+    
+    FormGroup = new FormGroupViewModel
+    {
+        Classes = formGroupClasses,
+        Attributes = formGroupAttributes,
+        BeforeInput = Model.FormGroup?.BeforeInput,
+        AfterInput = new HtmlOrText(
+            @<text>
+                @await Html.GovUkHint(new HintViewModel
+                {
+                    HtmlOrText = !hasNoLimit ? new HtmlOrText(Model.TextareaDescriptionText) : null,
+                    Id = countMessageId,
+                    Classes = countMessageClasses
+                })
+                
+                @(Model.FormGroup?.AfterInput?.Value)
+             </text>)
+    },
+    
+    Classes = classes,
+    
+    Label = Model.Label,
+    Hint = Model.Hint,
+    ErrorMessage = Model.ErrorMessage,
+    Attributes = Model.Attributes,
+    Autocomplete = Model.Autocomplete,
+    Disabled = Model.Disabled
+})

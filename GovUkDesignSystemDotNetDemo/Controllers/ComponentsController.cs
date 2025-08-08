@@ -17,6 +17,9 @@ public class ComponentsController : Controller
     [HttpGet("button")]
     public IActionResult Button() => View();
 
+    [HttpGet("character-count")]
+    public IActionResult CharacterCount() => View();
+
     [HttpGet("checkbox-item")]
     public IActionResult CheckboxItem() => View();
 
