@@ -1,0 +1,591 @@
+﻿@using GovUkDesignSystemDotNet
+@using GovUkDesignSystemDotNetDemo.Models
+
+@{
+    ViewBag.Title = "Character count";
+}
+
+@section BeforeMain
+{
+    @await Html.GovUkBreadcrumbs(new BreadcrumbsViewModel
+        {
+            Crumbs = new List<CrumbViewModel>
+            {
+                new CrumbViewModel
+                {
+                    HtmlOrText = new HtmlOrText("Home"),
+                    Href = Url.Action("Index", "Home")
+                },
+                new CrumbViewModel
+                {
+                    HtmlOrText = new HtmlOrText("Components"),
+                    Href = Url.Action("Index", "Components")
+                },
+                new CrumbViewModel
+                {
+                    HtmlOrText = new HtmlOrText("Character count"),
+                },
+            }
+        })
+}
+
+<h1 class="govuk-heading-xl">
+    Character count
+</h1>
+
+<p class="govuk-body govuk-!-margin-bottom-6">
+    Read more about the
+    <a href="https://design-system.service.gov.uk/components/character-count/"
+       class="govuk-link">
+        <b>character count</b>
+        component on the Gov.UK Design System website
+    </a>
+</p>
+
+@(await Html.PartialAsync("../Shared/Example", new ExampleViewModel
+{
+    ExampleName = "CharacterCountExampleDefault",
+    Code = @"
+        @using GovUkDesignSystemDotNet
+
+        @await Html.GovUkCharacterCount(new CharacterCountViewModel
+        {
+            Name = ""more-detail"",
+            Limit = new CharacterCountLimitViewModel(200, CharacterCountMaxLengthUnit.Characters),
+            Label = new LabelViewModel
+            {
+                HtmlOrText = new HtmlOrText(""Can you provide more detail?""),
+                IsPageHeading = true,
+                Classes = [""govuk-label--l""]
+            },
+            Hint = new HintViewModel
+            {
+                HtmlOrText = new HtmlOrText(""Do not include personal or financial information like your National Insurance number or credit card details"")
+            }
+        })
+    "
+}))
+
+<h2 class="govuk-heading-l">
+    Options
+</h2>
+
+<table class="govuk-table govuk-!-margin-bottom-8"
+       id="options-for-CharacterCountViewModel">
+    <caption class="govuk-table__caption govuk-table__caption--m">
+        Options for <code>CharacterCountViewModel</code>
+    </caption>
+    <thead class="govuk-table__head">
+        <tr class="govuk-table__row">
+            <th scope="col" class="govuk-table__header">Name</th>
+            <th scope="col" class="govuk-table__header">Type</th>
+            <th scope="col" class="govuk-table__header">Description</th>
+        </tr>
+    </thead>
+    <tbody class="govuk-table__body">
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                Id
+            </th>
+            <td class="govuk-table__cell">
+                string
+            </td>
+            <td class="govuk-table__cell">
+                The ID of the textarea.
+                Defaults to the value of <code>Name</code>.
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                Name
+            </th>
+            <td class="govuk-table__cell">
+                string
+            </td>
+            <td class="govuk-table__cell">
+                <b>Required.</b>
+                The name of the textarea, which is submitted with the form data.
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                Rows
+            </th>
+            <td class="govuk-table__cell">
+                int?
+            </td>
+            <td class="govuk-table__cell">
+                Optional number of textarea rows (default is 5 rows).
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                Value
+            </th>
+            <td class="govuk-table__cell">
+                string
+            </td>
+            <td class="govuk-table__cell">
+                Optional initial value of the textarea.
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                Limit
+            </th>
+            <td class="govuk-table__cell">
+                CharacterCountLimitViewModel
+            </td>
+            <td class="govuk-table__cell">
+                The maximum number of characters, or words.
+                <a href="#options-for-CharacterCountLimitViewModel"
+                   class="govuk-link">
+                    See options for CharacterCountLimitViewModel
+                </a>
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                Threshold
+            </th>
+            <td class="govuk-table__cell">
+                double?
+            </td>
+            <td class="govuk-table__cell">
+                The percentage value of the limit at which point the count message is displayed.
+                If this attribute is set, the count message will be hidden by default.
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                Label
+            </th>
+            <td class="govuk-table__cell">
+                LabelViewModel
+            </td>
+            <td class="govuk-table__cell">
+                <b>Required.</b>
+                The label used by the character count component.
+                <a href="@(Url.Action("Label", "Components"))#options-for-LabelViewModel"
+                   class="govuk-link">
+                    See options for LabelViewModel
+                </a>
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                Hint
+            </th>
+            <td class="govuk-table__cell">
+                HintViewModel
+            </td>
+            <td class="govuk-table__cell">
+                Can be used to add a hint to the character count component.
+                <a href="@(Url.Action("Hint", "Components"))#options-for-HintViewModel"
+                   class="govuk-link">
+                    See options for HintViewModel
+                </a>
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                ErrorMessage
+            </th>
+            <td class="govuk-table__cell">
+                ErrorMessageViewModel
+            </td>
+            <td class="govuk-table__cell">
+                Can be used to add an error message to the character count component.
+                The error message component will not display if <code>ErrorMessage</code> is <code>null</code>.
+                <a href="@(Url.Action("ErrorMessage", "Components"))#options-for-ErrorMessageViewModel"
+                   class="govuk-link">
+                    See options for ErrorMessageViewModel
+                </a>
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                FormGroup
+            </th>
+            <td class="govuk-table__cell">
+                FormGroupViewModel
+            </td>
+            <td class="govuk-table__cell">
+                Additional options for the form group containing the character count component.
+                <a href="#options-for-FormGroupViewModel"
+                   class="govuk-link">
+                    See options for FormGroupViewModel
+                </a>
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                Classes
+            </th>
+            <td class="govuk-table__cell">
+                List&lt;string&gt;
+            </td>
+            <td class="govuk-table__cell">
+                Classes to add to the textarea.
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                Attributes
+            </th>
+            <td class="govuk-table__cell">
+                Dictionary&lt;string, string&gt;
+            </td>
+            <td class="govuk-table__cell">
+                HTML attributes (for example, data attributes) to add to the textarea.
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                Spellcheck
+            </th>
+            <td class="govuk-table__cell">
+                bool?
+            </td>
+            <td class="govuk-table__cell">
+                Optional field to enable or disable the <code>spellcheck</code> attribute on the textarea.
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                Autocomplete
+            </th>
+            <td class="govuk-table__cell">
+                string
+            </td>
+            <td class="govuk-table__cell">
+                Attribute to meet
+                <a href="https://www.w3.org/WAI/WCAG22/Understanding/identify-input-purpose.html"
+                   class="govuk-link">
+                    WCAG success criterion 1.3.5: Identify input purpose</a>,
+                for instance <code>"bday-day"</code>.
+                See the
+                <a href="https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#autofill"
+                   class="govuk-link">
+                    Autofill section in the HTML standard</a>
+                section in the HTML standard for full list of attributes that can be used.
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                Disabled
+            </th>
+            <td class="govuk-table__cell">
+                bool
+            </td>
+            <td class="govuk-table__cell">
+                If <code>true</code>, textarea will be disabled.
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                CountMessageClasses
+            </th>
+            <td class="govuk-table__cell">
+                List&lt;string&gt;
+            </td>
+            <td class="govuk-table__cell">
+                Classes to add to the count message.
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                TextareaDescriptionText
+            </th>
+            <td class="govuk-table__cell">
+                string
+            </td>
+            <td class="govuk-table__cell">
+                Message made available to assistive technologies to describe
+                that the component accepts only a limited amount of content.
+                It is visible on the page when JavaScript is unavailable.
+                The component will replace the <code>%{count}</code> placeholder with
+                the value of the <code>Limit.Limit</code> parameter.
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                UnderLimitText
+            </th>
+            <td class="govuk-table__cell">
+                PluralisationOptions
+            </td>
+            <td class="govuk-table__cell">
+                Message displayed when the number of characters/words is under the configured maximum, <code>Limit.Limit</code>.
+                This message is displayed visually and through assistive technologies.
+                The component will replace the <code>%{count}</code> placeholder with the number of remaining characters/words.
+                <a href="https://frontend.design-system.service.gov.uk/localise-govuk-frontend/#understanding-pluralisation-rules"
+                   class="govuk-link">
+                    Design System pluralisation rules</a>
+                apply to this option.
+                <a href="#options-for-PluralisationOptions"
+                   class="govuk-link">
+                    See options for PluralisationOptions
+                </a>
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                AtLimitText
+            </th>
+            <td class="govuk-table__cell">
+                string
+            </td>
+            <td class="govuk-table__cell">
+                Message displayed when the number of characters reaches the configured maximum, <code>Limit.Limit</code>.
+                This message is displayed visually and through assistive technologies.
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                OverLimitText
+            </th>
+            <td class="govuk-table__cell">
+                PluralisationOptions
+            </td>
+            <td class="govuk-table__cell">
+                Message displayed when the number of characters/words is over the configured maximum, <code>Limit.Limit</code>.
+                This message is displayed visually and through assistive technologies.
+                The component will replace the <code>%{count}</code> placeholder with the number of remaining characters/words.
+                <a href="https://frontend.design-system.service.gov.uk/localise-govuk-frontend/#understanding-pluralisation-rules"
+                   class="govuk-link">
+                    Design System pluralisation rules</a>
+                apply to this macro option.
+                <a href="#options-for-PluralisationOptions"
+                   class="govuk-link">
+                    See options for PluralisationOptions
+                </a>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<table class="govuk-table govuk-!-margin-bottom-8"
+       id="options-for-CharacterCountLimitViewModel">
+    <caption class="govuk-table__caption govuk-table__caption--m">
+        Options for <code>CharacterCountLimitViewModel</code>
+    </caption>
+    <thead class="govuk-table__head">
+        <tr class="govuk-table__row">
+            <th scope="col" class="govuk-table__header">Name</th>
+            <th scope="col" class="govuk-table__header">Type</th>
+            <th scope="col" class="govuk-table__header">Description</th>
+        </tr>
+    </thead>
+    <tbody class="govuk-table__body">
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                Limit
+            </th>
+            <td class="govuk-table__cell">
+                int
+            </td>
+            <td class="govuk-table__cell">
+                <b>Required.</b>
+                The maximum number of characters or words.
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                Units
+            </th>
+            <td class="govuk-table__cell">
+                CharacterCountMaxLengthUnit enum
+            </td>
+            <td class="govuk-table__cell">
+                <b>Required.</b>
+                The units. Allowed values are <code>CharacterCountMaxLengthUnit.Characters</code> or <code>CharacterCountMaxLengthUnit.Words</code>.
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<table class="govuk-table govuk-!-margin-bottom-8"
+       id="options-for-PluralisationOptions">
+    <caption class="govuk-table__caption govuk-table__caption--m">
+        Options for <code>PluralisationOptions</code>
+    </caption>
+    <thead class="govuk-table__head">
+        <tr class="govuk-table__row">
+            <th scope="col" class="govuk-table__header">Name</th>
+            <th scope="col" class="govuk-table__header">Type</th>
+        </tr>
+    </thead>
+    <tbody class="govuk-table__body">
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                Zero
+            </th>
+            <td class="govuk-table__cell">
+                string
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                One
+            </th>
+            <td class="govuk-table__cell">
+                string
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                Two
+            </th>
+            <td class="govuk-table__cell">
+                string
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                Few
+            </th>
+            <td class="govuk-table__cell">
+                string
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                Many
+            </th>
+            <td class="govuk-table__cell">
+                string
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                Other
+            </th>
+            <td class="govuk-table__cell">
+                string
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<table class="govuk-table govuk-!-margin-bottom-8"
+       id="options-for-FormGroupViewModel">
+    <caption class="govuk-table__caption govuk-table__caption--m">
+        Options for <code>FormGroupViewModel</code>
+    </caption>
+    <thead class="govuk-table__head">
+    <tr class="govuk-table__row">
+        <th scope="col" class="govuk-table__header">Name</th>
+        <th scope="col" class="govuk-table__header">Type</th>
+        <th scope="col" class="govuk-table__header">Description</th>
+    </tr>
+    </thead>
+    <tbody class="govuk-table__body">
+    <tr class="govuk-table__row">
+        <th scope="row" class="govuk-table__header">
+            Classes
+        </th>
+        <td class="govuk-table__cell">
+            List&lt;string&gt;
+        </td>
+        <td class="govuk-table__cell">
+            Classes to add to the form group
+            (for example to show error state for the whole group).
+        </td>
+    </tr>
+    <tr class="govuk-table__row">
+        <th scope="row" class="govuk-table__header">
+            Attributes
+        </th>
+        <td class="govuk-table__cell">
+            Dictionary&lt;string, string&gt;
+        </td>
+        <td class="govuk-table__cell">
+            HTML attributes (for example data attributes) to add to the form group.
+        </td>
+    </tr>
+    <tr class="govuk-table__row">
+        <th scope="row" class="govuk-table__header">
+            BeforeInput
+        </th>
+        <td class="govuk-table__cell">
+            HtmlOrText
+        </td>
+        <td class="govuk-table__cell">
+            HTML or text to add before the input used by the textarea component.
+        </td>
+    </tr>
+    <tr class="govuk-table__row">
+        <th scope="row" class="govuk-table__header">
+            AfterInput
+        </th>
+        <td class="govuk-table__cell">
+            HtmlOrText
+        </td>
+        <td class="govuk-table__cell">
+            HTML or text to add after the input used by the textarea component
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<h2 class="govuk-heading-l">
+    Examples
+</h2>
+
+<h3 class="govuk-heading-m">
+    Word count
+</h3>
+
+@(await Html.PartialAsync("../Shared/Example", new ExampleViewModel
+{
+    ExampleName = "CharacterCountExampleWords",
+    Code = @"
+        @using GovUkDesignSystemDotNet
+
+        @await Html.GovUkCharacterCount(new CharacterCountViewModel
+        {
+            Name = ""more-detail"",
+            Limit = new CharacterCountLimitViewModel(50, CharacterCountMaxLengthUnit.Words),
+            Label = new LabelViewModel
+            {
+                HtmlOrText = new HtmlOrText(""Can you provide more detail?""),
+                IsPageHeading = true,
+                Classes = [""govuk-label--l""]
+            },
+            Hint = new HintViewModel
+            {
+                HtmlOrText = new HtmlOrText(""Do not include personal or financial information like your National Insurance number or credit card details"")
+            }
+        })
+    "
+}))
+
+<h3 class="govuk-heading-m">
+    Threshold
+</h3>
+
+@(await Html.PartialAsync("../Shared/Example", new ExampleViewModel
+{
+    ExampleName = "CharacterCountExampleThreshold",
+    Code = @"
+        @using GovUkDesignSystemDotNet
+
+        @await Html.GovUkCharacterCount(new CharacterCountViewModel
+        {
+            Name = ""more-detail"",
+            Limit = new CharacterCountLimitViewModel(200, CharacterCountMaxLengthUnit.Characters),
+            Threshold = 75,
+            Label = new LabelViewModel
+            {
+                HtmlOrText = new HtmlOrText(""Can you provide more detail?""),
+                IsPageHeading = true,
+                Classes = [""govuk-label--l""]
+            },
+            Hint = new HintViewModel
+            {
+                HtmlOrText = new HtmlOrText(""Do not include personal or financial information like your National Insurance number or credit card details"")
+            }
+        })
+    "
+}))

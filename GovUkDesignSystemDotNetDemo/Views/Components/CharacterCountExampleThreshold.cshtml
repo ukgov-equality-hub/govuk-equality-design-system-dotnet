@@ -1,0 +1,23 @@
+﻿@using GovUkDesignSystemDotNet
+
+@{
+    Layout = "_LayoutForExamples";
+}
+
+
+@await Html.GovUkCharacterCount(new CharacterCountViewModel
+{
+    Name = "more-detail",
+    Limit = new CharacterCountLimitViewModel(200, CharacterCountMaxLengthUnit.Characters),
+    Threshold = 75,
+    Label = new LabelViewModel
+    {
+        HtmlOrText = new HtmlOrText("Can you provide more detail?"),
+        IsPageHeading = true,
+        Classes = ["govuk-label--l"]
+    },
+    Hint = new HintViewModel
+    {
+        HtmlOrText = new HtmlOrText("Do not include personal or financial information like your National Insurance number or credit card details")
+    }
+})
