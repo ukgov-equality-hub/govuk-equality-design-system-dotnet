@@ -1,0 +1,371 @@
+﻿@using GovUkDesignSystemDotNet
+@using GovUkDesignSystemDotNetDemo.Models
+
+@{
+    ViewBag.Title = "Radios";
+}
+
+@section BeforeMain
+{
+    @await Html.GovUkBreadcrumbs(new BreadcrumbsViewModel
+        {
+            Crumbs = new List<CrumbViewModel>
+            {
+                new CrumbViewModel
+                {
+                    HtmlOrText = new HtmlOrText("Home"),
+                    Href = Url.Action("Index", "Home")
+                },
+                new CrumbViewModel
+                {
+                    HtmlOrText = new HtmlOrText("Components"),
+                    Href = Url.Action("Index", "Components")
+                },
+                new CrumbViewModel
+                {
+                    HtmlOrText = new HtmlOrText("Radios"),
+                },
+            }
+        })
+}
+
+<h1 class="govuk-heading-xl">
+    Radios
+</h1>
+
+<p class="govuk-body govuk-!-margin-bottom-6">
+    Read more about the
+    <a href="https://design-system.service.gov.uk/components/radios/"
+       class="govuk-link">
+        <b>radios</b>
+        component on the Gov.UK Design System website
+    </a>
+</p>
+
+@(await Html.PartialAsync("../Shared/Example", new ExampleViewModel
+{
+    ExampleName = "RadiosExampleDefault",
+    Code = @"
+        @using GovUkDesignSystemDotNet
+
+        @await Html.GovUkRadios(new RadiosViewModel
+        {
+            Name = ""where-do-you-live"",
+            Fieldset = new FieldsetViewModel
+            {
+                Legend = new FieldsetLegendViewModel
+                {
+                    HtmlOrText = new HtmlOrText(""Where do you live?""),
+                    IsPageHeading = true,
+                    Classes = [""govuk-fieldset__legend--l""]
+                }
+            },
+            RadioItems = new List<RadioItemViewModel>
+            {
+                new RadioItemViewModel
+                {
+                    Value = ""england"",
+                    Label = new LabelViewModel
+                    {
+                        HtmlOrText = new HtmlOrText(""England"")
+                    }
+                },
+                new RadioItemViewModel
+                {
+                    Value = ""scotland"",
+                    Label = new LabelViewModel
+                    {
+                        HtmlOrText = new HtmlOrText(""Scotland"")
+                    }
+                },
+                new RadioItemViewModel
+                {
+                    Value = ""wales"",
+                    Label = new LabelViewModel
+                    {
+                        HtmlOrText = new HtmlOrText(""Wales"")
+                    }
+                },
+                new RadioItemViewModel
+                {
+                    Value = ""northern-ireland"",
+                    Label = new LabelViewModel
+                    {
+                        HtmlOrText = new HtmlOrText(""Northern Ireland"")
+                    }
+                },
+            }
+        })
+    "
+}))
+
+<h2 class="govuk-heading-l">
+    Options
+</h2>
+
+<table class="govuk-table govuk-!-margin-bottom-8"
+       id="options-for-RadiosViewModel">
+    <caption class="govuk-table__caption govuk-table__caption--m">
+        Options for <code>RadiosViewModel</code>
+    </caption>
+    <thead class="govuk-table__head">
+        <tr class="govuk-table__row">
+            <th scope="col" class="govuk-table__header">Name</th>
+            <th scope="col" class="govuk-table__header">Type</th>
+            <th scope="col" class="govuk-table__header">Description</th>
+        </tr>
+    </thead>
+    <tbody class="govuk-table__body">
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                DescribedBy
+            </th>
+            <td class="govuk-table__cell">
+                List&lt;string&gt;
+            </td>
+            <td class="govuk-table__cell">
+                One or more element IDs to add to the input <code>aria-describedby</code> attribute,
+                used to provide additional descriptive information for screenreader users.
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                Fieldset
+            </th>
+            <td class="govuk-table__cell">
+                FieldsetViewModel
+            </td>
+            <td class="govuk-table__cell">
+                Can be used to add a fieldset to the radios component.
+                <a href="@(Url.Action("Fieldset", "Components"))#options-for-FieldsetViewModel"
+                   class="govuk-link">
+                    See options for FieldsetViewModel
+                </a>
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                Hint
+            </th>
+            <td class="govuk-table__cell">
+                HintViewModel
+            </td>
+            <td class="govuk-table__cell">
+                Can be used to add a hint to the radios component.
+                <a href="@(Url.Action("Hint", "Components"))#options-for-HintViewModel"
+                   class="govuk-link">
+                    See options for HintViewModel
+                </a>
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                ErrorMessage
+            </th>
+            <td class="govuk-table__cell">
+                ErrorMessageViewModel
+            </td>
+            <td class="govuk-table__cell">
+                Can be used to add an error message to the radios component.
+                The error message component will not display if <code>ErrorMessage</code> is <code>null</code>.
+                <a href="@(Url.Action("ErrorMessage", "Components"))#options-for-ErrorMessageViewModel"
+                   class="govuk-link">
+                    See options for ErrorMessageViewModel
+                </a>
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                FormGroup
+            </th>
+            <td class="govuk-table__cell">
+                FormGroupViewModel
+            </td>
+            <td class="govuk-table__cell">
+                Additional options for the form group containing the radios component.
+                <a href="#options-for-FormGroupViewModel"
+                   class="govuk-link">
+                    See options for FormGroupViewModel
+                </a>
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                IdPrefix
+            </th>
+            <td class="govuk-table__cell">
+                string
+            </td>
+            <td class="govuk-table__cell">
+                Optional prefix.
+                This is used to prefix the <code>Id</code> attribute for each
+                radio item input, hint and error message, separated by <code>-</code>.
+                Defaults to the <code>Name</code> option value.
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                Name
+            </th>
+            <td class="govuk-table__cell">
+                string
+            </td>
+            <td class="govuk-table__cell">
+                <b>Required.</b>
+                Name attribute for all radio items.
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                RadioItems
+            </th>
+            <td class="govuk-table__cell">
+                List&lt;RadioItemViewModel&gt;
+            </td>
+            <td class="govuk-table__cell">
+                The radio items within the radios component.
+                <a href="@(Url.Action("RadioItem", "Components"))#options-for-RadioItemViewModel"
+                   class="govuk-link">
+                    See options for RadioItemViewModel
+                </a>
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                Classes
+            </th>
+            <td class="govuk-table__cell">
+                List&lt;string&gt;
+            </td>
+            <td class="govuk-table__cell">
+                Classes to add to the radios container.
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                Attributes
+            </th>
+            <td class="govuk-table__cell">
+                Dictionary&lt;string, string&gt;
+            </td>
+            <td class="govuk-table__cell">
+                HTML attributes (for example data attributes) to add to the radios container.
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<table class="govuk-table govuk-!-margin-bottom-8"
+       id="options-for-FormGroupViewModel">
+    <caption class="govuk-table__caption govuk-table__caption--m">
+        Options for <code>FormGroupViewModel</code>
+    </caption>
+    <thead class="govuk-table__head">
+    <tr class="govuk-table__row">
+        <th scope="col" class="govuk-table__header">Name</th>
+        <th scope="col" class="govuk-table__header">Type</th>
+        <th scope="col" class="govuk-table__header">Description</th>
+    </tr>
+    </thead>
+    <tbody class="govuk-table__body">
+    <tr class="govuk-table__row">
+        <th scope="row" class="govuk-table__header">
+            Classes
+        </th>
+        <td class="govuk-table__cell">
+            List&lt;string&gt;
+        </td>
+        <td class="govuk-table__cell">
+            Classes to add to the form group
+            (for example to show error state for the whole group).
+        </td>
+    </tr>
+    <tr class="govuk-table__row">
+        <th scope="row" class="govuk-table__header">
+            Attributes
+        </th>
+        <td class="govuk-table__cell">
+            Dictionary&lt;string, string&gt;
+        </td>
+        <td class="govuk-table__cell">
+            HTML attributes (for example data attributes) to add to the form group.
+        </td>
+    </tr>
+    <tr class="govuk-table__row">
+        <th scope="row" class="govuk-table__header">
+            BeforeInput
+        </th>
+        <td class="govuk-table__cell">
+            HtmlOrText
+        </td>
+        <td class="govuk-table__cell">
+            HTML or text to add before the input used by the radios component.
+        </td>
+    </tr>
+    <tr class="govuk-table__row">
+        <th scope="row" class="govuk-table__header">
+            AfterInput
+        </th>
+        <td class="govuk-table__cell">
+            HtmlOrText
+        </td>
+        <td class="govuk-table__cell">
+            HTML or text to add after the input used by the radios component
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<h2 class="govuk-heading-l">
+    Examples
+</h2>
+
+<h3 class="govuk-heading-m">
+    Inline radios
+</h3>
+
+@(await Html.PartialAsync("../Shared/Example", new ExampleViewModel
+{
+    ExampleName = "RadiosExampleInline",
+    Code = @"
+        @using GovUkDesignSystemDotNet
+
+        @await Html.GovUkRadios(new RadiosViewModel
+        {
+            Name = ""changed-name"",
+            Classes = [""govuk-radios--inline""],
+            Fieldset = new FieldsetViewModel
+            {
+                Legend = new FieldsetLegendViewModel
+                {
+                    HtmlOrText = new HtmlOrText(""Have you changed your name?""),
+                    IsPageHeading = true,
+                    Classes = [""govuk-fieldset__legend--l""]
+                }
+            },
+            Hint = new HintViewModel
+            {
+                HtmlOrText = new HtmlOrText(""This includes changing your last name or spelling your name differently"")
+            },
+            RadioItems = new List<RadioItemViewModel>
+            {
+                new RadioItemViewModel
+                {
+                    Value = ""yes"",
+                    Label = new LabelViewModel
+                    {
+                        HtmlOrText = new HtmlOrText(""Yes"")
+                    }
+                },
+                new RadioItemViewModel
+                {
+                    Value = ""no"",
+                    Label = new LabelViewModel
+                    {
+                        HtmlOrText = new HtmlOrText(""No"")
+                    }
+                },
+            }
+        })
+    "
+}))

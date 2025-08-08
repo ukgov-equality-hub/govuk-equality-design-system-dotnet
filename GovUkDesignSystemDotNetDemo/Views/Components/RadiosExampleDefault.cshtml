@@ -1,0 +1,55 @@
+﻿@using GovUkDesignSystemDotNet
+
+@{
+    Layout = "_LayoutForExamples";
+}
+
+
+@await Html.GovUkRadios(new RadiosViewModel
+{
+    Name = "where-do-you-live",
+    Fieldset = new FieldsetViewModel
+    {
+        Legend = new FieldsetLegendViewModel
+        {
+            HtmlOrText = new HtmlOrText("Where do you live?"),
+            IsPageHeading = true,
+            Classes = ["govuk-fieldset__legend--l"]
+        }
+    },
+    RadioItems = new List<RadioItemViewModel>
+    {
+        new RadioItemViewModel
+        {
+            Value = "england",
+            Label = new LabelViewModel
+            {
+                HtmlOrText = new HtmlOrText("England")
+            }
+        },
+        new RadioItemViewModel
+        {
+            Value = "scotland",
+            Label = new LabelViewModel
+            {
+                HtmlOrText = new HtmlOrText("Scotland")
+            }
+        },
+        new RadioItemViewModel
+        {
+            Value = "wales",
+            Label = new LabelViewModel
+            {
+                HtmlOrText = new HtmlOrText("Wales")
+            }
+        },
+        new RadioItemViewModel
+        {
+            Value = "northern-ireland",
+            Label = new LabelViewModel
+            {
+                HtmlOrText = new HtmlOrText("Northern Ireland")
+            }
+        },
+    }
+})
