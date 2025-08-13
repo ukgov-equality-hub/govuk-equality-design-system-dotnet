@@ -35,6 +35,9 @@ public class ComponentsController : Controller
     [HttpGet("fieldset")]
     public IActionResult Fieldset() => View();
 
+    [HttpGet("file-upload")]
+    public IActionResult FileUpload() => View();
+
     [HttpGet("footer")]
     public IActionResult Footer() => View();
 

@@ -1,0 +1,445 @@
+﻿@using GovUkDesignSystemDotNet
+@using GovUkDesignSystemDotNetDemo.Models
+
+@{
+    ViewBag.Title = "File upload";
+}
+
+@section BeforeMain
+{
+    @await Html.GovUkBreadcrumbs(new BreadcrumbsViewModel
+        {
+            Crumbs = new List<CrumbViewModel>
+            {
+                new CrumbViewModel
+                {
+                    HtmlOrText = new HtmlOrText("Home"),
+                    Href = Url.Action("Index", "Home")
+                },
+                new CrumbViewModel
+                {
+                    HtmlOrText = new HtmlOrText("Components"),
+                    Href = Url.Action("Index", "Components")
+                },
+                new CrumbViewModel
+                {
+                    HtmlOrText = new HtmlOrText("File upload"),
+                },
+            }
+        })
+}
+
+<h1 class="govuk-heading-xl">
+    File upload
+</h1>
+
+<p class="govuk-body govuk-!-margin-bottom-6">
+    Read more about the
+    <a href="https://design-system.service.gov.uk/components/file-upload/"
+       class="govuk-link">
+        <b>file upload</b>
+        component on the Gov.UK Design System website
+    </a>
+</p>
+
+@(await Html.PartialAsync("../Shared/Example", new ExampleViewModel
+{
+    ExampleName = "FileUploadExampleDefault",
+    Code = @"
+        @using GovUkDesignSystemDotNet
+
+        @await Html.GovUkFileUpload(new FileUploadViewModel
+        {
+            Name = ""your-csv-file"",
+            Label = new LabelViewModel
+            {
+                HtmlOrText = new HtmlOrText(""Upload a CSV file"")
+            },
+            Javascript = true
+        })
+    "
+}))
+
+<h2 class="govuk-heading-l">
+    Options
+</h2>
+
+<table class="govuk-table govuk-!-margin-bottom-8"
+       id="options-for-FileUploadViewModel">
+    <caption class="govuk-table__caption govuk-table__caption--m">
+        Options for <code>FileUploadViewModel</code>
+    </caption>
+    <thead class="govuk-table__head">
+        <tr class="govuk-table__row">
+            <th scope="col" class="govuk-table__header">Name</th>
+            <th scope="col" class="govuk-table__header">Type</th>
+            <th scope="col" class="govuk-table__header">Description</th>
+        </tr>
+    </thead>
+    <tbody class="govuk-table__body">
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                Name
+            </th>
+            <td class="govuk-table__cell">
+                string
+            </td>
+            <td class="govuk-table__cell">
+                <b>Required.</b>
+                The name of the input, which is submitted with the form data.
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                Id
+            </th>
+            <td class="govuk-table__cell">
+                string
+            </td>
+            <td class="govuk-table__cell">
+                The ID of the input.
+                Defaults to the value of <code>Name</code>.
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                Disabled
+            </th>
+            <td class="govuk-table__cell">
+                bool
+            </td>
+            <td class="govuk-table__cell">
+                If <code>true</code>, file input will be disabled.
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                Multiple
+            </th>
+            <td class="govuk-table__cell">
+                bool
+            </td>
+            <td class="govuk-table__cell">
+                If <code>true</code>, a user may select multiple files at the same time.
+                The exact mechanism to do this differs depending on operating system.
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                DescribedBy
+            </th>
+            <td class="govuk-table__cell">
+                List&lt;string&gt;
+            </td>
+            <td class="govuk-table__cell">
+                One or more element IDs to add to the input <code>aria-describedby</code> attribute,
+                used to provide additional descriptive information for screenreader users.
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                Label
+            </th>
+            <td class="govuk-table__cell">
+                LabelViewModel
+            </td>
+            <td class="govuk-table__cell">
+                <b>Required.</b>
+                The label used by the file upload component.
+                <a href="@(Url.Action("Label", "Components"))#options-for-LabelViewModel"
+                   class="govuk-link">
+                    See options for LabelViewModel
+                </a>
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                Hint
+            </th>
+            <td class="govuk-table__cell">
+                HintViewModel
+            </td>
+            <td class="govuk-table__cell">
+                Can be used to add a hint to the file upload component.
+                <a href="@(Url.Action("Hint", "Components"))#options-for-HintViewModel"
+                   class="govuk-link">
+                    See options for HintViewModel
+                </a>
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                ErrorMessage
+            </th>
+            <td class="govuk-table__cell">
+                ErrorMessageViewModel
+            </td>
+            <td class="govuk-table__cell">
+                Can be used to add an error message to the file upload component.
+                The error message component will not display if <code>ErrorMessage</code> is <code>null</code>.
+                <a href="@(Url.Action("ErrorMessage", "Components"))#options-for-ErrorMessageViewModel"
+                   class="govuk-link">
+                    See options for ErrorMessageViewModel
+                </a>
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                FormGroup
+            </th>
+            <td class="govuk-table__cell">
+                FormGroupViewModel
+            </td>
+            <td class="govuk-table__cell">
+                Additional options for the form group containing the file upload component.
+                <a href="#options-for-FormGroupViewModel"
+                   class="govuk-link">
+                    See options for FormGroupViewModel
+                </a>
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                Javascript
+            </th>
+            <td class="govuk-table__cell">
+                bool
+            </td>
+            <td class="govuk-table__cell">
+                Can be used to enable JavaScript enhancements for the component.
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                ChooseFilesButtonText
+            </th>
+            <td class="govuk-table__cell">
+                string
+            </td>
+            <td class="govuk-table__cell">
+                The text of the button that opens the file picker.
+                Default is <code>"Choose file"</code>.
+                If <code>Javascript</code> is not <code>true</code>, this option will be ignored.
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                DropInstructionText
+            </th>
+            <td class="govuk-table__cell">
+                string
+            </td>
+            <td class="govuk-table__cell">
+                The text informing users they can drop files.
+                Default is <code>"or drop file"</code>.
+                If <code>Javascript</code> is not <code>true</code>, this option will be ignored.
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                MultipleFilesChosenText
+            </th>
+            <td class="govuk-table__cell">
+                PluralisationOptions
+            </td>
+            <td class="govuk-table__cell">
+                The text displayed when multiple files have been chosen by the user.
+                The component will replace the <code>%{count}</code> placeholder with the number of files selected.
+                <a href="https://frontend.design-system.service.gov.uk/localise-govuk-frontend/#understanding-pluralisation-rules"
+                   class="govuk-link">
+                    Design System pluralisation rules</a>
+                apply to this macro option.
+                <a href="#options-for-PluralisationOptions"
+                   class="govuk-link">
+                    See options for PluralisationOptions
+                </a>
+                If <code>Javascript</code> is not <code>true</code>, this option will be ignored.
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                NoFileChosenText
+            </th>
+            <td class="govuk-table__cell">
+                string
+            </td>
+            <td class="govuk-table__cell">
+                The text displayed when no file has been chosen by the user.
+                Default is <code>"No file chosen"</code>.
+                If <code>Javascript</code> is not <code>true</code>, this option will be ignored.
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                EnteredDropZoneText
+            </th>
+            <td class="govuk-table__cell">
+                string
+            </td>
+            <td class="govuk-table__cell">
+                The text announced by assistive technology when user drags files and enters the drop zone.
+                Default is <code>"Entered drop zone"</code>.
+                If <code>Javascript</code> is not <code>true</code>, this option will be ignored.
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                LeftDropZoneText
+            </th>
+            <td class="govuk-table__cell">
+                string
+            </td>
+            <td class="govuk-table__cell">
+                The text announced by assistive technology when user drags files and leaves the drop zone without dropping.
+                Default is <code>"Left drop zone"</code>.
+                If <code>Javascript</code> is not <code>true</code>, this option will be ignored.
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                Classes
+            </th>
+            <td class="govuk-table__cell">
+                List&lt;string&gt;
+            </td>
+            <td class="govuk-table__cell">
+                Classes to add to the file upload component.
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+                Attributes
+            </th>
+            <td class="govuk-table__cell">
+                Dictionary&lt;string, string&gt;
+            </td>
+            <td class="govuk-table__cell">
+                HTML attributes (for example, data attributes) to add to the file upload component.
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<table class="govuk-table govuk-!-margin-bottom-8"
+       id="options-for-FormGroupViewModel">
+    <caption class="govuk-table__caption govuk-table__caption--m">
+        Options for <code>FormGroupViewModel</code>
+    </caption>
+    <thead class="govuk-table__head">
+    <tr class="govuk-table__row">
+        <th scope="col" class="govuk-table__header">Name</th>
+        <th scope="col" class="govuk-table__header">Type</th>
+        <th scope="col" class="govuk-table__header">Description</th>
+    </tr>
+    </thead>
+    <tbody class="govuk-table__body">
+    <tr class="govuk-table__row">
+        <th scope="row" class="govuk-table__header">
+            Classes
+        </th>
+        <td class="govuk-table__cell">
+            List&lt;string&gt;
+        </td>
+        <td class="govuk-table__cell">
+            Classes to add to the form group
+            (for example to show error state for the whole group).
+        </td>
+    </tr>
+    <tr class="govuk-table__row">
+        <th scope="row" class="govuk-table__header">
+            Attributes
+        </th>
+        <td class="govuk-table__cell">
+            Dictionary&lt;string, string&gt;
+        </td>
+        <td class="govuk-table__cell">
+            HTML attributes (for example data attributes) to add to the form group.
+        </td>
+    </tr>
+    <tr class="govuk-table__row">
+        <th scope="row" class="govuk-table__header">
+            BeforeInput
+        </th>
+        <td class="govuk-table__cell">
+            HtmlOrText
+        </td>
+        <td class="govuk-table__cell">
+            HTML or text to add before the input used by the file upload component.
+        </td>
+    </tr>
+    <tr class="govuk-table__row">
+        <th scope="row" class="govuk-table__header">
+            AfterInput
+        </th>
+        <td class="govuk-table__cell">
+            HtmlOrText
+        </td>
+        <td class="govuk-table__cell">
+            HTML or text to add after the input used by the file upload component
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<table class="govuk-table govuk-!-margin-bottom-8"
+       id="options-for-PluralisationOptions">
+    <caption class="govuk-table__caption govuk-table__caption--m">
+        Options for <code>PluralisationOptions</code>
+    </caption>
+    <thead class="govuk-table__head">
+    <tr class="govuk-table__row">
+        <th scope="col" class="govuk-table__header">Name</th>
+        <th scope="col" class="govuk-table__header">Type</th>
+    </tr>
+    </thead>
+    <tbody class="govuk-table__body">
+    <tr class="govuk-table__row">
+        <th scope="row" class="govuk-table__header">
+            Zero
+        </th>
+        <td class="govuk-table__cell">
+            string
+        </td>
+    </tr>
+    <tr class="govuk-table__row">
+        <th scope="row" class="govuk-table__header">
+            One
+        </th>
+        <td class="govuk-table__cell">
+            string
+        </td>
+    </tr>
+    <tr class="govuk-table__row">
+        <th scope="row" class="govuk-table__header">
+            Two
+        </th>
+        <td class="govuk-table__cell">
+            string
+        </td>
+    </tr>
+    <tr class="govuk-table__row">
+        <th scope="row" class="govuk-table__header">
+            Few
+        </th>
+        <td class="govuk-table__cell">
+            string
+        </td>
+    </tr>
+    <tr class="govuk-table__row">
+        <th scope="row" class="govuk-table__header">
+            Many
+        </th>
+        <td class="govuk-table__cell">
+            string
+        </td>
+    </tr>
+    <tr class="govuk-table__row">
+        <th scope="row" class="govuk-table__header">
+            Other
+        </th>
+        <td class="govuk-table__cell">
+            string
+        </td>
+    </tr>
+    </tbody>
+</table>

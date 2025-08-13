@@ -1,0 +1,103 @@
+@using GovUkDesignSystemDotNet
+@using GovUkDesignSystemDotNet.Helpers
+@model GovUkDesignSystemDotNet.FileUploadViewModel
+
+@{
+    Model.Id ??= Model.Name;
+}
+
+<div class="govuk-form-group @(Model.ErrorMessage != null ? "govuk-form-group--error" : "") @string.Join(" ", Model.FormGroup?.Classes ?? [])"
+     @(Model.FormGroup?.Attributes.ToHtmlTagAttributes(Html))
+     >
+
+    @{
+        Model.Label.For ??= Model.Id;
+    }
+    @await Html.GovUkLabel(Model.Label)
+
+    @if (Model.Hint != null)
+    {
+        Model.Hint.Id ??= $"{Model.Id}-hint";
+        if (!Model.DescribedBy.Contains(Model.Hint.Id))
+        {
+            Model.DescribedBy.Add(Model.Hint.Id);
+        }
+        @await Html.GovUkHint(Model.Hint)
+    }
+
+    @if (Model.ErrorMessage != null)
+    {
+        Model.ErrorMessage.Id ??= $"{Model.Id}-error";
+        if (!Model.DescribedBy.Contains(Model.ErrorMessage.Id))
+        {
+            Model.DescribedBy.Add(Model.ErrorMessage.Id);
+        }
+        @await Html.GovUkErrorMessage(Model.ErrorMessage)
+    }
+
+    @if (Model.FormGroup?.BeforeInput != null)
+    {
+        @(Model.FormGroup?.BeforeInput?.Value)
+    }
+
+    @{
+        Func<object, object> inputFunc = (
+            @<text>
+                 <input class="govuk-file-upload @(string.Join(" ", Model.Classes)) @(Model.ErrorMessage != null ? "govuk-file-upload--error" : "")"
+                        id="@(Model.Id)"
+                        name="@(Model.Name)"
+                        type="file"
+                        disabled="@(Model.Disabled)"
+                        multiple="@(Model.Multiple)"
+                        aria-describedby="@(string.Join(" ", Model.DescribedBy))"
+                        @(Model.Attributes.ToHtmlTagAttributes(Html))
+                        >
+             </text>);
+    }
+    
+    @if (Model.Javascript)
+    {
+        Dictionary<string, string> dropZoneAttributes = new Dictionary<string, string>();
+
+        if (Model.ChooseFilesButtonText != null)
+        {
+            dropZoneAttributes.AddI18nAttribute("choose-files-button", Model.ChooseFilesButtonText);
+        }
+        if (Model.NoFileChosenText != null)
+        {
+            dropZoneAttributes.AddI18nAttribute("no-file-chosen", Model.NoFileChosenText);
+        }
+        if (Model.MultipleFilesChosenText != null)
+        {
+            dropZoneAttributes.AddI18nAttributes("multiple-files-chosen", Model.MultipleFilesChosenText);
+        }
+        if (Model.DropInstructionText != null)
+        {
+            dropZoneAttributes.AddI18nAttribute("drop-instruction", Model.DropInstructionText);
+        }
+        if (Model.EnteredDropZoneText != null)
+        {
+            dropZoneAttributes.AddI18nAttribute("entered-drop-zone", Model.EnteredDropZoneText);
+        }
+        if (Model.LeftDropZoneText != null)
+        {
+            dropZoneAttributes.AddI18nAttribute("left-drop-zone", Model.LeftDropZoneText);
+        }
+        
+        <div class="govuk-drop-zone"
+             data-module="govuk-file-upload"
+             @(dropZoneAttributes.ToHtmlTagAttributes(Html))
+             >
+            @(inputFunc(new object()))
+        </div>
+    }
+    else
+    {
+        @(inputFunc(new object()))
+    }
+
+    @if (Model.FormGroup?.AfterInput != null)
+    {
+        @(Model.FormGroup?.AfterInput?.Value)
+    }
+</div>

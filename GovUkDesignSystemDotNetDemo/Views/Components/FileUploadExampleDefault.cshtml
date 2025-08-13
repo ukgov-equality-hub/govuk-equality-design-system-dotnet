@@ -1,0 +1,15 @@
+﻿@using GovUkDesignSystemDotNet
+
+@{
+    Layout = "_LayoutForExamples";
+}
+
+@await Html.GovUkFileUpload(new FileUploadViewModel
+{
+    Name = "your-csv-file",
+    Label = new LabelViewModel
+    {
+        HtmlOrText = new HtmlOrText("Upload a CSV file")
+    },
+    Javascript = true
+})

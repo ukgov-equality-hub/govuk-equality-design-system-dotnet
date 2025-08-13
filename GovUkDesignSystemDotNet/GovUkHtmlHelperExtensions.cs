@@ -69,6 +69,13 @@ public static class GovUkHtmlHelperExtensions
         return await htmlHelper.PartialAsync("/GovUkDesignSystemComponents/Views/Fieldset.cshtml", fieldsetViewModel);
     }
 
+    public static async Task<IHtmlContent> GovUkFileUpload(
+        this IHtmlHelper htmlHelper,
+        FileUploadViewModel fileUploadViewModel)
+    {
+        return await htmlHelper.PartialAsync("/GovUkDesignSystemComponents/Views/FileUpload.cshtml", fileUploadViewModel);
+    }
+
     public static async Task<IHtmlContent> GovUkFooter(
         this IHtmlHelper htmlHelper,
         FooterViewModel footerViewModel)
