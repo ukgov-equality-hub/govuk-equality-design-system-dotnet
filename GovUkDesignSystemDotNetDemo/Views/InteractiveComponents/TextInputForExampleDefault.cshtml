@@ -1,0 +1,44 @@
+﻿@using GovUkDesignSystemDotNet
+@model GovUkDesignSystemDotNetDemo.Models.InteractiveComponentsExamples.TextInputForExampleDefaultViewModel
+
+@{
+    Layout = "_LayoutForExamples";
+}
+
+<form method="post">
+    
+    @await Html.GovUkFieldset(new FieldsetViewModel
+    {
+        Legend = new FieldsetLegendViewModel
+        {
+            HtmlOrText = new HtmlOrText("Enter your name"),
+            IsPageHeading = true,
+            Classes = ["govuk-fieldset__legend--l"]
+        }
+    })
+    
+    @await Html.GovUkTextInputFor(
+        m => m.FirstName,
+        new TextInputViewModel
+        {
+            Label = new LabelViewModel
+            {
+                HtmlOrText = new HtmlOrText("First name")
+            }
+        })
+
+    @await Html.GovUkTextInputFor(
+        m => m.LastName,
+        new TextInputViewModel
+        {
+            Label = new LabelViewModel
+            {
+                HtmlOrText = new HtmlOrText("Last name")
+            }
+        })
+
+    @await Html.GovUkButton(new ButtonViewModel
+    {
+        HtmlOrText = new HtmlOrText("Validate")
+    })
+</form>

@@ -1,6 +1,6 @@
 ﻿namespace GovUkDesignSystemDotNet;
 
-public class CharacterCountViewModel
+public class CharacterCountViewModel : IHasErrorMessage
 {
     public string Id { get; set; }
     public string Name { get; set; }

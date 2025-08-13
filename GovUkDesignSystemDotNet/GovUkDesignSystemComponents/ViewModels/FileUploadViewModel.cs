@@ -1,6 +1,6 @@
 ﻿namespace GovUkDesignSystemDotNet;
 
-public class FileUploadViewModel
+public class FileUploadViewModel : IHasErrorMessage
 {
     public string Name { get; set; }
     public string Id { get; set; }

@@ -1,6 +1,6 @@
 ﻿namespace GovUkDesignSystemDotNet;
 
-public class RadiosViewModel
+public class RadiosViewModel : IHasErrorMessage
 {
     public List<string> DescribedBy { get; set; } = [];
     public FieldsetViewModel Fieldset { get; set; }

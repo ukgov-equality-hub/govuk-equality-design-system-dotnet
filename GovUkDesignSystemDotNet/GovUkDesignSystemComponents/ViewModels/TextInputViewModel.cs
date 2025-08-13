@@ -1,6 +1,6 @@
 ﻿namespace GovUkDesignSystemDotNet;
 
-public class TextInputViewModel
+public class TextInputViewModel : IHasErrorMessage
 {
     public string Id { get; set; }
     public string Name { get; set; }

@@ -12,4 +12,8 @@
         <FrameworkReference Include="Microsoft.AspNetCore.App" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="GovUkDesignSystemComponents\ViewModels\Interactive\" />
+    </ItemGroup>
+
 </Project>
