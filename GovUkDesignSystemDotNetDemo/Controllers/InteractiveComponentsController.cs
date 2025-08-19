@@ -10,6 +10,13 @@ public class InteractiveComponentsController : Controller
     public IActionResult Index() => View();
 
     
+    [HttpGet("text-input-for")]
+    public IActionResult TextInputFor() => View();
+
+    [Route("TextInputForExampleDefault")]
+    public IActionResult TextInputForExampleDefault(TextInputForExampleDefaultViewModel vm) => ExampleDefault(vm);
+
+    
     private IActionResult ExampleDefault<TViewModel>(TViewModel viewModel)
     where TViewModel : new()
     {

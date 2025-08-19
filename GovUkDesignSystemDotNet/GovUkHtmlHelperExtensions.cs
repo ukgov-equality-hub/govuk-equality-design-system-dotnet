@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Html;
+﻿using System.Linq.Expressions;
+using GovUkDesignSystemDotNet.Helpers;
+using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace GovUkDesignSystemDotNet;
@@ -151,6 +153,17 @@ public static class GovUkHtmlHelperExtensions
         TextInputViewModel textInputViewModel)
     {
         return await htmlHelper.PartialAsync("/GovUkDesignSystemComponents/Views/TextInput.cshtml", textInputViewModel);
+    }
+
+    public static async Task<IHtmlContent> GovUkTextInputFor<TModel, TProperty>(
+        this IHtmlHelper<TModel> htmlHelper,
+        Expression<Func<TModel, TProperty>> propertyExpression,
+        TextInputViewModel textInputViewModel)
+        where TModel : class
+    {
+        InteractiveComponentsHelper.PopulateViewModelForTextInput(htmlHelper, propertyExpression, textInputViewModel);
+
+        return await GovUkTextInput(htmlHelper, textInputViewModel);
     }
 
 }
