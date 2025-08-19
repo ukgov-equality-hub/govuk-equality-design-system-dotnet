@@ -1,6 +1,6 @@
 ﻿namespace GovUkDesignSystemDotNet;
 
-public class CheckboxesViewModel
+public class CheckboxesViewModel : IHasErrorMessage
 {
     public List<string> DescribedBy { get; set; } = [];
     public FieldsetViewModel Fieldset { get; set; }
