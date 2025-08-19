@@ -1,0 +1,42 @@
+﻿@using GovUkDesignSystemDotNetDemo.Helpers
+@using GovUkDesignSystemDotNetDemo.Models
+@model GovUkDesignSystemDotNetDemo.Models.InteractiveExampleViewModel
+
+<div class="example-box">
+    <div class="example-box-link">
+        <p class="govuk-body-s govuk-!-margin-0">
+            <a href="@(Model.ExampleHref)"
+               target="_blank"
+               class="govuk-link">
+                Open this example in a new tab
+            </a>
+        </p>
+    </div>
+    <div class="example-box-example">
+        <iframe src="@(Model.ExampleHref)"
+                onload="resizeExampleIFrame(this)"
+        ></iframe>
+    </div>
+    
+    @foreach (InteractiveExampleCodeSnippetViewModel codeSnippet in Model.CodeSnippets)
+    {
+        @if (!string.IsNullOrWhiteSpace(codeSnippet.Title))
+        {
+            <h4 class="govuk-heading-s example-box-title">
+                <span class="govuk-!-padding-right-4">
+                    @(codeSnippet.Title)
+                </span>
+
+                @if (!string.IsNullOrWhiteSpace(codeSnippet.Filename))
+                {
+                    <span class="govuk-!-font-weight-regular">
+                        @(codeSnippet.Filename)
+                    </span>
+                }
+            </h4>
+        }
+        <div class="example-box-code">
+            <pre><code class="language-csharp">@(CodeFormattingHelper.RemoveUnwantedWhitespace(codeSnippet.Code))</code></pre>
+        </div>
+    }
+</div>

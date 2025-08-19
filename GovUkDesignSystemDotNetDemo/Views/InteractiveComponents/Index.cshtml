@@ -1,0 +1,42 @@
+@using GovUkDesignSystemDotNet
+
+@{
+    ViewBag.Title = "Interactive components";
+}
+
+@section BeforeMain
+{
+    @await Html.GovUkBreadcrumbs(new BreadcrumbsViewModel
+    {
+        Crumbs = new List<CrumbViewModel>
+        {
+            new CrumbViewModel
+            {
+                HtmlOrText = new HtmlOrText("Home"),
+                Href = Url.Action("Index", "Home")
+            },
+            new CrumbViewModel
+            {
+                HtmlOrText = new HtmlOrText("Interactive components"),
+            },
+        }
+    })
+}
+
+<h1 class="govuk-heading-l">
+    Interactive components
+</h1>
+
+<p class="govuk-body">
+    Read more about
+    <a href="https://design-system.service.gov.uk/components/"
+       class="govuk-link">
+        <b>
+            components
+        </b>
+        on the Gov.UK Design System website
+    </a>
+</p>
+
+<ul class="govuk-list govuk-list--spaced">
+</ul>

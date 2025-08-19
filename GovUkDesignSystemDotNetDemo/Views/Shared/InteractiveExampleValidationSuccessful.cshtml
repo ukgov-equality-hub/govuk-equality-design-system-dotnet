@@ -1,0 +1,16 @@
+﻿@using Microsoft.AspNetCore.Http.Extensions
+
+@{
+    Layout = "_LayoutForExamples";
+}
+
+<h1 class="govuk-heading-l">
+    Validation successful
+</h1>
+
+<p class="govuk-body">
+    <a href="@(Context.Request.GetDisplayUrl())"
+       class="govuk-link">
+        Start again
+    </a>
+</p>
