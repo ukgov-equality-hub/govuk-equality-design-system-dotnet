@@ -36,6 +36,17 @@ public static class GovUkHtmlHelperExtensions
         return await htmlHelper.PartialAsync("/GovUkDesignSystemComponents/Views/CharacterCount.cshtml", characterCountViewModel);
     }
 
+    public static async Task<IHtmlContent> GovUkCharacterCountFor<TModel, TProperty>(
+        this IHtmlHelper<TModel> htmlHelper,
+        Expression<Func<TModel, TProperty>> propertyExpression,
+        CharacterCountViewModel characterCountViewModel)
+        where TModel : class
+    {
+        InteractiveComponentsHelper.PopulateViewModelForCharacterCount(htmlHelper, propertyExpression, characterCountViewModel);
+
+        return await GovUkCharacterCount(htmlHelper, characterCountViewModel);
+    }
+
     public static async Task<IHtmlContent> GovUkCheckboxItem(
         this IHtmlHelper htmlHelper,
         CheckboxItemViewModel checkboxItemViewModel)

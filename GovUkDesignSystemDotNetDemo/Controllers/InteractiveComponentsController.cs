@@ -10,6 +10,12 @@ public class InteractiveComponentsController : Controller
     public IActionResult Index() => View();
 
     
+    [HttpGet("character-count-for")]
+    public IActionResult CharacterCountFor() => View();
+
+    [Route("CharacterCountForExampleDefault")]
+    public IActionResult CharacterCountForExampleDefault(CharacterCountForExampleDefaultViewModel vm) => ExampleDefault(vm);
+
     [HttpGet("textarea-for")]
     public IActionResult TextareaFor() => View();
 

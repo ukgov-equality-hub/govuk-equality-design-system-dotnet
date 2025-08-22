@@ -1,9 +1,18 @@
 ﻿using System.Linq.Expressions;
+using System.Reflection;
 
 namespace GovUkDesignSystemDotNet.Helpers;
 
 internal static class ExpressionHelpers
 {
+    internal static PropertyInfo GetPropertyFromExpression<TModel, TProperty>(
+        Expression<Func<TModel, TProperty>> propertyLambdaExpression)
+        where TModel : class
+    {
+        MemberExpression memberExpression = propertyLambdaExpression.Body as MemberExpression;
+        return memberExpression.Member as PropertyInfo;
+    }
+
     public static TProperty GetPropertyValueFromModelAndExpression<TModel, TProperty>(
         TModel model,
         Expression<Func<TModel, TProperty>> propertyLambdaExpression)

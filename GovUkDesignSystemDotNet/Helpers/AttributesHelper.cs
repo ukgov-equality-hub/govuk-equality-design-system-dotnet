@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Html;
+﻿using System.Reflection;
+using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 
@@ -49,5 +50,11 @@ public static class AttributesHelper
             AddI18nAttribute(attributesDictionary, $"data-i18n.{key}.many", messages.Many);
             AddI18nAttribute(attributesDictionary, $"data-i18n.{key}.other", messages.Other);
         }
+    }
+    
+    public static TAttributeType GetSingleCustomAttribute<TAttributeType>(MemberInfo property)
+        where TAttributeType : Attribute
+    {
+        return property.GetCustomAttributes(typeof(TAttributeType)).SingleOrDefault() as TAttributeType;
     }
 }

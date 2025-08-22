@@ -1,0 +1,114 @@
+﻿@using GovUkDesignSystemDotNet
+@using GovUkDesignSystemDotNetDemo.Models
+
+@{
+    ViewBag.Title = "Character count for";
+}
+
+@section BeforeMain
+{
+    @await Html.GovUkBreadcrumbs(new BreadcrumbsViewModel
+        {
+            Crumbs = new List<CrumbViewModel>
+            {
+                new CrumbViewModel
+                {
+                    HtmlOrText = new HtmlOrText("Home"),
+                    Href = Url.Action("Index", "Home")
+                },
+                new CrumbViewModel
+                {
+                    HtmlOrText = new HtmlOrText("Interactive components"),
+                    Href = Url.Action("Index", "InteractiveComponents")
+                },
+                new CrumbViewModel
+                {
+                    HtmlOrText = new HtmlOrText("Character count for"),
+                },
+            }
+        })
+}
+
+<h1 class="govuk-heading-xl">
+    Character count for
+</h1>
+
+<p class="govuk-body govuk-!-margin-bottom-6">
+    Read more about the
+    <a href="https://design-system.service.gov.uk/components/character-count/"
+       class="govuk-link">
+        <b>character count</b>
+        component on the Gov.UK Design System website
+    </a>
+</p>
+
+@await Html.PartialAsync("../Shared/InteractiveExample", new InteractiveExampleViewModel
+{
+    ExampleHref = Url.Action("CharacterCountForExampleDefault"),
+    CodeSnippets =
+    [
+        new()
+        {
+            Title = "Model",
+            Filename = "CharacterCountForExampleDefaultViewModel.cs",
+            Code = @"
+                using GovUkDesignSystemDotNet;
+
+                public class CharacterCountForExampleDefaultViewModel
+                {
+                    [GovUkValidateRequired(ErrorMessageIfMissing = ""Enter more detail"")]
+                    [GovUkValidateCharacterCount(Limit = 200, Units = CharacterCountMaxLengthUnit.Words, NameAtStartOfSentence = ""Details"", NameWithinSentence = ""more details"")]
+                    public string MoreDetail { get; set; }
+                }
+            "
+        },
+        new()
+        {
+            Title = "View",
+            Filename = "CharacterCountForExampleDefault.cshtml",
+            Code = @"
+                @using GovUkDesignSystemDotNet
+                @model CharacterCountForExampleDefaultViewModel
+
+                <form method=""post"">
+                    @await Html.GovUkCharacterCountFor(
+                        m => m.MoreDetail,
+                        new CharacterCountViewModel
+                        {
+                            Label = new LabelViewModel
+                            {
+                                HtmlOrText = new HtmlOrText(""Can you provide more detail?""),
+                                IsPageHeading = true,
+                                Classes = [""govuk-label--l""]
+                            },
+                            Hint = new HintViewModel
+                            {
+                                HtmlOrText = new HtmlOrText(""Do not include personal or financial information, like your National Insurance number or credit card details"")
+                            }
+                        })
+                    
+                    @await Html.GovUkButton(new ButtonViewModel
+                    {
+                        HtmlOrText = new HtmlOrText(""Validate"")
+                    })
+                </form>
+            "
+        },
+        new()
+        {
+            Title = "Controller",
+            Code = @"
+                public IActionResult MyActionName(CharacterCountForExampleDefaultViewModel viewModel)
+                {
+                    if (!ModelState.IsValid)
+                    {
+                        return View(""CharacterCountForExampleDefault"", viewModel);
+                    }
+
+                    // Do some work with the validated view-model
+                    return View(""InteractiveExampleValidationSuccessful"");
+                }
+            "
+        },
+    ]
+})
