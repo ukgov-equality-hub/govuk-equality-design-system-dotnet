@@ -22,6 +22,19 @@ public class InteractiveComponentsController : Controller
     [Route("ErrorSummaryIfNeededExampleDefault")]
     public IActionResult ErrorSummaryIfNeededExampleDefault(ErrorSummaryIfNeededExampleDefaultViewModel vm) => ExampleDefault(vm);
 
+    [HttpGet("file-upload-for")]
+    public IActionResult FileUploadFor() => View();
+
+    [Route("FileUploadForExampleDefault")]
+    public IActionResult FileUploadForExampleDefault(FileUploadForExampleDefaultViewModel vm) => ExampleDefault(vm,
+        () =>
+        {
+            if (vm.YourCsvFile == null)
+            {
+                ModelState.AddModelError(nameof(vm.YourCsvFile), "Upload a CSV file");
+            }
+        });
+
     [HttpGet("textarea-for")]
     public IActionResult TextareaFor() => View();
 
@@ -35,7 +48,7 @@ public class InteractiveComponentsController : Controller
     public IActionResult TextInputForExampleDefault(TextInputForExampleDefaultViewModel vm) => ExampleDefault(vm);
 
     
-    private IActionResult ExampleDefault<TViewModel>(TViewModel viewModel)
+    private IActionResult ExampleDefault<TViewModel>(TViewModel viewModel, Action extraValidation = null)
     where TViewModel : new()
     {
         string actionName = ControllerContext.RouteData.Values["action"].ToString();
@@ -47,6 +60,11 @@ public class InteractiveComponentsController : Controller
                 return View(actionName, new TViewModel());
 
             case "POST":
+                if (extraValidation != null)
+                {
+                    extraValidation();
+                }
+                
                 if (!ModelState.IsValid)
                 {
                     return View(actionName, viewModel);
