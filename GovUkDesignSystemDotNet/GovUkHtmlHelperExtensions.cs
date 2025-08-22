@@ -104,6 +104,17 @@ public static class GovUkHtmlHelperExtensions
         return await htmlHelper.PartialAsync("/GovUkDesignSystemComponents/Views/FileUpload.cshtml", fileUploadViewModel);
     }
 
+    public static async Task<IHtmlContent> GovUkFileUploadFor<TModel, TProperty>(
+        this IHtmlHelper<TModel> htmlHelper,
+        Expression<Func<TModel, TProperty>> propertyExpression,
+        FileUploadViewModel fileUploadViewModel)
+        where TModel : class
+    {
+        InteractiveComponentsHelper.PopulateViewModelForFileUpload(htmlHelper, propertyExpression, fileUploadViewModel);
+        
+        return await GovUkFileUpload(htmlHelper, fileUploadViewModel);
+    }
+
     public static async Task<IHtmlContent> GovUkFooter(
         this IHtmlHelper htmlHelper,
         FooterViewModel footerViewModel)

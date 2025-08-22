@@ -1,0 +1,110 @@
+﻿@using GovUkDesignSystemDotNet
+@using GovUkDesignSystemDotNetDemo.Models
+
+@{
+    ViewBag.Title = "File upload for";
+}
+
+@section BeforeMain
+{
+    @await Html.GovUkBreadcrumbs(new BreadcrumbsViewModel
+        {
+            Crumbs = new List<CrumbViewModel>
+            {
+                new CrumbViewModel
+                {
+                    HtmlOrText = new HtmlOrText("Home"),
+                    Href = Url.Action("Index", "Home")
+                },
+                new CrumbViewModel
+                {
+                    HtmlOrText = new HtmlOrText("Interactive components"),
+                    Href = Url.Action("Index", "InteractiveComponents")
+                },
+                new CrumbViewModel
+                {
+                    HtmlOrText = new HtmlOrText("File upload for"),
+                },
+            }
+        })
+}
+
+<h1 class="govuk-heading-xl">
+    File upload for
+</h1>
+
+<p class="govuk-body govuk-!-margin-bottom-6">
+    Read more about the
+    <a href="https://design-system.service.gov.uk/components/file-upload/"
+       class="govuk-link">
+        <b>file upload</b>
+        component on the Gov.UK Design System website
+    </a>
+</p>
+
+@await Html.PartialAsync("../Shared/InteractiveExample", new InteractiveExampleViewModel
+{
+    ExampleHref = Url.Action("FileUploadForExampleDefault"),
+    CodeSnippets =
+    [
+        new()
+        {
+            Title = "Model",
+            Filename = "FileUploadForExampleDefaultViewModel.cs",
+            Code = @"
+                public class FileUploadForExampleDefaultViewModel
+                {
+                    public IFormFile YourCsvFile { get; set; }
+                }
+            "
+        },
+        new()
+        {
+            Title = "View",
+            Filename = "FileUploadForExampleDefault.cshtml",
+            Code = @"
+                @using GovUkDesignSystemDotNet
+                @model FileUploadForExampleDefaultViewModel
+
+                <form method=""post"" enctype=""multipart/form-data"">
+                    @await Html.GovUkFileUploadFor(
+                        m => m.YourCsvFile,
+                        new FileUploadViewModel
+                        {
+                            Label = new LabelViewModel
+                            {
+                                HtmlOrText = new HtmlOrText(""Upload a CSV file"")
+                            },
+                            Javascript = true
+                        })
+                    
+                    @await Html.GovUkButton(new ButtonViewModel
+                    {
+                        HtmlOrText = new HtmlOrText(""Validate"")
+                    })
+                </form>
+            "
+        },
+        new()
+        {
+            Title = "Controller",
+            Code = @"
+                public IActionResult MyActionName(FileUploadForExampleDefaultViewModel viewModel)
+                {
+                    if (viewModel.YourCsvFile == null)
+                    {
+                        ModelState.AddModelError(nameof(viewModel.YourCsvFile), ""Upload a CSV file"");
+                    }
+
+                    if (!ModelState.IsValid)
+                    {
+                        return View(""FileUploadForExampleDefault"", viewModel);
+                    }
+
+                    // Do some work with the validated view-model
+                    return View(""InteractiveExampleValidationSuccessful"");
+                }
+            "
+        },
+    ]
+})

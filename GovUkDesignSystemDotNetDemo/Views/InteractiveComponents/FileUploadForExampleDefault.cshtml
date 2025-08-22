@@ -1,0 +1,24 @@
+﻿@using GovUkDesignSystemDotNet
+@model GovUkDesignSystemDotNetDemo.Models.InteractiveComponentsExamples.FileUploadForExampleDefaultViewModel
+
+@{
+    Layout = "_LayoutForExamples";
+}
+
+<form method="post" enctype="multipart/form-data">
+    @await Html.GovUkFileUploadFor(
+        m => m.YourCsvFile,
+        new FileUploadViewModel
+        {
+            Label = new LabelViewModel
+            {
+                HtmlOrText = new HtmlOrText("Upload a CSV file")
+            },
+            Javascript = true
+        })
+    
+    @await Html.GovUkButton(new ButtonViewModel
+    {
+        HtmlOrText = new HtmlOrText("Validate")
+    })
+</form>

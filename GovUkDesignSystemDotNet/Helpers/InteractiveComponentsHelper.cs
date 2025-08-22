@@ -73,6 +73,20 @@ internal static class InteractiveComponentsHelper
         }
     }
     
+    internal static void PopulateViewModelForFileUpload<TModel, TProperty>(
+        IHtmlHelper<TModel> htmlHelper,
+        Expression<Func<TModel, TProperty>> propertyExpression,
+        FileUploadViewModel viewModel)
+        where TModel : class
+    {
+        viewModel.Id ??= htmlHelper.IdFor(propertyExpression);
+        viewModel.Name ??= htmlHelper.NameFor(propertyExpression);
+        
+        htmlHelper.ViewData.ModelState.TryGetValue(viewModel.Name, out ModelStateEntry modelStateEntry);
+        
+        viewModel.ErrorMessage = ModelStateHelpers.GetErrorMessages(modelStateEntry);
+    }
+    
     internal static void PopulateViewModelForTextarea<TModel, TProperty>(
         IHtmlHelper<TModel> htmlHelper,
         Expression<Func<TModel, TProperty>> propertyExpression,
