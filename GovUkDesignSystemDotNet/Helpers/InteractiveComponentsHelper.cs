@@ -36,6 +36,42 @@ internal static class InteractiveComponentsHelper
         
         viewModel.ErrorMessage = ModelStateHelpers.GetErrorMessages(modelStateEntry);
     }
+
+    public static void PopulateViewModelForErrorSummary(
+        ModelStateDictionary modelState,
+        List<string> optionalOrderOfPropertyNamesInTheView,
+        ref ErrorSummaryViewModel viewModel)
+    {
+        optionalOrderOfPropertyNamesInTheView ??= [];
+        viewModel ??= new ErrorSummaryViewModel();
+        
+        viewModel.Title ??= new HtmlOrText("There is a problem");
+
+        var propertiesWithErrors = modelState
+            .Where(mseKvp => mseKvp.Value.Errors.Any())
+            .ToList();
+
+        var orderedPropertiesWithErrors = propertiesWithErrors
+            .Where(mseKvp => optionalOrderOfPropertyNamesInTheView.Contains(mseKvp.Key))
+            .OrderBy(mseKvp => optionalOrderOfPropertyNamesInTheView.IndexOf(mseKvp.Key));
+
+        var unorderedPropertiesWithErrors = propertiesWithErrors
+            .Where(mseKvp => !optionalOrderOfPropertyNamesInTheView.Contains(mseKvp.Key));
+
+        var reorderedPropertiesWithErrors = orderedPropertiesWithErrors.Concat(unorderedPropertiesWithErrors);
+
+        foreach (KeyValuePair<string,ModelStateEntry> mseKvp in reorderedPropertiesWithErrors)
+        {
+            foreach (ModelError modelError in mseKvp.Value.Errors)
+            {
+                viewModel.Errors.Add(new ErrorSummaryItemViewModel
+                {
+                    Href = $"#{mseKvp.Key}",
+                    HtmlOrText = new HtmlOrText(modelError.ErrorMessage)
+                });
+            }
+        }
+    }
     
     internal static void PopulateViewModelForTextarea<TModel, TProperty>(
         IHtmlHelper<TModel> htmlHelper,

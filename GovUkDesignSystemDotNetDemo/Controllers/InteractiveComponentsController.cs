@@ -16,6 +16,12 @@ public class InteractiveComponentsController : Controller
     [Route("CharacterCountForExampleDefault")]
     public IActionResult CharacterCountForExampleDefault(CharacterCountForExampleDefaultViewModel vm) => ExampleDefault(vm);
 
+    [HttpGet("error-summary-if-needed")]
+    public IActionResult ErrorSummaryIfNeeded() => View();
+
+    [Route("ErrorSummaryIfNeededExampleDefault")]
+    public IActionResult ErrorSummaryIfNeededExampleDefault(ErrorSummaryIfNeededExampleDefaultViewModel vm) => ExampleDefault(vm);
+
     [HttpGet("textarea-for")]
     public IActionResult TextareaFor() => View();
 

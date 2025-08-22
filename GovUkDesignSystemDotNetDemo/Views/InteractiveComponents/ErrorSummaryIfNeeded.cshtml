@@ -1,0 +1,137 @@
+﻿@using GovUkDesignSystemDotNet
+@using GovUkDesignSystemDotNetDemo.Models
+
+@{
+    ViewBag.Title = "Error summary if needed";
+}
+
+@section BeforeMain
+{
+    @await Html.GovUkBreadcrumbs(new BreadcrumbsViewModel
+        {
+            Crumbs = new List<CrumbViewModel>
+            {
+                new CrumbViewModel
+                {
+                    HtmlOrText = new HtmlOrText("Home"),
+                    Href = Url.Action("Index", "Home")
+                },
+                new CrumbViewModel
+                {
+                    HtmlOrText = new HtmlOrText("Interactive components"),
+                    Href = Url.Action("Index", "InteractiveComponents")
+                },
+                new CrumbViewModel
+                {
+                    HtmlOrText = new HtmlOrText("Error summary if needed"),
+                },
+            }
+        })
+}
+
+<h1 class="govuk-heading-xl">
+    Error summary if needed
+</h1>
+
+<p class="govuk-body govuk-!-margin-bottom-6">
+    Read more about the
+    <a href="https://design-system.service.gov.uk/components/error-summary/"
+       class="govuk-link">
+        <b>error summary</b>
+        component on the Gov.UK Design System website
+    </a>
+</p>
+
+@await Html.PartialAsync("../Shared/InteractiveExample", new InteractiveExampleViewModel
+{
+    ExampleHref = Url.Action("ErrorSummaryIfNeededExampleDefault"),
+    CodeSnippets =
+    [
+        new()
+        {
+            Title = "Model",
+            Filename = "ErrorSummaryIfNeededExampleDefaultViewModel.cs",
+            Code = @"
+                using GovUkDesignSystemDotNet;
+
+                public class ErrorSummaryIfNeededExampleDefaultViewModel
+                {
+                    [GovUkValidateRequired(ErrorMessageIfMissing = ""Please enter your first name"")]
+                    public string FirstName { get; set; }
+                    
+                    [GovUkValidateRequired(ErrorMessageIfMissing = ""Please enter your last name"")]
+                    public string LastName { get; set; }
+                }
+            "
+        },
+        new()
+        {
+            Title = "View",
+            Filename = "ErrorSummaryIfNeededExampleDefault.cshtml",
+            Code = @"
+                @using GovUkDesignSystemDotNet
+                @model ErrorSummaryIfNeededExampleDefaultViewModel
+
+                <form method=""post"">
+                    @await Html.GovUkErrorSummaryIfNeeded([
+                        nameof(Model.FirstName),
+                        nameof(Model.LastName),
+                    ])
+
+                    @await Html.GovUkFieldset(new FieldsetViewModel
+                    {
+                        Legend = new FieldsetLegendViewModel
+                        {
+                            HtmlOrText = new HtmlOrText(""Enter your name""),
+                            IsPageHeading = true,
+                            Classes = [""govuk-fieldset__legend--l""]
+                        },
+                        HtmlOrText = new HtmlOrText(
+                            @<text>
+                                @await Html.GovUkTextInputFor(
+                                    m => m.FirstName,
+                                    new TextInputViewModel
+                                    {
+                                        Label = new LabelViewModel
+                                        {
+                                            HtmlOrText = new HtmlOrText(""First name"")
+                                        }
+                                    })
+
+                                @await Html.GovUkTextInputFor(
+                                    m => m.LastName,
+                                    new TextInputViewModel
+                                    {
+                                        Label = new LabelViewModel
+                                        {
+                                            HtmlOrText = new HtmlOrText(""Last name"")
+                                        }
+                                    })
+                             </text>)
+                    })
+
+                    @await Html.GovUkButton(new ButtonViewModel
+                    {
+                        HtmlOrText = new HtmlOrText(""Validate"")
+                    })
+                </form>
+            "
+        },
+        new()
+        {
+            Title = "Controller",
+            Code = @"
+                public IActionResult MyActionName(ErrorSummaryIfNeededExampleDefaultViewModel viewModel)
+                {
+                    if (!ModelState.IsValid)
+                    {
+                        return View(""ErrorSummaryIfNeededExampleDefault"", viewModel);
+                    }
+
+                    // Do some work with the validated view-model
+                    return View(""InteractiveExampleValidationSuccessful"");
+                }
+            "
+        },
+    ]
+})

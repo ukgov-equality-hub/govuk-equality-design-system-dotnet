@@ -75,6 +75,21 @@ public static class GovUkHtmlHelperExtensions
         return await htmlHelper.PartialAsync("/GovUkDesignSystemComponents/Views/ErrorSummary.cshtml", errorSummaryViewModel);
     }
 
+    public static async Task<IHtmlContent> GovUkErrorSummaryIfNeeded(
+        this IHtmlHelper htmlHelper,
+        List<string> optionalOrderOfPropertyNamesInTheView = null,
+        ErrorSummaryViewModel errorSummaryViewModel = null)
+    {
+        InteractiveComponentsHelper.PopulateViewModelForErrorSummary(htmlHelper.ViewData.ModelState, optionalOrderOfPropertyNamesInTheView, ref errorSummaryViewModel);
+
+        if (errorSummaryViewModel.Errors.Count > 0)
+        {
+            return await GovUkErrorSummary(htmlHelper, errorSummaryViewModel);
+        }
+
+        return null;
+    }
+
     public static async Task<IHtmlContent> GovUkFieldset(
         this IHtmlHelper htmlHelper,
         FieldsetViewModel fieldsetViewModel)
