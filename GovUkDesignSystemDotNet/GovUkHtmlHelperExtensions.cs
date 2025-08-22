@@ -148,6 +148,17 @@ public static class GovUkHtmlHelperExtensions
         return await htmlHelper.PartialAsync("/GovUkDesignSystemComponents/Views/Textarea.cshtml", textareaViewModel);
     }
 
+    public static async Task<IHtmlContent> GovUkTextareaFor<TModel, TProperty>(
+        this IHtmlHelper<TModel> htmlHelper,
+        Expression<Func<TModel, TProperty>> propertyExpression,
+        TextareaViewModel textareaViewModel)
+        where TModel : class
+    {
+        InteractiveComponentsHelper.PopulateViewModelForTextarea(htmlHelper, propertyExpression, textareaViewModel);
+
+        return await GovUkTextarea(htmlHelper, textareaViewModel);
+    }
+
     public static async Task<IHtmlContent> GovUkTextInput(
         this IHtmlHelper htmlHelper,
         TextInputViewModel textInputViewModel)

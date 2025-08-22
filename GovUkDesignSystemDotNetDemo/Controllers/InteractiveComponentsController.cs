@@ -10,6 +10,12 @@ public class InteractiveComponentsController : Controller
     public IActionResult Index() => View();
 
     
+    [HttpGet("textarea-for")]
+    public IActionResult TextareaFor() => View();
+
+    [Route("TextareaForExampleDefault")]
+    public IActionResult TextareaForExampleDefault(TextareaForExampleDefaultViewModel vm) => ExampleDefault(vm);
+
     [HttpGet("text-input-for")]
     public IActionResult TextInputFor() => View();
 

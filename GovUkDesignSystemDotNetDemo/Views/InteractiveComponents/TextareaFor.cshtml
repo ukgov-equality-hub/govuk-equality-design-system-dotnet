@@ -1,0 +1,113 @@
+﻿@using GovUkDesignSystemDotNet
+@using GovUkDesignSystemDotNetDemo.Models
+
+@{
+    ViewBag.Title = "Textarea for";
+}
+
+@section BeforeMain
+{
+    @await Html.GovUkBreadcrumbs(new BreadcrumbsViewModel
+        {
+            Crumbs = new List<CrumbViewModel>
+            {
+                new CrumbViewModel
+                {
+                    HtmlOrText = new HtmlOrText("Home"),
+                    Href = Url.Action("Index", "Home")
+                },
+                new CrumbViewModel
+                {
+                    HtmlOrText = new HtmlOrText("Interactive components"),
+                    Href = Url.Action("Index", "InteractiveComponents")
+                },
+                new CrumbViewModel
+                {
+                    HtmlOrText = new HtmlOrText("Textarea for"),
+                },
+            }
+        })
+}
+
+<h1 class="govuk-heading-xl">
+    Textarea for
+</h1>
+
+<p class="govuk-body govuk-!-margin-bottom-6">
+    Read more about the
+    <a href="https://design-system.service.gov.uk/components/textarea/"
+       class="govuk-link">
+        <b>textarea</b>
+        component on the Gov.UK Design System website
+    </a>
+</p>
+
+@await Html.PartialAsync("../Shared/InteractiveExample", new InteractiveExampleViewModel
+{
+    ExampleHref = Url.Action("TextareaForExampleDefault"),
+    CodeSnippets =
+    [
+        new()
+        {
+            Title = "Model",
+            Filename = "TextareaForExampleDefaultViewModel.cs",
+            Code = @"
+                using GovUkDesignSystemDotNet;
+
+                public class TextareaForExampleDefaultViewModel
+                {
+                    [GovUkValidateRequired(ErrorMessageIfMissing = ""Enter more detail"")]
+                    public string MoreDetail { get; set; }
+                }
+            "
+        },
+        new()
+        {
+            Title = "View",
+            Filename = "TextareaForExampleDefault.cshtml",
+            Code = @"
+                @using GovUkDesignSystemDotNet
+                @model TextareaForExampleDefaultViewModel
+
+                <form method=""post"">
+                    @await Html.GovUkTextareaFor(
+                        m => m.MoreDetail,
+                        new TextareaViewModel
+                        {
+                            Label = new LabelViewModel
+                            {
+                                HtmlOrText = new HtmlOrText(""Can you provide more detail?""),
+                                IsPageHeading = true,
+                                Classes = [""govuk-label--l""]
+                            },
+                            Hint = new HintViewModel
+                            {
+                                HtmlOrText = new HtmlOrText(""Do not include personal or financial information, like your National Insurance number or credit card details"")
+                            }
+                        })
+                    
+                    @await Html.GovUkButton(new ButtonViewModel
+                    {
+                        HtmlOrText = new HtmlOrText(""Validate"")
+                    })
+                </form>
+            "
+        },
+        new()
+        {
+            Title = "Controller",
+            Code = @"
+                public IActionResult MyActionName(TextareaForExampleDefaultViewModel viewModel)
+                {
+                    if (!ModelState.IsValid)
+                    {
+                        return View(""TextareaForExampleDefault"", viewModel);
+                    }
+
+                    // Do some work with the validated view-model
+                    return View(""InteractiveExampleValidationSuccessful"");
+                }
+            "
+        },
+    ]
+})

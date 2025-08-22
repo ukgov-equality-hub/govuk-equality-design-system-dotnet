@@ -1,0 +1,29 @@
+﻿@using GovUkDesignSystemDotNet
+@model GovUkDesignSystemDotNetDemo.Models.InteractiveComponentsExamples.TextareaForExampleDefaultViewModel
+
+@{
+    Layout = "_LayoutForExamples";
+}
+
+<form method="post">
+    @await Html.GovUkTextareaFor(
+        m => m.MoreDetail,
+        new TextareaViewModel
+        {
+            Label = new LabelViewModel
+            {
+                HtmlOrText = new HtmlOrText("Can you provide more detail?"),
+                IsPageHeading = true,
+                Classes = ["govuk-label--l"]
+            },
+            Hint = new HintViewModel
+            {
+                HtmlOrText = new HtmlOrText("Do not include personal or financial information, like your National Insurance number or credit card details")
+            }
+        })
+    
+    @await Html.GovUkButton(new ButtonViewModel
+    {
+        HtmlOrText = new HtmlOrText("Validate")
+    })
+</form>
