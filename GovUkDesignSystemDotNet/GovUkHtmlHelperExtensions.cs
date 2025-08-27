@@ -1,4 +1,4 @@
-﻿using System.Linq.Expressions;
+using System.Linq.Expressions;
 using GovUkDesignSystemDotNet.Helpers;
 using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -162,6 +162,27 @@ public static class GovUkHtmlHelperExtensions
         RadiosViewModel radiosViewModel)
     {
         return await htmlHelper.PartialAsync("/GovUkDesignSystemComponents/Views/Radios.cshtml", radiosViewModel);
+    }
+
+    public static async Task<IHtmlContent> GovUkRadiosFor<TModel, TEnum>(
+        this IHtmlHelper<TModel> htmlHelper,
+        Expression<Func<TModel, TEnum?>> propertyExpression,
+        RadiosViewModel radiosViewModel,
+        Dictionary<TEnum, RadioItemViewModel> radioItemViewModels = null,
+        Dictionary<TEnum, string> dividersBefore = null,
+        IEnumerable<TEnum> overrideEnumValues = null)
+        where TModel : class
+        where TEnum : struct, Enum
+    {
+        InteractiveComponentsHelper.PopulateViewModelForRadios(
+            htmlHelper,
+            propertyExpression,
+            radiosViewModel,
+            radioItemViewModels,
+            dividersBefore,
+            overrideEnumValues);
+
+        return await GovUkRadios(htmlHelper, radiosViewModel);
     }
 
     public static async Task<IHtmlContent> GovUkServiceNavigation(

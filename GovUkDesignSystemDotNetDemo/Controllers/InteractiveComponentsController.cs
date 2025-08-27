@@ -47,6 +47,12 @@ public class InteractiveComponentsController : Controller
     [Route("TextInputForExampleDefault")]
     public IActionResult TextInputForExampleDefault(TextInputForExampleDefaultViewModel vm) => ExampleDefault(vm);
 
+    [HttpGet("radios-for")]
+    public IActionResult RadiosFor() => View();
+
+    [Route("RadiosForExampleDefault")]
+    public IActionResult RadiosForExampleDefault(RadiosForExampleDefaultViewModel vm) => ExampleDefault(vm);
+
     
     private IActionResult ExampleDefault<TViewModel>(TViewModel viewModel, Action extraValidation = null)
     where TViewModel : new()

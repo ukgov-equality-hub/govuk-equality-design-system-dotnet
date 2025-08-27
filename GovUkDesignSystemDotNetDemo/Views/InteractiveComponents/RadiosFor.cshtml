@@ -1,0 +1,155 @@
+﻿@using GovUkDesignSystemDotNet
+@using GovUkDesignSystemDotNetDemo.Models
+
+@{
+    ViewBag.Title = "Radios for";
+}
+
+@section BeforeMain
+{
+    @await Html.GovUkBreadcrumbs(new BreadcrumbsViewModel
+        {
+            Crumbs = new List<CrumbViewModel>
+            {
+                new CrumbViewModel
+                {
+                    HtmlOrText = new HtmlOrText("Home"),
+                    Href = Url.Action("Index", "Home")
+                },
+                new CrumbViewModel
+                {
+                    HtmlOrText = new HtmlOrText("Interactive components"),
+                    Href = Url.Action("Index", "InteractiveComponents")
+                },
+                new CrumbViewModel
+                {
+                    HtmlOrText = new HtmlOrText("Radios for"),
+                },
+            }
+        })
+}
+
+<h1 class="govuk-heading-xl">
+    Radios for
+</h1>
+
+<p class="govuk-body govuk-!-margin-bottom-6">
+    Read more about the
+    <a href="https://design-system.service.gov.uk/components/radios/"
+       class="govuk-link">
+        <b>radios</b>
+        component on the Gov.UK Design System website
+    </a>
+</p>
+
+@await Html.PartialAsync("../Shared/InteractiveExample", new InteractiveExampleViewModel
+{
+    ExampleHref = Url.Action("RadiosForExampleDefault"),
+    CodeSnippets =
+    [
+        new()
+        {
+            Title = "Model",
+            Filename = "RadiosForExampleDefaultViewModel.cs",
+            Code = @"
+                using GovUkDesignSystemDotNet;
+
+                public class RadiosForExampleDefaultViewModel
+                {
+                    [GovUkValidateRequired(ErrorMessageIfMissing = ""Please select a country"")]
+                    public WhereDoYouLiveCountries? WhereDoYouLive { get; set; }
+
+                    [GovUkValidateRequiredIf(IsRequiredPropertyName = nameof(OtherCountryRequired), ErrorMessageIfMissing = ""Enter the name of the country"")]
+                    public string OtherCountry { get; set; }
+
+                    public bool OtherCountryRequired => WhereDoYouLive == WhereDoYouLiveCountries.AnotherCountry;
+                }
+
+                public enum WhereDoYouLiveCountries
+                {
+                    England,
+                    Scotland,
+                    Wales,
+                    
+                    [GovUkRadioCheckboxLabelText(Text = ""Northern Ireland"")]
+                    NorthernIreland,
+                    
+                    [GovUkRadioCheckboxLabelText(Text = ""Another country"")]
+                    AnotherCountry,
+                }
+            "
+        },
+        new()
+        {
+            Title = "View",
+            Filename = "RadiosForExampleDefault.cshtml",
+            Code = @"
+                @using GovUkDesignSystemDotNet
+                @model RadiosForExampleDefaultViewModel
+
+                <form method=""post"">
+                    @await Html.GovUkRadiosFor(
+                        m => m.WhereDoYouLive,
+                        new RadiosViewModel
+                        {
+                            Fieldset = new FieldsetViewModel
+                            {
+                                Legend = new FieldsetLegendViewModel
+                                {
+                                    HtmlOrText = new HtmlOrText(""Where do you live?""),
+                                    IsPageHeading = true,
+                                    Classes = [""govuk-fieldset__legend--l""]
+                                }
+                            },
+                        },
+                        radioItemViewModels: new Dictionary<WhereDoYouLiveCountries, RadioItemViewModel>()
+                        {
+                            {
+                                WhereDoYouLiveCountries.AnotherCountry, new RadioItemViewModel
+                                {
+                                    Conditional = new HtmlOrText(
+                                        @<text>
+                                             @await Html.GovUkTextInputFor(
+                                                 m => m.OtherCountry,
+                                                 new TextInputViewModel
+                                                 {
+                                                     Label = new LabelViewModel
+                                                     {
+                                                         HtmlOrText = new HtmlOrText(""Name of other country"")
+                                                     }
+                                                 })
+                                         </text>)
+                                }
+                            }
+                        },
+                        dividersBefore: new Dictionary<WhereDoYouLiveCountries, string>
+                        {
+                            {WhereDoYouLiveCountries.AnotherCountry, ""or""}
+                        }
+                    )
+
+                    @await Html.GovUkButton(new ButtonViewModel
+                    {
+                        HtmlOrText = new HtmlOrText(""Validate"")
+                    })
+                </form>
+            "
+        },
+        new()
+        {
+            Title = "Controller",
+            Code = @"
+                public IActionResult MyActionName(RadiosForExampleDefaultViewModel viewModel)
+                {
+                    if (!ModelState.IsValid)
+                    {
+                        return View(""RadiosForExampleDefault"", viewModel);
+                    }
+
+                    // Do some work with the validated view-model
+                    return View(""InteractiveExampleValidationSuccessful"");
+                }
+            "
+        },
+    ]
+})

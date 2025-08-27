@@ -31,6 +31,26 @@ internal static class ModelStateHelpers
     }
 
     /// <summary>
+    /// Get the value to put in the input from the post data if possible, otherwise use the value in the model
+    /// </summary>
+    public static TEnum? GetNullableEnumValueFromModelStateOrModel<TModel, TEnum>(
+        ModelStateEntry modelStateEntry,
+        TModel model,
+        Expression<Func<TModel, TEnum?>> propertyExpression)
+        where TModel : class
+        where TEnum : struct, Enum
+    {
+        if (modelStateEntry != null && modelStateEntry.RawValue != null)
+        {
+            return (TEnum)Enum.Parse(typeof(TEnum), modelStateEntry.RawValue.ToString());
+        }
+        else
+        {
+            return ExpressionHelpers.GetPropertyValueFromModelAndExpression(model, propertyExpression);
+        }
+    }
+
+    /// <summary>
     /// If modelStateEntry contains any errors add them to target
     /// </summary>
     public static ErrorMessageViewModel GetErrorMessages(ModelStateEntry modelStateEntry)

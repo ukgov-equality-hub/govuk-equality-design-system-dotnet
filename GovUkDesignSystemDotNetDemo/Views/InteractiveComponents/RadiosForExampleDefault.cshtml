@@ -1,0 +1,55 @@
+﻿@using GovUkDesignSystemDotNet
+@using GovUkDesignSystemDotNetDemo.Models.InteractiveComponentsExamples
+@model GovUkDesignSystemDotNetDemo.Models.InteractiveComponentsExamples.RadiosForExampleDefaultViewModel
+
+@{
+    Layout = "_LayoutForExamples";
+}
+
+
+<form method="post">
+    @await Html.GovUkRadiosFor(
+        m => m.WhereDoYouLive,
+        new RadiosViewModel
+        {
+            Fieldset = new FieldsetViewModel
+            {
+                Legend = new FieldsetLegendViewModel
+                {
+                    HtmlOrText = new HtmlOrText("Where do you live?"),
+                    IsPageHeading = true,
+                    Classes = ["govuk-fieldset__legend--l"]
+                }
+            },
+        },
+        radioItemViewModels: new Dictionary<WhereDoYouLiveCountries, RadioItemViewModel>()
+        {
+            {
+                WhereDoYouLiveCountries.AnotherCountry, new RadioItemViewModel
+                {
+                    Conditional = new HtmlOrText(
+                        @<text>
+                             @await Html.GovUkTextInputFor(
+                                 m => m.OtherCountry,
+                                 new TextInputViewModel
+                                 {
+                                     Label = new LabelViewModel
+                                     {
+                                         HtmlOrText = new HtmlOrText("Name of other country")
+                                     }
+                                 })
+                         </text>)
+                }
+            }
+        },
+        dividersBefore: new Dictionary<WhereDoYouLiveCountries, string>
+        {
+            {WhereDoYouLiveCountries.AnotherCountry, "or"}
+        }
+    )
+
+    @await Html.GovUkButton(new ButtonViewModel
+    {
+        HtmlOrText = new HtmlOrText("Validate")
+    })
+</form>

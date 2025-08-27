@@ -87,6 +87,55 @@ internal static class InteractiveComponentsHelper
         viewModel.ErrorMessage = ModelStateHelpers.GetErrorMessages(modelStateEntry);
     }
     
+    internal static void PopulateViewModelForRadios<TModel, TEnum>(
+        IHtmlHelper<TModel> htmlHelper,
+        Expression<Func<TModel, TEnum?>> propertyExpression,
+        RadiosViewModel viewModel,
+        Dictionary<TEnum, RadioItemViewModel> radioItemViewModels = null,
+        Dictionary<TEnum, string> dividersBefore = null,
+        IEnumerable<TEnum> overrideEnumValues = null)
+        where TModel : class
+        where TEnum : struct, Enum
+    {
+        viewModel.Name ??= htmlHelper.NameFor(propertyExpression);
+        
+        htmlHelper.ViewData.ModelState.TryGetValue(viewModel.Name, out ModelStateEntry modelStateEntry);
+        
+        viewModel.RadioItems ??= [];
+        if (viewModel.RadioItems.Count == 0)
+        {
+            TEnum? selectedValue = ModelStateHelpers.GetNullableEnumValueFromModelStateOrModel(modelStateEntry, htmlHelper.ViewData.Model, propertyExpression);
+            IEnumerable<TEnum> enumOptions = overrideEnumValues ?? Enum.GetValues(typeof(TEnum)).Cast<TEnum>();
+
+            foreach (TEnum enumOption in enumOptions)
+            {
+                if (dividersBefore != null && dividersBefore.ContainsKey(enumOption))
+                {
+                    viewModel.RadioItems.Add(new RadioItemViewModel
+                    {
+                        Divider = dividersBefore[enumOption],
+                    });
+                }
+
+                RadioItemViewModel radioItemViewModel = radioItemViewModels != null && radioItemViewModels.ContainsKey(enumOption)
+                    ? radioItemViewModels[enumOption]
+                    : new RadioItemViewModel();
+                
+                radioItemViewModel.Value ??= enumOption.ToString();
+                radioItemViewModel.Checked = selectedValue.HasValue && enumOption.Equals(selectedValue.Value);
+                
+                radioItemViewModel.Label ??= new LabelViewModel
+                {
+                    HtmlOrText = new HtmlOrText(GovUkRadioCheckboxLabelTextAttribute.GetLabelText(enumOption)),
+                };
+                
+                viewModel.RadioItems.Add(radioItemViewModel);
+            }
+        }
+
+        viewModel.ErrorMessage = ModelStateHelpers.GetErrorMessages(modelStateEntry);
+    }
+    
     internal static void PopulateViewModelForTextarea<TModel, TProperty>(
         IHtmlHelper<TModel> htmlHelper,
         Expression<Func<TModel, TProperty>> propertyExpression,
