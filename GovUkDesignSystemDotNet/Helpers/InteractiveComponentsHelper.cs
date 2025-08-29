@@ -36,6 +36,55 @@ internal static class InteractiveComponentsHelper
         
         viewModel.ErrorMessage = ModelStateHelpers.GetErrorMessages(modelStateEntry);
     }
+    
+    internal static void PopulateViewModelForCheckboxes<TModel, TEnum>(
+        IHtmlHelper<TModel> htmlHelper,
+        Expression<Func<TModel, List<TEnum>>> propertyExpression,
+        CheckboxesViewModel viewModel,
+        Dictionary<TEnum, CheckboxItemViewModel> checkboxItemViewModels = null,
+        Dictionary<TEnum, string> dividersBefore = null,
+        IEnumerable<TEnum> overrideEnumValues = null)
+        where TModel : class
+        where TEnum : struct, Enum
+    {
+        viewModel.Name ??= htmlHelper.NameFor(propertyExpression);
+        
+        htmlHelper.ViewData.ModelState.TryGetValue(viewModel.Name, out ModelStateEntry modelStateEntry);
+        
+        viewModel.CheckboxItems ??= [];
+        if (viewModel.CheckboxItems.Count == 0)
+        {
+            List<TEnum> selectedValues = ModelStateHelpers.GetListOfEnumValuesFromModelStateOrModel(modelStateEntry, htmlHelper.ViewData.Model, propertyExpression);
+            IEnumerable<TEnum> enumOptions = overrideEnumValues ?? Enum.GetValues(typeof(TEnum)).Cast<TEnum>();
+
+            foreach (TEnum enumOption in enumOptions)
+            {
+                if (dividersBefore != null && dividersBefore.ContainsKey(enumOption))
+                {
+                    viewModel.CheckboxItems.Add(new CheckboxItemViewModel
+                    {
+                        Divider = dividersBefore[enumOption],
+                    });
+                }
+
+                CheckboxItemViewModel checkboxItemViewModel = checkboxItemViewModels != null && checkboxItemViewModels.ContainsKey(enumOption)
+                    ? checkboxItemViewModels[enumOption]
+                    : new CheckboxItemViewModel();
+                
+                checkboxItemViewModel.Value ??= enumOption.ToString();
+                checkboxItemViewModel.Checked = selectedValues.Contains(enumOption);
+                
+                checkboxItemViewModel.Label ??= new LabelViewModel
+                {
+                    HtmlOrText = new HtmlOrText(GovUkRadioCheckboxLabelTextAttribute.GetLabelText(enumOption)),
+                };
+                
+                viewModel.CheckboxItems.Add(checkboxItemViewModel);
+            }
+        }
+
+        viewModel.ErrorMessage = ModelStateHelpers.GetErrorMessages(modelStateEntry);
+    }
 
     public static void PopulateViewModelForErrorSummary(
         ModelStateDictionary modelState,

@@ -16,6 +16,12 @@ public class InteractiveComponentsController : Controller
     [Route("CharacterCountForExampleDefault")]
     public IActionResult CharacterCountForExampleDefault(CharacterCountForExampleDefaultViewModel vm) => ExampleDefault(vm);
 
+    [HttpGet("checkboxes-for")]
+    public IActionResult CheckboxesFor() => View();
+
+    [Route("CheckboxesForExampleDefault")]
+    public IActionResult CheckboxesForExampleDefault(CheckboxesForExampleDefaultViewModel vm) => ExampleDefault(vm);
+
     [HttpGet("error-summary-if-needed")]
     public IActionResult ErrorSummaryIfNeeded() => View();
 

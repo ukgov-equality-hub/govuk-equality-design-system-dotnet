@@ -1,0 +1,181 @@
+﻿@using GovUkDesignSystemDotNet
+@using GovUkDesignSystemDotNetDemo.Models
+
+@{
+    ViewBag.Title = "Checkboxes for";
+}
+
+@section BeforeMain
+{
+    @await Html.GovUkBreadcrumbs(new BreadcrumbsViewModel
+        {
+            Crumbs = new List<CrumbViewModel>
+            {
+                new CrumbViewModel
+                {
+                    HtmlOrText = new HtmlOrText("Home"),
+                    Href = Url.Action("Index", "Home")
+                },
+                new CrumbViewModel
+                {
+                    HtmlOrText = new HtmlOrText("Interactive components"),
+                    Href = Url.Action("Index", "InteractiveComponents")
+                },
+                new CrumbViewModel
+                {
+                    HtmlOrText = new HtmlOrText("Checkboxes for"),
+                },
+            }
+        })
+}
+
+<h1 class="govuk-heading-xl">
+    Checkboxes for
+</h1>
+
+<p class="govuk-body govuk-!-margin-bottom-6">
+    Read more about the
+    <a href="https://design-system.service.gov.uk/components/checkboxes/"
+       class="govuk-link">
+        <b>checkboxes</b>
+        component on the Gov.UK Design System website
+    </a>
+</p>
+
+@await Html.PartialAsync("../Shared/InteractiveExample", new InteractiveExampleViewModel
+{
+    ExampleHref = Url.Action("CheckboxesForExampleDefault"),
+    CodeSnippets =
+    [
+        new()
+        {
+            Title = "Model",
+            Filename = "CheckboxesForExampleDefaultViewModel.cs",
+            Code = @"
+                using GovUkDesignSystemDotNet;
+
+                public class CheckboxesForExampleDefaultViewModel
+                {
+                    [GovUkValidateCheckboxNumberOfResponsesRange(ErrorMessageIfNothingSelected = ""Please select how we should contact you"")]
+                    public List<ContactMethods> HowShouldWeContactYou { get; set; } = [];
+
+                    [GovUkValidateRequiredIf(IsRequiredPropertyName = nameof(EmailAddressRequired), ErrorMessageIfMissing = ""Enter your email address"")]
+                    public string EmailAddress { get; set; }
+
+                    public bool EmailAddressRequired => HowShouldWeContactYou.Contains(ContactMethods.Email);
+
+                    [GovUkValidateRequiredIf(IsRequiredPropertyName = nameof(PhoneNumberRequired), ErrorMessageIfMissing = ""Enter your phone number"")]
+                    public string PhoneNumber { get; set; }
+
+                    public bool PhoneNumberRequired => HowShouldWeContactYou.Contains(ContactMethods.TextMessage);
+                }
+
+                public enum ContactMethods
+                {
+                    Email,
+                    
+                    [GovUkRadioCheckboxLabelText(Text = ""Text message"")]
+                    TextMessage,
+                    
+                    [GovUkRadioCheckboxLabelText(Text = ""I don't want to be contacted"")]
+                    NoContact,
+                }
+            "
+        },
+        new()
+        {
+            Title = "View",
+            Filename = "CheckboxesForExampleDefault.cshtml",
+            Code = @"
+                @using GovUkDesignSystemDotNet
+                @model CheckboxesForExampleDefaultViewModel
+
+                <form method=""post"">
+                    @await Html.GovUkCheckboxesFor(
+                        m => m.HowShouldWeContactYou,
+                        new CheckboxesViewModel
+                        {
+                            Fieldset = new FieldsetViewModel
+                            {
+                                Legend = new FieldsetLegendViewModel
+                                {
+                                    HtmlOrText = new HtmlOrText(""Where do you live?""),
+                                    IsPageHeading = true,
+                                    Classes = [""govuk-fieldset__legend--l""]
+                                }
+                            },
+                        },
+                        checkboxItemViewModels: new Dictionary<ContactMethods, CheckboxItemViewModel>()
+                        {
+                            {
+                                ContactMethods.Email, new CheckboxItemViewModel
+                                {
+                                    Conditional = new HtmlOrText(
+                                        @<text>
+                                             @await Html.GovUkTextInputFor(
+                                                 m => m.EmailAddress,
+                                                 new TextInputViewModel
+                                                 {
+                                                     Label = new LabelViewModel
+                                                     {
+                                                         HtmlOrText = new HtmlOrText(""Email address"")
+                                                     }
+                                                 })
+                                         </text>)
+                                }
+                            },
+                            {
+                                ContactMethods.TextMessage, new CheckboxItemViewModel
+                                {
+                                    Conditional = new HtmlOrText(
+                                        @<text>
+                                             @await Html.GovUkTextInputFor(
+                                                 m => m.PhoneNumber,
+                                                 new TextInputViewModel
+                                                 {
+                                                     Label = new LabelViewModel
+                                                     {
+                                                         HtmlOrText = new HtmlOrText(""Phone number"")
+                                                     }
+                                                 })
+                                         </text>)
+                                }
+                            },
+                            {
+                                ContactMethods.NoContact, new CheckboxItemViewModel
+                                {
+                                    Exclusive = true
+                                }
+                            },
+                        },
+                        dividersBefore: new Dictionary<ContactMethods, string>
+                        {
+                            {ContactMethods.NoContact, ""or""}
+                        }
+                    )
+
+                    @await Html.GovUkButton(new ButtonViewModel
+                    {
+                        HtmlOrText = new HtmlOrText(""Validate"")
+                    })
+                </form>
+            "
+        },
+        new()
+        {
+            Title = "Controller",
+            Code = @"
+                public IActionResult MyActionName(CheckboxesForExampleDefaultViewModel viewModel)
+                {
+                    if (!ModelState.IsValid)
+                    {
+                        return View(""CheckboxesForExampleDefault"", viewModel);
+                    }
+
+                    // Do some work with the validated view-model
+                    return View(""InteractiveExampleValidationSuccessful"");
+                }
+            "
+        },
+    ]
+})
