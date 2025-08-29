@@ -61,6 +61,27 @@ public static class GovUkHtmlHelperExtensions
         return await htmlHelper.PartialAsync("/GovUkDesignSystemComponents/Views/Checkboxes.cshtml", checkboxesViewModel);
     }
 
+    public static async Task<IHtmlContent> GovUkCheckboxesFor<TModel, TEnum>(
+        this IHtmlHelper<TModel> htmlHelper,
+        Expression<Func<TModel, List<TEnum>>> propertyExpression,
+        CheckboxesViewModel checkboxesViewModel,
+        Dictionary<TEnum, CheckboxItemViewModel> checkboxItemViewModels = null,
+        Dictionary<TEnum, string> dividersBefore = null,
+        IEnumerable<TEnum> overrideEnumValues = null)
+        where TModel : class
+        where TEnum : struct, Enum
+    {
+        InteractiveComponentsHelper.PopulateViewModelForCheckboxes(
+            htmlHelper,
+            propertyExpression,
+            checkboxesViewModel,
+            checkboxItemViewModels,
+            dividersBefore,
+            overrideEnumValues);
+
+        return await GovUkCheckboxes(htmlHelper, checkboxesViewModel);
+    }
+
     public static async Task<IHtmlContent> GovUkErrorMessage(
         this IHtmlHelper htmlHelper,
         ErrorMessageViewModel errorMessageViewModel)

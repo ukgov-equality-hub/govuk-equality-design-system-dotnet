@@ -51,6 +51,38 @@ internal static class ModelStateHelpers
     }
 
     /// <summary>
+    /// Get the value to put in the input from the post data if possible, otherwise use the value in the model
+    /// </summary>
+    public static List<TEnum> GetListOfEnumValuesFromModelStateOrModel<TModel, TEnum>(
+        ModelStateEntry modelStateEntry,
+        TModel model,
+        Expression<Func<TModel, List<TEnum>>> propertyLambdaExpression
+        )
+        where TModel : class
+        where TEnum : struct, Enum
+    {
+        if (modelStateEntry != null && modelStateEntry.RawValue != null)
+        {
+            var stringValues = new List<string>();
+            if (modelStateEntry.RawValue is string[] rawValueStrings)
+            {
+                stringValues.AddRange(rawValueStrings);
+            }
+            else if (modelStateEntry.RawValue is string rawValueString)
+            {
+                stringValues.Add(rawValueString);
+            }
+
+            return stringValues
+                .Where(e => Enum.TryParse<TEnum>(e, out _))
+                .Select(e => Enum.Parse<TEnum>(e))
+                .ToList();
+        }
+
+        return ExpressionHelpers.GetPropertyValueFromModelAndExpression(model, propertyLambdaExpression);
+    }
+
+    /// <summary>
     /// If modelStateEntry contains any errors add them to target
     /// </summary>
     public static ErrorMessageViewModel GetErrorMessages(ModelStateEntry modelStateEntry)

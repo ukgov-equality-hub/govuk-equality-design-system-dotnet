@@ -1,0 +1,78 @@
+﻿@using GovUkDesignSystemDotNet
+@using GovUkDesignSystemDotNetDemo.Models.InteractiveComponentsExamples
+@model GovUkDesignSystemDotNetDemo.Models.InteractiveComponentsExamples.CheckboxesForExampleDefaultViewModel
+
+@{
+    Layout = "_LayoutForExamples";
+}
+
+
+<form method="post">
+    @await Html.GovUkCheckboxesFor(
+        m => m.HowShouldWeContactYou,
+        new CheckboxesViewModel
+        {
+            Fieldset = new FieldsetViewModel
+            {
+                Legend = new FieldsetLegendViewModel
+                {
+                    HtmlOrText = new HtmlOrText("Where do you live?"),
+                    IsPageHeading = true,
+                    Classes = ["govuk-fieldset__legend--l"]
+                }
+            },
+        },
+        checkboxItemViewModels: new Dictionary<ContactMethods, CheckboxItemViewModel>()
+        {
+            {
+                ContactMethods.Email, new CheckboxItemViewModel
+                {
+                    Conditional = new HtmlOrText(
+                        @<text>
+                             @await Html.GovUkTextInputFor(
+                                 m => m.EmailAddress,
+                                 new TextInputViewModel
+                                 {
+                                     Label = new LabelViewModel
+                                     {
+                                         HtmlOrText = new HtmlOrText("Email address")
+                                     }
+                                 })
+                         </text>)
+                }
+            },
+            {
+                ContactMethods.TextMessage, new CheckboxItemViewModel
+                {
+                    Conditional = new HtmlOrText(
+                        @<text>
+                             @await Html.GovUkTextInputFor(
+                                 m => m.PhoneNumber,
+                                 new TextInputViewModel
+                                 {
+                                     Label = new LabelViewModel
+                                     {
+                                         HtmlOrText = new HtmlOrText("Phone number")
+                                     }
+                                 })
+                         </text>)
+                }
+            },
+            {
+                ContactMethods.NoContact, new CheckboxItemViewModel
+                {
+                    Exclusive = true
+                }
+            },
+        },
+        dividersBefore: new Dictionary<ContactMethods, string>
+        {
+            {ContactMethods.NoContact, "or"}
+        }
+    )
+
+    @await Html.GovUkButton(new ButtonViewModel
+    {
+        HtmlOrText = new HtmlOrText("Validate")
+    })
+</form>
