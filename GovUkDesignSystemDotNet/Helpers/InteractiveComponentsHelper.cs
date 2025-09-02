@@ -1,4 +1,4 @@
-using System.Linq.Expressions;
+﻿using System.Linq.Expressions;
 using System.Reflection;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -81,6 +81,25 @@ internal static class InteractiveComponentsHelper
                 
                 viewModel.CheckboxItems.Add(checkboxItemViewModel);
             }
+        }
+
+        viewModel.ErrorMessage = ModelStateHelpers.GetErrorMessages(modelStateEntry);
+    }
+    
+    internal static void PopulateViewModelForCheckboxesFromStrings<TModel>(
+        IHtmlHelper<TModel> htmlHelper,
+        Expression<Func<TModel, List<string>>> propertyExpression,
+        CheckboxesViewModel viewModel)
+        where TModel : class
+    {
+        viewModel.Name ??= htmlHelper.NameFor(propertyExpression);
+        
+        htmlHelper.ViewData.ModelState.TryGetValue(viewModel.Name, out ModelStateEntry modelStateEntry);
+        List<string> selectedValues = ModelStateHelpers.GetListOfStringValuesFromModelStateOrModel(modelStateEntry, htmlHelper.ViewData.Model, propertyExpression);
+
+        foreach (CheckboxItemViewModel checkboxItemViewModel in viewModel.CheckboxItems)
+        {
+            checkboxItemViewModel.Checked = selectedValues.Contains(checkboxItemViewModel.Value);
         }
 
         viewModel.ErrorMessage = ModelStateHelpers.GetErrorMessages(modelStateEntry);

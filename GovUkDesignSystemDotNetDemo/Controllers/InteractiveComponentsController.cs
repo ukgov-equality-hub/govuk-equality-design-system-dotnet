@@ -22,6 +22,12 @@ public class InteractiveComponentsController : Controller
     [Route("CheckboxesForExampleDefault")]
     public IActionResult CheckboxesForExampleDefault(CheckboxesForExampleDefaultViewModel vm) => ExampleDefault(vm);
 
+    [HttpGet("checkboxes-from-strings-for")]
+    public IActionResult CheckboxesFromStringsFor() => View();
+
+    [Route("CheckboxesFromStringsForExampleDefault")]
+    public IActionResult CheckboxesFromStringsForExampleDefault(CheckboxesFromStringsForExampleDefaultViewModel vm) => ExampleDefault(vm);
+
     [HttpGet("error-summary-if-needed")]
     public IActionResult ErrorSummaryIfNeeded() => View();
 

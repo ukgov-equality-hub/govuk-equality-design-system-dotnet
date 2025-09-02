@@ -1,0 +1,127 @@
+﻿@using GovUkDesignSystemDotNet
+@using GovUkDesignSystemDotNetDemo.Models
+
+@{
+    ViewBag.Title = "Checkboxes from strings for";
+}
+
+@section BeforeMain
+{
+    @await Html.GovUkBreadcrumbs(new BreadcrumbsViewModel
+        {
+            Crumbs = new List<CrumbViewModel>
+            {
+                new CrumbViewModel
+                {
+                    HtmlOrText = new HtmlOrText("Home"),
+                    Href = Url.Action("Index", "Home")
+                },
+                new CrumbViewModel
+                {
+                    HtmlOrText = new HtmlOrText("Interactive components"),
+                    Href = Url.Action("Index", "InteractiveComponents")
+                },
+                new CrumbViewModel
+                {
+                    HtmlOrText = new HtmlOrText("Checkboxes from strings for"),
+                },
+            }
+        })
+}
+
+<h1 class="govuk-heading-xl">
+    Checkboxes from strings for
+</h1>
+
+<p class="govuk-body govuk-!-margin-bottom-6">
+    Read more about the
+    <a href="https://design-system.service.gov.uk/components/checkboxes/"
+       class="govuk-link">
+        <b>checkboxes</b>
+        component on the Gov.UK Design System website
+    </a>
+</p>
+
+@await Html.PartialAsync("../Shared/InteractiveExample", new InteractiveExampleViewModel
+{
+    ExampleHref = Url.Action("CheckboxesFromStringsForExampleDefault"),
+    CodeSnippets =
+    [
+        new()
+        {
+            Title = "Model",
+            Filename = "CheckboxesFromStringsForExampleDefaultViewModel.cs",
+            Code = @"
+                using GovUkDesignSystemDotNet;
+
+                public class CheckboxesFromStringsForExampleDefaultViewModel
+                {
+                    [GovUkValidateCheckboxNumberOfResponsesRange(ErrorMessageIfNothingSelected = ""Select at least one year"")]
+                    public List<string> Years { get; set; } = [];
+                }
+            "
+        },
+        new()
+        {
+            Title = "View",
+            Filename = "CheckboxesFromStringsForExampleDefault.cshtml",
+            Code = @"
+                @using GovUkDesignSystemDotNet
+                @model CheckboxesFromStringsForExampleDefaultViewModel
+
+                @{
+                    List<int> lastFiveYears = Enumerable.Range(0, 5).Select(i => DateTime.Today.Year - i).ToList();
+                }
+
+                <form method=""post"">
+                    @await Html.GovUkCheckboxesFromStringsFor(
+                        m => m.Years,
+                        new CheckboxesViewModel
+                        {
+                            Fieldset = new FieldsetViewModel
+                            {
+                                Legend = new FieldsetLegendViewModel
+                                {
+                                    HtmlOrText = new HtmlOrText(""Select one or more years to compare""),
+                                    IsPageHeading = true,
+                                    Classes = [""govuk-fieldset__legend--l""]
+                                }
+                            },
+                            CheckboxItems = lastFiveYears.Select(year =>
+                                new CheckboxItemViewModel
+                                {
+                                    Value = year.ToString(),
+                                    Label = new LabelViewModel
+                                    {
+                                        HtmlOrText = new HtmlOrText(year.ToString())
+                                    }
+                                })
+                                .ToList()
+                        }
+                    )
+
+                    @await Html.GovUkButton(new ButtonViewModel
+                    {
+                        HtmlOrText = new HtmlOrText(""Validate"")
+                    })
+                </form>
+            "
+        },
+        new()
+        {
+            Title = "Controller",
+            Code = @"
+                public IActionResult MyActionName(CheckboxesFromStringsForExampleDefaultViewModel viewModel)
+                {
+                    if (!ModelState.IsValid)
+                    {
+                        return View(""CheckboxesFromStringsForExampleDefault"", viewModel);
+                    }
+
+                    // Do some work with the validated view-model
+                    return View(""InteractiveExampleValidationSuccessful"");
+                }
+            "
+        },
+    ]
+})

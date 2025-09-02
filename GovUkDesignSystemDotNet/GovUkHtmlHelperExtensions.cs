@@ -1,4 +1,4 @@
-using System.Linq.Expressions;
+﻿using System.Linq.Expressions;
 using GovUkDesignSystemDotNet.Helpers;
 using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -78,6 +78,20 @@ public static class GovUkHtmlHelperExtensions
             checkboxItemViewModels,
             dividersBefore,
             overrideEnumValues);
+
+        return await GovUkCheckboxes(htmlHelper, checkboxesViewModel);
+    }
+
+    public static async Task<IHtmlContent> GovUkCheckboxesFromStringsFor<TModel>(
+        this IHtmlHelper<TModel> htmlHelper,
+        Expression<Func<TModel, List<string>>> propertyExpression,
+        CheckboxesViewModel checkboxesViewModel)
+        where TModel : class
+    {
+        InteractiveComponentsHelper.PopulateViewModelForCheckboxesFromStrings(
+            htmlHelper,
+            propertyExpression,
+            checkboxesViewModel);
 
         return await GovUkCheckboxes(htmlHelper, checkboxesViewModel);
     }

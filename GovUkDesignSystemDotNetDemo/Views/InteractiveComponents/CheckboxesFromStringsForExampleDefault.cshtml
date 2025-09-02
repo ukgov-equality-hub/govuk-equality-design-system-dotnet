@@ -1,0 +1,45 @@
+﻿@using GovUkDesignSystemDotNet
+@using GovUkDesignSystemDotNetDemo.Models.InteractiveComponentsExamples
+@model GovUkDesignSystemDotNetDemo.Models.InteractiveComponentsExamples.CheckboxesFromStringsForExampleDefaultViewModel
+
+@{
+    Layout = "_LayoutForExamples";
+}
+
+
+@{
+    List<int> lastFiveYears = Enumerable.Range(0, 5).Select(i => DateTime.Today.Year - i).ToList();
+}
+
+<form method="post">
+    @await Html.GovUkCheckboxesFromStringsFor(
+        m => m.Years,
+        new CheckboxesViewModel
+        {
+            Fieldset = new FieldsetViewModel
+            {
+                Legend = new FieldsetLegendViewModel
+                {
+                    HtmlOrText = new HtmlOrText("Select two or more years to compare"),
+                    IsPageHeading = true,
+                    Classes = ["govuk-fieldset__legend--l"]
+                }
+            },
+            CheckboxItems = lastFiveYears.Select(year =>
+                new CheckboxItemViewModel
+                {
+                    Value = year.ToString(),
+                    Label = new LabelViewModel
+                    {
+                        HtmlOrText = new HtmlOrText(year.ToString())
+                    }
+                })
+                .ToList()
+        }
+    )
+
+    @await Html.GovUkButton(new ButtonViewModel
+    {
+        HtmlOrText = new HtmlOrText("Validate")
+    })
+</form>

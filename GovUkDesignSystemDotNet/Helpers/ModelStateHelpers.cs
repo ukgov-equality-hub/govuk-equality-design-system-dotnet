@@ -83,6 +83,33 @@ internal static class ModelStateHelpers
     }
 
     /// <summary>
+    /// Get the value to put in the input from the post data if possible, otherwise use the value in the model
+    /// </summary>
+    public static List<string> GetListOfStringValuesFromModelStateOrModel<TModel>(
+        ModelStateEntry modelStateEntry,
+        TModel model,
+        Expression<Func<TModel, List<string>>> propertyLambdaExpression)
+        where TModel : class
+    {
+        if (modelStateEntry != null && modelStateEntry.RawValue != null)
+        {
+            if (modelStateEntry.RawValue is string[] rawValueStrings)
+            {
+                return rawValueStrings.ToList();
+            }
+
+            if (modelStateEntry.RawValue is string rawValueString)
+            {
+                return [rawValueString];
+            }
+            
+            return [];
+        }
+
+        return ExpressionHelpers.GetPropertyValueFromModelAndExpression(model, propertyLambdaExpression);
+    }
+
+    /// <summary>
     /// If modelStateEntry contains any errors add them to target
     /// </summary>
     public static ErrorMessageViewModel GetErrorMessages(ModelStateEntry modelStateEntry)
