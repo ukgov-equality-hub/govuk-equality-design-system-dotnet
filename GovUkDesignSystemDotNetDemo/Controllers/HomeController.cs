@@ -9,4 +9,10 @@ public class HomeController : Controller
     {
         return View();
     }
+    
+    [HttpGet("/health-check")]
+    public IActionResult HealthCheck()
+    {
+        return Ok();
+    }
 }
