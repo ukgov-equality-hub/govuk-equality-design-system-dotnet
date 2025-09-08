@@ -110,6 +110,35 @@ internal static class ModelStateHelpers
     }
 
     /// <summary>
+    /// Get the value to put in the input from the post data if possible, otherwise use the value in the model
+    /// </summary>
+    public static bool GetCheckboxBoolValueFromModelStateOrModel<TModel>(
+        ModelStateEntry modelStateEntry,
+        TModel model,
+        Expression<Func<TModel, bool>> propertyLambdaExpression)
+        where TModel : class
+    {
+        if (modelStateEntry != null && modelStateEntry.RawValue != null)
+        {
+            var values = new List<string>();
+            if (modelStateEntry.RawValue is string[])
+            {
+                values.AddRange((string[])modelStateEntry.RawValue);
+            }
+            else if (modelStateEntry.RawValue is string)
+            {
+                values.Add((string)modelStateEntry.RawValue);
+            }
+            var boolValues = values.Select(v => bool.Parse(v));
+
+            // If there are multiple values accept any "true" value
+            return boolValues.Any(bv => bv);
+        }
+
+        return ExpressionHelpers.GetPropertyValueFromModelAndExpression(model, propertyLambdaExpression);
+    }
+    
+    /// <summary>
     /// If modelStateEntry contains any errors add them to target
     /// </summary>
     public static ErrorMessageViewModel GetErrorMessages(ModelStateEntry modelStateEntry)

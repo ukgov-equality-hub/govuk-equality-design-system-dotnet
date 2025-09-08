@@ -1,0 +1,27 @@
+﻿@using GovUkDesignSystemDotNet
+@model GovUkDesignSystemDotNetDemo.Models.InteractiveComponentsExamples.CheckboxItemForExampleDefaultViewModel
+
+@{
+    Layout = "_LayoutForExamples";
+}
+
+
+@await Html.GovUkErrorSummaryIfNeeded()
+
+<form method="post">
+    @await Html.GovUkCheckboxItemFor(
+        m => m.ConfirmDeclaration,
+        new CheckboxItemViewModel
+        {
+            Label = new LabelViewModel
+            {
+                HtmlOrText = new HtmlOrText("I declare that the information provided above is accurate")
+            }
+        }
+    )
+
+    @await Html.GovUkButton(new ButtonViewModel
+    {
+        HtmlOrText = new HtmlOrText("Validate")
+    })
+</form>

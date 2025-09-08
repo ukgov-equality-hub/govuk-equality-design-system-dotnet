@@ -54,6 +54,19 @@ public static class GovUkHtmlHelperExtensions
         return await htmlHelper.PartialAsync("/GovUkDesignSystemComponents/Views/CheckboxItem.cshtml", checkboxItemViewModel);
     }
 
+    public static async Task<IHtmlContent> GovUkCheckboxItemFor<TModel>(
+        this IHtmlHelper<TModel> htmlHelper,
+        Expression<Func<TModel, bool>> propertyExpression,
+        CheckboxItemViewModel checkboxItemViewModel,
+        CheckboxesViewModel checkboxesViewModel = null)
+        where TModel : class
+    {
+        checkboxesViewModel ??= new CheckboxesViewModel();
+        InteractiveComponentsHelper.PopulateViewModelForCheckboxItem(htmlHelper, propertyExpression, checkboxItemViewModel, checkboxesViewModel);
+        
+        return await htmlHelper.PartialAsync("/GovUkDesignSystemComponents/Views/Checkboxes.cshtml", checkboxesViewModel);
+    }
+
     public static async Task<IHtmlContent> GovUkCheckboxes(
         this IHtmlHelper htmlHelper,
         CheckboxesViewModel checkboxesViewModel)

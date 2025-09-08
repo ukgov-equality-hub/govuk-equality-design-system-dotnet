@@ -37,6 +37,32 @@ internal static class InteractiveComponentsHelper
         viewModel.ErrorMessage = ModelStateHelpers.GetErrorMessages(modelStateEntry);
     }
     
+    internal static void PopulateViewModelForCheckboxItem<TModel>(
+        IHtmlHelper<TModel> htmlHelper,
+        Expression<Func<TModel, bool>> propertyExpression,
+        CheckboxItemViewModel checkboxItemViewModel,
+        CheckboxesViewModel checkboxesViewModel)
+        where TModel : class
+    {
+        checkboxesViewModel.Name ??= htmlHelper.NameFor(propertyExpression);
+        checkboxItemViewModel.Name ??= htmlHelper.NameFor(propertyExpression);
+        checkboxItemViewModel.Id ??= htmlHelper.NameFor(propertyExpression);
+
+        checkboxItemViewModel.Value = true.ToString();
+        
+        checkboxesViewModel.CheckboxItems ??= [];
+        if (checkboxesViewModel.CheckboxItems.Count == 0)
+        {
+            checkboxesViewModel.CheckboxItems.Add(checkboxItemViewModel);
+        }
+
+        htmlHelper.ViewData.ModelState.TryGetValue(checkboxItemViewModel.Name, out ModelStateEntry modelStateEntry);
+        
+        checkboxItemViewModel.Checked = ModelStateHelpers.GetCheckboxBoolValueFromModelStateOrModel(modelStateEntry, htmlHelper.ViewData.Model, propertyExpression);
+        
+        checkboxesViewModel.ErrorMessage = ModelStateHelpers.GetErrorMessages(modelStateEntry);
+    }
+    
     internal static void PopulateViewModelForCheckboxes<TModel, TEnum>(
         IHtmlHelper<TModel> htmlHelper,
         Expression<Func<TModel, List<TEnum>>> propertyExpression,
