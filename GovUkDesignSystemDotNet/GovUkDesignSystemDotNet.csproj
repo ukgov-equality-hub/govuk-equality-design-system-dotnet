@@ -6,6 +6,9 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>disable</Nullable>
         <AddRazorSupportForMvc>true</AddRazorSupportForMvc>
+        <Version>5.10.2</Version>
+        <PackageId>UkGovEquality.GovUkDesignSystemDotNet</PackageId>
+        <Authors>UkGovEquality</Authors>
     </PropertyGroup>
 
     <ItemGroup>
