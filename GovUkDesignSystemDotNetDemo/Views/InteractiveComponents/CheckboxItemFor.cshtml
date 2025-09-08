@@ -1,0 +1,110 @@
+﻿@using GovUkDesignSystemDotNet
+@using GovUkDesignSystemDotNetDemo.Models
+
+@{
+    ViewBag.Title = "Checkbox item for";
+}
+
+@section BeforeMain
+{
+    @await Html.GovUkBreadcrumbs(new BreadcrumbsViewModel
+        {
+            Crumbs = new List<CrumbViewModel>
+            {
+                new CrumbViewModel
+                {
+                    HtmlOrText = new HtmlOrText("Home"),
+                    Href = Url.Action("Index", "Home")
+                },
+                new CrumbViewModel
+                {
+                    HtmlOrText = new HtmlOrText("Interactive components"),
+                    Href = Url.Action("Index", "InteractiveComponents")
+                },
+                new CrumbViewModel
+                {
+                    HtmlOrText = new HtmlOrText("Checkbox item for"),
+                },
+            }
+        })
+}
+
+<h1 class="govuk-heading-xl">
+    Checkbox item for
+</h1>
+
+<p class="govuk-body govuk-!-margin-bottom-6">
+    Read more about the
+    <a href="https://design-system.service.gov.uk/components/checkboxes/"
+       class="govuk-link">
+        <b>checkboxes</b>
+        component on the Gov.UK Design System website
+    </a>
+</p>
+
+@await Html.PartialAsync("../Shared/InteractiveExample", new InteractiveExampleViewModel
+{
+    ExampleHref = Url.Action("CheckboxItemForExampleDefault"),
+    CodeSnippets =
+    [
+        new()
+        {
+            Title = "Model",
+            Filename = "CheckboxItemForExampleDefaultViewModel.cs",
+            Code = @"
+                using System.ComponentModel.DataAnnotations;
+
+                public class CheckboxItemForExampleDefaultViewModel
+                {
+                    [AllowedValues(true, ErrorMessage = ""Confirm you agree to the declaration"")]
+                    public bool ConfirmDeclaration { get; set; }
+                }
+            "
+        },
+        new()
+        {
+            Title = "View",
+            Filename = "CheckboxItemForExampleDefault.cshtml",
+            Code = @"
+                @using GovUkDesignSystemDotNet
+                @model CheckboxItemForExampleDefaultViewModel
+
+                @await Html.GovUkErrorSummaryIfNeeded()
+
+                <form method=""post"">
+                    @await Html.GovUkCheckboxItemFor(
+                        m => m.ConfirmDeclaration,
+                        new CheckboxItemViewModel
+                        {
+                            Label = new LabelViewModel
+                            {
+                                HtmlOrText = new HtmlOrText(""I declare that the information provided above is accurate"")
+                            }
+                        }
+                    )
+
+                    @await Html.GovUkButton(new ButtonViewModel
+                    {
+                        HtmlOrText = new HtmlOrText(""Validate"")
+                    })
+                </form>
+            "
+        },
+        new()
+        {
+            Title = "Controller",
+            Code = @"
+                public IActionResult MyActionName(CheckboxItemForExampleDefaultViewModel viewModel)
+                {
+                    if (!ModelState.IsValid)
+                    {
+                        return View(""CheckboxItemForExampleDefault"", viewModel);
+                    }
+
+                    // Do some work with the validated view-model
+                    return View(""InteractiveExampleValidationSuccessful"");
+                }
+            "
+        },
+    ]
+})
