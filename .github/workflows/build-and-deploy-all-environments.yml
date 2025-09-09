@@ -44,20 +44,35 @@ jobs:
           echo '{ "BuildNumber": "${{ github.run_id }}", "git_commit": "${{ github.sha }}", "git_branch": "${{ github.ref_name }}", "github_action_name": "${{ github.workflow }}", "github_action_run_url": "https://github.com/${{github.repository}}/actions/runs/${{ github.run_id }}/attempts/${{ github.run_attempt }}" }' > build-number.json
         working-directory: GovUkDesignSystemDotNetDemo
 
+      - name: 'Update version number of library'
+        run: |
+          sed -i 's/<Version>\(.*\)<\/Version>/<Version>\1.${{ github.run_number }}<\/Version>/g' GovUkDesignSystemDotNet.csproj
+        working-directory: GovUkDesignSystemDotNet
+
       - name: 'Build .Net code'
         run: |
           dotnet build GovUkDesignSystemDotNetDemo/GovUkDesignSystemDotNetDemo.csproj
 
-      - name: 'Publish .Net code'
+      - name: 'Pack .Net code (library)'
+        run: |
+          dotnet pack --configuration Release --output ./pack-output/
+        working-directory: GovUkDesignSystemDotNet
+
+      - name: 'Push library to Nuget.org'
+        run: |
+          dotnet nuget push *.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
+        working-directory: GovUkDesignSystemDotNet/pack-output/
+
+      - name: 'Publish .Net code (demo website)'
         run: |
           dotnet publish GovUkDesignSystemDotNetDemo/GovUkDesignSystemDotNetDemo.csproj -p:Configuration=Release
 
-      - name: 'Zip up the code'
+      - name: 'Zip up the code (demo website)'
         run: |
           zip -rq build.zip .
         working-directory: GovUkDesignSystemDotNetDemo/bin/Release/net8.0/publish/
 
-      - name: 'Save build zip as GitHub Actions artifact'
+      - name: 'Save build zip as GitHub Actions artifact (demo website)'
         uses: actions/upload-artifact@v4
         with:
           name: build-zip
